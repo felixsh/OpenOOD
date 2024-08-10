@@ -23,6 +23,7 @@ from .mcd_postprocessor import MCDPostprocessor
 from .mds_postprocessor import MDSPostprocessor
 from .mds_ensemble_postprocessor import MDSEnsemblePostprocessor
 from .mos_postprocessor import MOSPostprocessor
+from .nc_postprocessor import NCPostprocessor
 from .npos_postprocessor import NPOSPostprocessor
 from .odin_postprocessor import ODINPostprocessor
 from .opengan_postprocessor import OpenGanPostprocessor
@@ -88,6 +89,7 @@ def get_postprocessor(config: Config):
         'gen': GENPostprocessor,
         'relation': RelationPostprocessor,
         't2fnorm': T2FNormPostprocessor,
+        'nc': NCPostprocessor,
     }
 
     return postprocessors[config.postprocessor.name](config)

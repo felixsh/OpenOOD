@@ -1,0 +1,7 @@
+postprocessor:
+  name: nc
+  APS_mode: False
+  postprocessor_args:
+    p: 99
+  postprocessor_sweep:
+    p_list: [90]

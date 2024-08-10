@@ -6,11 +6,11 @@ from openood.networks import ResNet18_32x32
 
 ckpt_path = './results/cifar10_resnet18_32x32_base_e100_lr0.1_default/s0/best.ckpt'
 net = ResNet18_32x32(num_classes=10)
-net.load_state_dict(torch.load(ckpt_path))
+net.load_state_dict(torch.load(ckpt_path, weights_only=True))
 net.cuda()
 net.eval()
 
-postprocessor_name = 'react' #@param ["openmax", "msp", "temp_scaling", "odin", "mds", "mds_ensemble", "rmds", "gram", "ebo", "gradnorm", "react", "mls", "klm", "vim", "knn", "dice", "rankfeat", "ash", "she"] {allow-input: true}
+postprocessor_name = 'nc' #@param ["openmax", "msp", "temp_scaling", "odin", "mds", "mds_ensemble", "rmds", "gram", "ebo", "gradnorm", "react", "mls", "klm", "vim", "knn", "dice", "rankfeat", "ash", "she", "nc"] {allow-input: true}
 
 # Notes:
 # 1) The evaluator will automatically download the required datasets given the
