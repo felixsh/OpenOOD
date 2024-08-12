@@ -420,6 +420,7 @@ def data_setup(data_root, id_data_name):
 
 
 def get_id_ood_dataloader(id_name, data_root, preprocessor, **loader_kwargs):
+    print('get_id_ood_dataloader():')
     if 'imagenet' in id_name:
         if tvs_new:
             if isinstance(preprocessor,
@@ -453,6 +454,7 @@ def get_id_ood_dataloader(id_name, data_root, preprocessor, **loader_kwargs):
     # id
     sub_dataloader_dict = {}
     for split in data_info['id'].keys():
+        print('ID', id_name, split)
         dataset = ImglistDataset(
             name='_'.join((id_name, split)),
             imglist_pth=os.path.join(data_root,
@@ -469,6 +471,7 @@ def get_id_ood_dataloader(id_name, data_root, preprocessor, **loader_kwargs):
     # csid
     sub_dataloader_dict = {}
     for dataset_name in data_info['csid']['datasets']:
+        print('CSID', id_name, 'csid', dataset_name)
         dataset = ImglistDataset(
             name='_'.join((id_name, 'csid', dataset_name)),
             imglist_pth=os.path.join(
@@ -490,6 +493,7 @@ def get_id_ood_dataloader(id_name, data_root, preprocessor, **loader_kwargs):
 
         if split == 'val':
             # validation set
+            print('OOD', id_name, 'ood', split)
             dataset = ImglistDataset(
                 name='_'.join((id_name, 'ood', split)),
                 imglist_pth=os.path.join(data_root,
@@ -505,6 +509,7 @@ def get_id_ood_dataloader(id_name, data_root, preprocessor, **loader_kwargs):
             sub_dataloader_dict = {}
             for dataset_name in split_config['datasets']:
                 dataset_config = split_config[dataset_name]
+                print('OOD', id_name, 'ood', dataset_name)
                 dataset = ImglistDataset(
                     name='_'.join((id_name, 'ood', dataset_name)),
                     imglist_pth=os.path.join(data_root,
@@ -518,4 +523,5 @@ def get_id_ood_dataloader(id_name, data_root, preprocessor, **loader_kwargs):
                 sub_dataloader_dict[dataset_name] = dataloader
             dataloader_dict['ood'][split] = sub_dataloader_dict
 
+    print('\n')
     return dataloader_dict
