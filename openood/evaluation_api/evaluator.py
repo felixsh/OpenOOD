@@ -318,7 +318,7 @@ class Evaluator:
                 'display.max_rows', None, 'display.max_columns', None,
                 'display.float_format',
                 '{:,.2f}'.format):  # more options can be specified also
-            print(self.metrics[task])
+            print(self.metrics[task].to_markdown())
 
         return self.metrics[task]
 
