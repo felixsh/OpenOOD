@@ -15,7 +15,9 @@ from openood.postprocessors import (
     VIMPostprocessor, RotPredPostprocessor, RankFeatPostprocessor,
     RMDSPostprocessor, SHEPostprocessor, CIDERPostprocessor, NPOSPostprocessor,
     GENPostprocessor, NNGuidePostprocessor, RelationPostprocessor,
-    T2FNormPostprocessor, ReweightOODPostprocessor, fDBDPostprocessor, NCPostprocessor)
+    T2FNormPostprocessor, ReweightOODPostprocessor, fDBDPostprocessor,
+    NCPostprocessor, NCScorePostprocessor,
+    )
 from openood.utils.config import Config, merge_configs
 
 postprocessors = {
@@ -64,7 +66,8 @@ postprocessors = {
     'relation': RelationPostprocessor,
     't2fnorm': T2FNormPostprocessor,
     'reweightood': ReweightOODPostprocessor,
-    'nc': NCPostprocessor
+    'nc': NCPostprocessor,
+    'nc_score': NCScorePostprocessor,
 }
 
 link_prefix = 'https://raw.githubusercontent.com/Jingkang50/OpenOOD/main/configs/postprocessors/'

@@ -1,0 +1,7 @@
+postprocessor:
+  name: nc_score
+  APS_mode: False
+  postprocessor_args:
+    alpha: 0.01
+  postprocessor_sweep:
+    alpha_list: [0.01]

@@ -10,7 +10,8 @@ net.load_state_dict(torch.load(ckpt_path, weights_only=True))
 net.cuda()
 net.eval()
 
-postprocessor_name = 'nc' #@param ["openmax", "msp", "temp_scaling", "odin", "mds", "mds_ensemble", "rmds", "gram", "ebo", "gradnorm", "react", "mls", "klm", "vim", "knn", "dice", "rankfeat", "ash", "she", "nc"] {allow-input: true}
+postprocessor_name = 'nc_score'
+# options: ["openmax", "msp", "temp_scaling", "odin", "mds", "mds_ensemble", "rmds", "gram", "ebo", "gradnorm", "react", "mls", "klm", "vim", "knn", "dice", "rankfeat", "ash", "she"]
 
 # Notes:
 # 1) The evaluator will automatically download the required datasets given the

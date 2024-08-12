@@ -23,7 +23,6 @@ from .mcd_postprocessor import MCDPostprocessor
 from .mds_postprocessor import MDSPostprocessor
 from .mds_ensemble_postprocessor import MDSEnsemblePostprocessor
 from .mos_postprocessor import MOSPostprocessor
-from .nc_postprocessor import NCPostprocessor
 from .npos_postprocessor import NPOSPostprocessor
 from .odin_postprocessor import ODINPostprocessor
 from .opengan_postprocessor import OpenGanPostprocessor
@@ -43,6 +42,8 @@ from .vim_postprocessor import VIMPostprocessor
 from .rts_postprocessor import RTSPostprocessor
 from .gen_postprocessor import GENPostprocessor
 from .relation_postprocessor import RelationPostprocessor
+from .nc_postprocessor import NCPostprocessor
+from .nc_score_postprocessor import NCScorePostprocessor
 
 
 def get_postprocessor(config: Config):
@@ -90,6 +91,7 @@ def get_postprocessor(config: Config):
         'relation': RelationPostprocessor,
         't2fnorm': T2FNormPostprocessor,
         'nc': NCPostprocessor,
+        'nc_score': NCScorePostprocessor,
     }
 
     return postprocessors[config.postprocessor.name](config)
