@@ -45,6 +45,7 @@ from .relation_postprocessor import RelationPostprocessor
 from .nc_postprocessor import NCPostprocessor
 from .nc_score_postprocessor import NCScorePostprocessor
 from .neco_postprocessor import NECOPostprocessor
+from .epa_postprocessor import EPAPostprocessor
 
 
 def get_postprocessor(config: Config):
@@ -94,6 +95,7 @@ def get_postprocessor(config: Config):
         'nc': NCPostprocessor,
         'nc_score': NCScorePostprocessor,
         'neco': NECOPostprocessor,
+        'epa': EPAPostprocessor,
     }
 
     return postprocessors[config.postprocessor.name](config)

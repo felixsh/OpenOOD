@@ -1,0 +1,105 @@
+from typing import Any
+
+import numpy as np
+from sklearn.decomposition import PCA
+import torch
+from torch.distributions import Categorical
+import torch.nn as nn
+from tqdm import tqdm
+
+import nc_toolbox as nctb
+
+from .base_postprocessor import BasePostprocessor
+
+
+class EPAPostprocessor(BasePostprocessor):
+    def __init__(self, config):
+        super(EPAPostprocessor, self).__init__(config)
+        self.args = self.config.postprocessor.postprocessor_args
+        print('postprocessor.args:', self.args)
+        self.d = self.args.d
+        self.o_prime = None
+        self.pca = None
+        self.beta = None
+        self.args_dict = self.config.postprocessor.postprocessor_sweep
+        self.setup_flag = False
+    
+    def _entropy(self, logits):
+        probits = torch.nn.functional.softmax(logits, dim=1)
+        return Categorical(probs = probits).entropy()
+
+    def _principal_angle(self, features):
+        features = features.cpu().numpy()
+        features_transformed = self.pca.transform(features - self.o_prime)
+        norm_transformed = np.linalg.norm(features_transformed, axis=1)
+        norm = np.linalg.norm(features, axis=1)
+        return torch.as_tensor(np.arccos(norm_transformed / norm)).cuda()
+
+    def setup(self, net: nn.Module, id_loader_dict, ood_loader_dict):
+        if not self.setup_flag:
+
+            # Calc new origin
+            w, b = net.get_fc()  # (c x d), (c,)
+            self.o_prime = -np.linalg.pinv(w) @ b
+
+            # Get logits & features
+            logits = []
+            features = []
+            net.eval()
+            with torch.no_grad():
+                for batch in tqdm(id_loader_dict['train'],
+                                  desc='Setup: ',
+                                  position=0,
+                                  leave=True):
+                    data = batch['data'].cuda()
+                    data = data.float()
+
+                    logit, feature = net(data, return_feature=True)
+                    logits.append(logit)
+                    features.append(feature)
+
+            logits = torch.cat(logits, dim=0)
+            features = torch.cat(features, dim=0)
+
+            '''
+            # Show characterisitic lenghts of the geometry
+            b_norm = np.linalg.norm(b)
+            o_prime_norm = np.linalg.norm(self.o_prime)
+            mu_g = features.mean(dim=0)
+            mu_g_norm = torch.norm(mu_g).item()
+            alpha = torch.norm(features - mu_g, dim=1).mean()
+            
+            print(f"$\|b\| = {b_norm:.4}$")
+            print(f"$\|o'\| = {o_prime_norm:.4}$")
+            print(f"$\|\mu_g\| = {mu_g_norm:.4}$")
+            print(f"$\|\\alpha\| = {alpha:.4}$")
+            '''
+
+            self.pca = PCA(n_components=self.d)
+            self.pca.fit(features.cpu().numpy() - self.o_prime)
+
+            entropy = self._entropy(logits)
+            principal_angle = self._principal_angle(features)
+            self.beta = float(entropy.max() / principal_angle.min())
+
+            self.setup_flag = True
+        else:
+            pass
+
+    @torch.no_grad()
+    def postprocess(self, net: nn.Module, data: Any):
+        logits, features = net.forward(data, return_feature=True)  # (b x c), (b x d)
+        _, preds = torch.max(logits, dim=1)
+
+        principal_angle = self._principal_angle(features)
+        entropy = self._entropy(logits)
+        scores = self.beta * principal_angle + entropy
+        scores = -scores  # higher is better
+
+        return preds, scores
+
+    def set_hyperparam(self, hyperparam: list):
+        self.d = hyperparam[0]
+
+    def get_hyperparam(self):
+        return self.d

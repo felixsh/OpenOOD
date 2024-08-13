@@ -17,6 +17,7 @@ from openood.postprocessors import (
     GENPostprocessor, NNGuidePostprocessor, RelationPostprocessor,
     T2FNormPostprocessor, ReweightOODPostprocessor, fDBDPostprocessor,
     NCPostprocessor, NCScorePostprocessor, NECOPostprocessor,
+    EPAPostprocessor,
     )
 from openood.utils.config import Config, merge_configs
 
@@ -69,6 +70,7 @@ postprocessors = {
     'nc': NCPostprocessor,
     'nc_score': NCScorePostprocessor,
     'neco': NECOPostprocessor,
+    'epa': EPAPostprocessor,
 }
 
 link_prefix = 'https://raw.githubusercontent.com/Jingkang50/OpenOOD/main/configs/postprocessors/'
