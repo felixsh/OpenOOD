@@ -44,6 +44,7 @@ from .gen_postprocessor import GENPostprocessor
 from .relation_postprocessor import RelationPostprocessor
 from .nc_postprocessor import NCPostprocessor
 from .nc_score_postprocessor import NCScorePostprocessor
+from .neco_postprocessor import NECOPostprocessor
 
 
 def get_postprocessor(config: Config):
@@ -92,6 +93,7 @@ def get_postprocessor(config: Config):
         't2fnorm': T2FNormPostprocessor,
         'nc': NCPostprocessor,
         'nc_score': NCScorePostprocessor,
+        'neco': NECOPostprocessor,
     }
 
     return postprocessors[config.postprocessor.name](config)

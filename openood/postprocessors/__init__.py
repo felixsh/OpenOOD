@@ -46,3 +46,4 @@ from .t2fnorm_postprocessor import T2FNormPostprocessor
 from .reweightood_postprocessor import ReweightOODPostprocessor
 from .nc_postprocessor import NCPostprocessor
 from .nc_score_postprocessor import NCScorePostprocessor
+from .neco_postprocessor import NECOPostprocessor

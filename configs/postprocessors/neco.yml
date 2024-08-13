@@ -1,0 +1,7 @@
+postprocessor:
+  name: neco
+  APS_mode: False
+  postprocessor_args:
+    d: 20
+  postprocessor_sweep:
+    d_list: [20]
