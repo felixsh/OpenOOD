@@ -2,6 +2,7 @@ postprocessor:
   name: neco
   APS_mode: False
   postprocessor_args:
-    d: 20
+    D: 20
+    center: True
   postprocessor_sweep:
-    d_list: [20]
+    D_list: [20]
