@@ -1,13 +1,12 @@
 from typing import Any
 
 import numpy as np
-from sklearn.decomposition import PCA
 import torch
 from torch.distributions import Categorical
 import torch.nn as nn
 from tqdm import tqdm
 
-import nc_toolbox as nctb
+from nc_toolbox import principal_decomp
 
 from .base_postprocessor import BasePostprocessor
 
@@ -19,21 +18,24 @@ class EPAPostprocessor(BasePostprocessor):
         print('postprocessor.args:', self.args)
         self.d = self.args.d
         self.o_prime = None
-        self.pca = None
+        self.P = None
         self.beta = None
         self.args_dict = self.config.postprocessor.postprocessor_sweep
         self.setup_flag = False
     
     def _entropy(self, logits):
+        """Torch in, Numpy out"""
         probits = torch.nn.functional.softmax(logits, dim=1)
-        return Categorical(probs = probits).entropy()
+        return Categorical(probs = probits).entropy().cpu().numpy()
 
     def _principal_angle(self, features):
-        features = features.cpu().numpy()
-        features_transformed = self.pca.transform(features - self.o_prime)
+        """Numpy in, Numpy out"""
+        features -= self.o_prime
+        features_transformed = np.matmul(features, self.P.T)
         norm_transformed = np.linalg.norm(features_transformed, axis=1)
         norm = np.linalg.norm(features, axis=1)
-        return torch.as_tensor(np.arccos(norm_transformed / norm)).cuda()
+        a = norm_transformed / norm
+        return np.arccos(a)
 
     def setup(self, net: nn.Module, id_loader_dict, ood_loader_dict):
         if not self.setup_flag:
@@ -44,7 +46,7 @@ class EPAPostprocessor(BasePostprocessor):
 
             # Get logits & features
             logits = []
-            features = []
+            H = []
             net.eval()
             with torch.no_grad():
                 for batch in tqdm(id_loader_dict['train'],
@@ -56,10 +58,10 @@ class EPAPostprocessor(BasePostprocessor):
 
                     logit, feature = net(data, return_feature=True)
                     logits.append(logit)
-                    features.append(feature)
+                    H.append(feature)
 
             logits = torch.cat(logits, dim=0)
-            features = torch.cat(features, dim=0)
+            H = torch.cat(H, dim=0).cpu().numpy()
 
             '''
             # Show characterisitic lenghts of the geometry
@@ -69,17 +71,15 @@ class EPAPostprocessor(BasePostprocessor):
             mu_g_norm = torch.norm(mu_g).item()
             alpha = torch.norm(features - mu_g, dim=1).mean()
             
-            print(f"$\|b\| = {b_norm:.4}$")
-            print(f"$\|o'\| = {o_prime_norm:.4}$")
-            print(f"$\|\mu_g\| = {mu_g_norm:.4}$")
-            print(f"$\|\\alpha\| = {alpha:.4}$")
+            #print(f"$\|b\| = {b_norm:.4}$")
+            #print(f"$\|o'\| = {o_prime_norm:.4}$")
+            #print(f"$\|\mu_g\| = {mu_g_norm:.4}$")
+            #print(f"$\|\\alpha\| = {alpha:.4}$")
             '''
-
-            self.pca = PCA(n_components=self.d)
-            self.pca.fit(features.cpu().numpy() - self.o_prime)
+            self.P, _ = principal_decomp(H - self.o_prime, n_components=self.d, center=False)
 
             entropy = self._entropy(logits)
-            principal_angle = self._principal_angle(features)
+            principal_angle = self._principal_angle(H)
             self.beta = float(entropy.max() / principal_angle.min())
 
             self.setup_flag = True
@@ -91,12 +91,12 @@ class EPAPostprocessor(BasePostprocessor):
         logits, features = net.forward(data, return_feature=True)  # (b x c), (b x d)
         _, preds = torch.max(logits, dim=1)
 
-        principal_angle = self._principal_angle(features)
+        principal_angle = self._principal_angle(features.cpu().numpy())
         entropy = self._entropy(logits)
         scores = self.beta * principal_angle + entropy
         scores = -scores  # higher is better
 
-        return preds, scores
+        return preds, torch.as_tensor(scores)
 
     def set_hyperparam(self, hyperparam: list):
         self.d = hyperparam[0]
