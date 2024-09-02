@@ -48,3 +48,4 @@ from .nc_postprocessor import NCPostprocessor
 from .nc_score_postprocessor import NCScorePostprocessor
 from .neco_postprocessor import NECOPostprocessor
 from .epa_postprocessor import EPAPostprocessor
+from .nusa_postprocessor import NuSAPostprocessor
