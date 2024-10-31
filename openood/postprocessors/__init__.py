@@ -44,8 +44,8 @@ from .nnguide_postprocessor import NNGuidePostprocessor
 from .relation_postprocessor import RelationPostprocessor
 from .t2fnorm_postprocessor import T2FNormPostprocessor
 from .reweightood_postprocessor import ReweightOODPostprocessor
-from .nc_postprocessor import NCPostprocessor
 from .nc_score_postprocessor import NCScorePostprocessor
 from .neco_postprocessor import NECOPostprocessor
 from .epa_postprocessor import EPAPostprocessor
 from .nusa_postprocessor import NuSAPostprocessor
+from .my_postprocessor import MyPostprocessor

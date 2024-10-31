@@ -1,5 +1,5 @@
 postprocessor:
-  name: nc
+  name: my
   APS_mode: False
   postprocessor_args:
     p: 99

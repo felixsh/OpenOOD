@@ -1,6 +1,7 @@
 from typing import Any
 
 import numpy as np
+from sklearn.covariance import EmpiricalCovariance, MinCovDet
 import torch
 import torch.nn as nn
 from tqdm import tqdm
@@ -10,9 +11,9 @@ import nc_toolbox as nctb
 from .base_postprocessor import BasePostprocessor
 
 
-class NCPostprocessor(BasePostprocessor):
+class MyPostprocessor(BasePostprocessor):
     def __init__(self, config):
-        super(NCPostprocessor, self).__init__(config)
+        super(MyPostprocessor, self).__init__(config)
         self.args = self.config.postprocessor.postprocessor_args
         self.p = self.args.p
         self.mu_c = None
@@ -41,27 +42,32 @@ class NCPostprocessor(BasePostprocessor):
 
             h = np.concatenate(h, axis=0)
             l = np.concatenate(l, axis=0)
-            
-            self.mu_c = nctb.class_embedding_means(h, l)
-            self.var_c = nctb.class_embedding_variances(h, l, self.mu_c)
-            self.mu_g = nctb.global_embedding_mean(h)
+            h_split = nctb.split_embeddings(h, l)
 
-            # w, b = net.get_fc()
-
+            estimator = EmpiricalCovariance
+            # estimator = MinCovDet
+            self.covars = [estimator().fit(x) for x in h_split.values()]
+# 
             self.setup_flag = True
         else:
             pass
-    
-    def nc(self, h):
-        # TODO implement stuff, h is batched [bs x d]
-        return torch.max(h, dim=1)[0]
 
     @torch.no_grad()
     def postprocess(self, net: nn.Module, data: Any):
         logits, features = net.forward(data, return_feature=True)
-        scores = self.nc(features)
+
+        # Cluster score
+        features = features.detach().cpu().numpy()
+        dists = [cov.mahalanobis(features) for cov in self.covars]
+        dists = [d.reshape(-1, 1) for d in dists]
+        dists = np.concatenate(dists, axis=1)  # b x c
+        scores = np.max(-dists, axis=1)  # b x 1, higher is better
+
+        # Distance score
+        # scores = torch.linalg.vector_norm(features, dim=1, ord=2)  # higher is better
+
         _, preds = torch.max(logits, dim=1)
-        return preds, scores
+        return preds, torch.as_tensor(scores)
 
     def set_hyperparam(self, hyperparam: list):
         self.p = hyperparam[0]
