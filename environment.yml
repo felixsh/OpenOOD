@@ -1,0 +1,30 @@
+name: nc
+channels:
+  - pytorch
+  - nvidia
+  - defaults
+dependencies:
+  - python=3.12
+  - numpy
+  - matplotlib
+  - scikit-learn
+  - scipy
+  - pandas
+  - dask
+  - tabulate
+  - tqdm
+  - pytorch:pytorch
+  - pytorch:torchvision
+  - nvidia:pytorch-cuda=12.1
+  - datasets
+  - transformers
+  - huggingface_hub
+  - conda-forge::faiss-gpu
+  - cython
+  - conda-forge::wandb
+  - conda-forge::omegaconf
+  - pip
+  - pip:
+    - libmr
+    - git+https://github.com/felixsh/nc-toolbox
+    - git+https://github.com/felixsh/OpenOOD
