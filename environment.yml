@@ -23,6 +23,7 @@ dependencies:
   - cython
   - conda-forge::wandb
   - conda-forge::omegaconf
+  - statsmodels
   - pip
   - pip:
     - libmr
