@@ -331,7 +331,7 @@ class Evaluator:
         metrics_list = []
 
         score_name = '2-norm'
-        np.save(f'res_data/id_cifar10_test_{score_name}.np', id_conf)
+        np.save(f'res_data/id_cifar10_test_{score_name}', id_conf)
 
         for dataset_name, ood_dl in self.dataloader_dict['ood'][
                 ood_split].items():
@@ -356,7 +356,7 @@ class Evaluator:
             conf = np.concatenate([id_conf, ood_conf])
             label = np.concatenate([id_gt, ood_gt])
             
-            np.save(f'res_data/ood_{dataset_name}_{score_name}.np', conf)
+            np.save(f'res_data/ood_{dataset_name}_{score_name}', conf)
 
             print(f'Computing metrics on {dataset_name} dataset...')
             ood_metrics = compute_all_metrics(conf, label, pred)
