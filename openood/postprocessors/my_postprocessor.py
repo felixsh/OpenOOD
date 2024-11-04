@@ -45,6 +45,8 @@ class MyPostprocessor(BasePostprocessor):
             h = np.concatenate(h, axis=0)
             l = np.concatenate(l, axis=0)
             h_split = nctb.split_embeddings(h, l)
+            mu_g = nctb.global_embedding_mean(h).reshape(1, -1)
+            self.mu_g_norm = mu_g / np.linalg.norm(mu_g)
 
             estimator = EmpiricalCovariance
             estimator = MinCovDet
@@ -58,6 +60,11 @@ class MyPostprocessor(BasePostprocessor):
             self.setup_flag = True
         else:
             pass
+
+    def _cossim(self, features):
+        features_norm = features / np.linalg.norm(features, axis=1)[:, None]
+        scores = -features_norm @ self.mu_g_norm.T  # higher is better
+        return scores
 
     def _concat(self, arrays1d):
         return np.concatenate([a.reshape(-1, 1) for a in arrays1d], axis=1)
@@ -78,8 +85,9 @@ class MyPostprocessor(BasePostprocessor):
         features = features.detach().cpu().numpy()
         cluster_scores = self._cluster_score(features)
         dist_scores = self._dist_score(features)
+        cossim_scores = self._cossim(features)
         
-        data = self._concat((cluster_scores, dist_scores))
+        data = self._concat((cluster_scores, dist_scores, cossim_scores))
         combined_scores = self.data_kde.cdf(data)
 
         _, preds = torch.max(logits, dim=1)
