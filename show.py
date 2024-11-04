@@ -1,13 +1,10 @@
-from pathlib import Path
-
 import matplotlib.pyplot as plt
 import numpy as np
 from statsmodels.nonparametric.kernel_density import KDEMultivariate
 
+import path
 
-data_path = Path('./res_data')
-plot_path = Path('./res_plots')
-plot_path.mkdir(exist_ok=True, parents=True)
+
 marker_size = 144./plt.gcf().dpi
 
 
@@ -56,17 +53,17 @@ def plot_scores2d(data0, data1):
         plt.legend()
 
         filename = f'{title}.png'
-        plt.savefig(plot_path / filename)
+        plt.savefig(path.res_plots / filename)
         plt.close()
 
 
-id_clst_file = list(data_path.glob('id*empiricalcovar.npy'))[0]
-id_dist_file = list(data_path.glob('id*2-norm.npy'))[0]
-id_coss_file = list(data_path.glob('id*cossim.npy'))[0]
+id_clst_file = list(path.res_data.glob('id*empiricalcovar.npy'))[0]
+id_dist_file = list(path.res_data.glob('id*2-norm.npy'))[0]
+id_coss_file = list(path.res_data.glob('id*cossim.npy'))[0]
 
-ood_clst_files = sorted(list(data_path.glob('ood*empiricalcovar.npy')))
-ood_dist_files = sorted(list(data_path.glob('ood*2-norm.npy')))
-ood_coss_files = sorted(list(data_path.glob('ood*cossim.npy')))
+ood_clst_files = sorted(list(path.res_data.glob('ood*empiricalcovar.npy')))
+ood_dist_files = sorted(list(path.res_data.glob('ood*2-norm.npy')))
+ood_coss_files = sorted(list(path.res_data.glob('ood*cossim.npy')))
 
 clst_data = (id_clst_file, ood_clst_files, 'empcovar')
 dist_data = (id_dist_file, ood_dist_files, '2norm')

@@ -17,6 +17,7 @@ from openood.networks.scale_net import ScaleNet
 from .datasets import DATA_INFO, data_setup, get_id_ood_dataloader
 from .postprocessor import get_postprocessor
 from .preprocessor import get_default_preprocessor
+import path
 
 
 class Evaluator:
@@ -333,7 +334,7 @@ class Evaluator:
         save_scores = False
         if save_scores:
             score_name = 'cossim'
-            np.save(f'res_data/id_cifar10_test_{score_name}', id_conf)
+            np.save(path.res_data / f'id_cifar10_test_{score_name}', id_conf)
 
         for dataset_name, ood_dl in self.dataloader_dict['ood'][
                 ood_split].items():
@@ -359,7 +360,7 @@ class Evaluator:
             label = np.concatenate([id_gt, ood_gt])
             
             if save_scores:
-                np.save(f'res_data/ood_{dataset_name}_{score_name}', conf)
+                np.save(path.res_data / f'ood_{dataset_name}_{score_name}', conf)
 
             print(f'Computing metrics on {dataset_name} dataset...')
             ood_metrics = compute_all_metrics(conf, label, pred)
