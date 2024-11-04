@@ -6,6 +6,7 @@ import path
 
 
 marker_size = 144./plt.gcf().dpi
+alpha_value = 0.5
 
 
 def get_data_id(filename):
@@ -39,8 +40,8 @@ def plot_scores2d(data0, data1):
         ood_score_0 = np.load(f0)
         ood_score_1 = np.load(f1)
     
-        plt.plot(ood_score_0, ood_score_1, '.', ms=marker_size, label=ood_data_id)
-        plt.plot(id_score_0, id_score_1, '.', ms=marker_size, label=id_data_id)
+        plt.plot(ood_score_0, ood_score_1, '.', ms=marker_size, label=ood_data_id, alpha=alpha_value)
+        plt.plot(id_score_0, id_score_1, '.', ms=marker_size, label=id_data_id, alpha=alpha_value)
 
         xmin, xmax, ymin, ymax = plt.axis()
         X, Y = np.mgrid[xmin:xmax:100j, ymin:ymax:100j]
@@ -57,13 +58,13 @@ def plot_scores2d(data0, data1):
         plt.close()
 
 
-id_clst_file = list(path.res_data.glob('id*empiricalcovar.npy'))[0]
-id_dist_file = list(path.res_data.glob('id*2-norm.npy'))[0]
-id_coss_file = list(path.res_data.glob('id*cossim.npy'))[0]
+id_clst_file = list(path.res_scores.glob('id*empiricalcovar.npy'))[0]
+id_dist_file = list(path.res_scores.glob('id*2-norm.npy'))[0]
+id_coss_file = list(path.res_scores.glob('id*cossim.npy'))[0]
 
-ood_clst_files = sorted(list(path.res_data.glob('ood*empiricalcovar.npy')))
-ood_dist_files = sorted(list(path.res_data.glob('ood*2-norm.npy')))
-ood_coss_files = sorted(list(path.res_data.glob('ood*cossim.npy')))
+ood_clst_files = sorted(list(path.res_scores.glob('ood*empiricalcovar.npy')))
+ood_dist_files = sorted(list(path.res_scores.glob('ood*2-norm.npy')))
+ood_coss_files = sorted(list(path.res_scores.glob('ood*cossim.npy')))
 
 clst_data = (id_clst_file, ood_clst_files, 'empcovar')
 dist_data = (id_dist_file, ood_dist_files, '2norm')
