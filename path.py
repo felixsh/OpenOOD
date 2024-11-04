@@ -7,5 +7,5 @@ res_data.mkdir(exist_ok=True, parents=True)
 res_plots = Path('./res_plots')
 res_plots.mkdir(exist_ok=True, parents=True)
 
-hdf5_data = Path('./hdf5_data')
-hdf5_data.mkdir(exist_ok=True, parents=True)
+res_scores = Path('./res_scores')
+res_scores.mkdir(exist_ok=True, parents=True)

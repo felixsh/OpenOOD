@@ -170,3 +170,5 @@ local/
 
 *.png
 res_data/
+res_plots/
+res_scores/

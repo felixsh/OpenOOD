@@ -10,6 +10,7 @@ dependencies:
   - scikit-learn
   - scipy
   - pandas
+  - pytables  
   - dask
   - tabulate
   - tqdm
