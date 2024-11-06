@@ -1,16 +1,19 @@
 trap 'pkill -P $$; exit' SIGINT SIGTERM
 
-BENCHMARK=cifar10
+BENCHMARK=cifar100
 
 CUDA_VISIBLE_DEVICES=0 python main_ood.py benchmark=$BENCHMARK postprocessor=msp &
 CUDA_VISIBLE_DEVICES=1 python main_ood.py benchmark=$BENCHMARK postprocessor=mds &
 CUDA_VISIBLE_DEVICES=2 python main_ood.py benchmark=$BENCHMARK postprocessor=odin &
-CUDA_VISIBLE_DEVICES=3 python main_ood.py benchmark=$BENCHMARK postprocessor=knn &
-CUDA_VISIBLE_DEVICES=4 python main_ood.py benchmark=$BENCHMARK postprocessor=react &
-CUDA_VISIBLE_DEVICES=5 python main_ood.py benchmark=$BENCHMARK postprocessor=dice &
+wait $(jobs -p)
 
-CUDA_VISIBLE_DEVICES=6 python main_ood.py benchmark=$BENCHMARK postprocessor=nusa &
-CUDA_VISIBLE_DEVICES=7 python main_ood.py benchmark=$BENCHMARK postprocessor=vim &
+CUDA_VISIBLE_DEVICES=0 python main_ood.py benchmark=$BENCHMARK postprocessor=knn &
+CUDA_VISIBLE_DEVICES=1 python main_ood.py benchmark=$BENCHMARK postprocessor=react &
+CUDA_VISIBLE_DEVICES=2 python main_ood.py benchmark=$BENCHMARK postprocessor=dice &
+wait $(jobs -p)
+
+CUDA_VISIBLE_DEVICES=0 python main_ood.py benchmark=$BENCHMARK postprocessor=nusa &
+CUDA_VISIBLE_DEVICES=1 python main_ood.py benchmark=$BENCHMARK postprocessor=vim &
 wait $(jobs -p)
 
 CUDA_VISIBLE_DEVICES=0 python main_ood.py benchmark=$BENCHMARK postprocessor=ncscore &
