@@ -1,4 +1,5 @@
 import nc_toolbox as nctb
+import numpy as np
 import pandas as pd
 import torch
 from tqdm import tqdm
@@ -33,7 +34,7 @@ def eval_nc(benchmark_name, ckpt_path):
     dataloader = dataloader_dict['id']['train']
 
     # Get features and labels
-    exampel_batch, _ = next(iter(dataloader))
+    exampel_batch = next(iter(dataloader))
     exampel_inp = exampel_batch['data'].cuda().float()
 
     _, exampel_feature = net(exampel_inp, return_feature=True)
@@ -41,21 +42,19 @@ def eval_nc(benchmark_name, ckpt_path):
     n = len(dataloader.dataset)
     d = exampel_feature.shape[1]
 
-    H = torch.zeros((n, d), dtype=torch.float32, device='cuda')
-    L = torch.zeros(n, dtype=int, device='cuda')
+    H = np.zeros((n, d), dtype=np.float32)
+    L = np.zeros(n, dtype=int)
 
-    idx = 0
-    for batch in tqdm(dataloader):
-        inp = batch['data'].cuda().float()
-        _, feature = net(inp, return_feature=True)
+    with torch.no_grad():
+        idx = 0
+        for batch in tqdm(dataloader):
+            inp = batch['data'].cuda().float()
+            _, feature = net(inp, return_feature=True)
 
-        bs = inp.shape[0]
-        H[idx : idx + bs] = feature.flatten(start_dim=1)
-        L[idx : idx + bs] = batch['label'].cuda()
-        idx += bs
-
-    H = H.cpu().numpy()
-    L = L.cpu().numpy()
+            bs = inp.shape[0]
+            H[idx : idx + bs] = feature.flatten(start_dim=1).cpu().numpy()
+            L[idx : idx + bs] = batch['label']
+            idx += bs
 
     # Get weights and bias
     W, B = net.get_fc()  # (c x d), (c,)
@@ -66,9 +65,11 @@ def eval_nc(benchmark_name, ckpt_path):
     mu_g = nctb.global_embedding_mean(H)
 
     # NC metrics
+    nc1_weak_between, nc1_weak_within = nctb.nc1_weak(H, L, mu_c, mu_g)
     results = {
         "nc1_strong": nctb.nc1_strong(H, L, mu_c, mu_g),
-        "nc1_weak": nctb.nc1_weak(H, L, mu_c, mu_g),
+        "nc1_weak_between": nc1_weak_between,
+        "nc1_weak_within": nc1_weak_within,
         "nc1_cdnv": nctb.nc1_cdnv(mu_c, var_c),
         "nc2_equinormness": nctb.nc2_equinormness(mu_c, mu_g),
         "nc2_equiangularity": nctb.nc2_equiangularity(mu_c, mu_g),
@@ -78,6 +79,7 @@ def eval_nc(benchmark_name, ckpt_path):
         "nc4_classifier_agreement": nctb.nc4_classifier_agreement(H, W, B, mu_c),
     }
 
-    nc_metrics = pd.DataFrame(results)
+    nc_metrics = pd.DataFrame([results])
+    print(nc_metrics)
 
     return nc_metrics
