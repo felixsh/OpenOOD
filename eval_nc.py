@@ -1,5 +1,4 @@
 import nc_toolbox as nctb
-import numpy as np
 import pandas as pd
 import torch
 from tqdm import tqdm
@@ -31,27 +30,32 @@ def eval_nc(benchmark_name, ckpt_path):
     }
     dataloader_dict = get_id_ood_dataloader(benchmark_name, data_root,
                                                 preprocessor, **loader_kwargs)
-    id_loader_dict = dataloader_dict['id']
+    dataloader = dataloader_dict['id']['train']
 
     # Get features and labels
-    H = []
-    L = []
-    net.eval()
-    with torch.no_grad():
-        for batch in tqdm(id_loader_dict['train'],
-                            desc='Setup: ',
-                            position=0,
-                            leave=True):
-            data = batch['data'].cuda()
-            data = data.float()
+    exampel_batch, _ = next(iter(dataloader))
+    exampel_inp = exampel_batch['data'].cuda().float()
 
-            _, feature = net(data, return_feature=True)
+    _, exampel_feature = net(exampel_inp, return_feature=True)
 
-            H.append(feature.data.cpu().numpy())
-            L.append(batch['label'])
+    n = len(dataloader.dataset)
+    d = exampel_feature.shape[1]
 
-    H = np.concatenate(H, axis=0)  # (n x d)
-    L = np.concatenate(L, axis=0)  # (n,)
+    H = torch.zeros((n, d), dtype=torch.float32, device='cuda')
+    L = torch.zeros(n, dtype=int, device='cuda')
+
+    idx = 0
+    for batch in tqdm(dataloader):
+        inp = batch['data'].cuda().float()
+        _, feature = net(inp, return_feature=True)
+
+        bs = inp.shape[0]
+        H[idx : idx + bs] = feature.flatten(start_dim=1)
+        L[idx : idx + bs] = batch['label'].cuda()
+        idx += bs
+
+    H = H.cpu().numpy()
+    L = L.cpu().numpy()
 
     # Get weights and bias
     W, B = net.get_fc()  # (c x d), (c,)
