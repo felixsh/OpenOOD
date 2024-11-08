@@ -3,7 +3,7 @@ import path
 from utils import load_network, get_batch_size
 
 
-def eval_ood(benchmark_name, postprocessor_name, ckpt_path):
+def eval_ood(benchmark_name, ckpt_path, postprocessor_name):
     
     net = load_network(benchmark_name, ckpt_path)
     batch_size = get_batch_size(benchmark_name)
@@ -20,6 +20,6 @@ def eval_ood(benchmark_name, postprocessor_name, ckpt_path):
         shuffle=False,
         num_workers=8)                         # could use more num_workers outside colab
 
-    ood_metrics = evaluator.eval_ood(fsood=False)
+    metrics, scores  = evaluator.eval_ood(fsood=False)
 
-    return ood_metrics
+    return metrics, scores

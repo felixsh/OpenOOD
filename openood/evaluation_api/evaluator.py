@@ -321,7 +321,7 @@ class Evaluator:
                 '{:,.2f}'.format):  # more options can be specified also
             print(self.metrics[task].to_markdown())
 
-        return self.metrics[task]
+        return self.metrics[task], self.scores
 
     def _eval_ood(self,
                   id_list: List[np.ndarray],
@@ -330,11 +330,6 @@ class Evaluator:
         print(f'Processing {ood_split} ood...', flush=True)
         [id_pred, id_conf, id_gt] = id_list
         metrics_list = []
-
-        save_scores = False
-        if save_scores:
-            score_name = 'cossim'
-            np.save(path.res_scores / f'id_cifar10_test_{score_name}', id_conf)
 
         for dataset_name, ood_dl in self.dataloader_dict['ood'][
                 ood_split].items():
@@ -358,9 +353,6 @@ class Evaluator:
             pred = np.concatenate([id_pred, ood_pred])
             conf = np.concatenate([id_conf, ood_conf])
             label = np.concatenate([id_gt, ood_gt])
-            
-            if save_scores:
-                np.save(path.res_scores / f'ood_{dataset_name}_{score_name}', conf)
 
             print(f'Computing metrics on {dataset_name} dataset...')
             ood_metrics = compute_all_metrics(conf, label, pred)
