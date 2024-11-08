@@ -22,6 +22,18 @@ def load_network(benchmark_name, ckpt_path):
     return net
 
 
+def get_batch_size(benchmark_name):
+    if benchmark_name == 'cifar10':
+        batch_size = 1024
+    elif benchmark_name == 'cifar100':
+        batch_size = 1024
+    elif benchmark_name == 'imagenet200':
+        batch_size = 200
+    elif benchmark_name == 'imagenet':
+        batch_size = 100
+    return batch_size
+
+
 def get_episode(ckpt_path):
     """Return episode in format 'e100' """
     episode_name = f'e{re.search(r"_e(\d+)", ckpt_path).group(1)}'

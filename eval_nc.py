@@ -7,13 +7,13 @@ from tqdm import tqdm
 from openood.evaluation_api.datasets import data_setup, get_id_ood_dataloader
 from openood.evaluation_api.preprocessor import get_default_preprocessor
 import path
-from utils import load_network
+from utils import load_network, get_batch_size
 
 
 def eval_nc(benchmark_name, ckpt_path):
     
     # Parameters
-    batch_size = 1024
+    batch_size = get_batch_size(benchmark_name)
     shuffle = False
     num_workers = 8
     
