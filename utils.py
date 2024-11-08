@@ -1,5 +1,6 @@
 import re
 
+import numpy as np
 from torch import load
 
 from openood.networks import ResNet18_32x32, ResNet18_224x224, ResNet50
@@ -23,18 +24,44 @@ def load_network(benchmark_name, ckpt_path):
 
 
 def get_batch_size(benchmark_name):
+    # For 12GB VRAM
     if benchmark_name == 'cifar10':
         batch_size = 1024
     elif benchmark_name == 'cifar100':
         batch_size = 1024
     elif benchmark_name == 'imagenet200':
-        batch_size = 200
+        batch_size = 512
     elif benchmark_name == 'imagenet':
-        batch_size = 100
+        batch_size = 512
     return batch_size
 
 
-def get_episode(ckpt_path):
+def get_epoch_id(ckpt_path):
     """Return episode in format 'e100' """
-    episode_name = f'e{re.search(r"_e(\d+)", ckpt_path).group(1)}'
+    episode_name = f'e{re.search(r"_e(\d+)", str(ckpt_path)).group(1)}'
     return episode_name
+
+
+def convert_numpy_to_lists(data):
+    if isinstance(data, dict):
+        return {key: convert_numpy_to_lists(value) for key, value in data.items()}
+    elif isinstance(data, list):
+        return [convert_numpy_to_lists(item) for item in data]
+    elif isinstance(data, np.ndarray):
+        return data.tolist()  # Convert numpy array to list
+    else:
+        return data  # Leave other data types unchanged
+
+
+def convert_lists_to_numpy(data):
+    if isinstance(data, dict):
+        return {key: convert_lists_to_numpy(value) for key, value in data.items()}
+    elif isinstance(data, list):
+        # Convert list to numpy array if it contains only numbers or nested lists
+        try:
+            return np.array(data)
+        except ValueError:
+            # In case it's a list of mixed types, keep it as a list
+            return [convert_lists_to_numpy(item) for item in data]
+    else:
+        return data  # Leave other data types unchanged
