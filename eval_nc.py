@@ -50,8 +50,8 @@ def eval_nc(benchmark_name, ckpt_path):
             H.append(feature.data.cpu().numpy())
             L.append(batch['label'])
 
-    H = np.concatenate(H, axis=0)
-    L = np.concatenate(L, axis=0)
+    H = np.concatenate(H, axis=0)  # (n x d)
+    L = np.concatenate(L, axis=0)  # (n,)
 
     # Get weights and bias
     W, B = net.get_fc()  # (c x d), (c,)
