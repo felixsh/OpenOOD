@@ -36,7 +36,7 @@ def eval_postprocessor(benchmark_name, postprocessor_name):
     evaluator = Evaluator(
         net,
         id_name=benchmark_name,                # the target ID dataset
-        data_root='/home/hauser/data_openood', # change if necessary
+        data_root=str(path.data_root),         # change if necessary
         config_root=None,                      # see notes above
         preprocessor=None,                     # default preprocessing for the target ID dataset
         postprocessor_name=postprocessor_name, # the postprocessor to use
