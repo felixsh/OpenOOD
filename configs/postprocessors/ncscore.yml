@@ -1,5 +1,5 @@
 postprocessor:
-  name: nc_score
+  name: ncscore
   APS_mode: False
   postprocessor_args:
     alpha: 0.01

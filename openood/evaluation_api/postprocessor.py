@@ -68,7 +68,7 @@ postprocessors = {
     'relation': RelationPostprocessor,
     't2fnorm': T2FNormPostprocessor,
     'reweightood': ReweightOODPostprocessor,
-    'nc_score': NCScorePostprocessor,
+    'ncscore': NCScorePostprocessor,
     'neco': NECOPostprocessor,
     'epa': EPAPostprocessor,
     'nusa': NuSAPostprocessor,

@@ -42,7 +42,7 @@ from .vim_postprocessor import VIMPostprocessor
 from .rts_postprocessor import RTSPostprocessor
 from .gen_postprocessor import GENPostprocessor
 from .relation_postprocessor import RelationPostprocessor
-from .nc_score_postprocessor import NCScorePostprocessor
+from .ncscore_postprocessor import NCScorePostprocessor
 from .neco_postprocessor import NECOPostprocessor
 from .epa_postprocessor import EPAPostprocessor
 from .nusa_postprocessor import NuSAPostprocessor
@@ -93,7 +93,7 @@ def get_postprocessor(config: Config):
         'gen': GENPostprocessor,
         'relation': RelationPostprocessor,
         't2fnorm': T2FNormPostprocessor,
-        'nc_score': NCScorePostprocessor,
+        'ncscore': NCScorePostprocessor,
         'neco': NECOPostprocessor,
         'epa': EPAPostprocessor,
         'nusa': NuSAPostprocessor,
