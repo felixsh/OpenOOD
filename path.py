@@ -11,3 +11,4 @@ res_scores = Path('./res_scores')
 res_scores.mkdir(exist_ok=True, parents=True)
 
 data_root = Path('/home/hauser/data_openood')
+ckpt_root = Path('./checkpoints')
