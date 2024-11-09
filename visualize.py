@@ -3,6 +3,7 @@ import re
 
 import matplotlib.pyplot as plt
 import numpy as np
+from omegaconf import OmegaConf
 import pandas as pd
 
 import path
@@ -183,7 +184,16 @@ def plot_ood(benchmark_name,
         plt.close()
 
 
+def plot_all(benchmark_name, run_id):
+    plot_nc_ood(benchmark_name, run_id)
+    plot_nc(benchmark_name, run_id)
+    plot_ood(benchmark_name, run_id)
+
+
 if __name__ == '__main__':
-    plot_nc_ood('cifar10', 'run0')
-    plot_nc('cifar10', 'run0')
-    plot_ood('cifar10', 'run0')
+    cfg = OmegaConf.from_cli()
+    
+    # cfg.benchmark = 'cifar10'
+    # cfg.run = 'run0'
+
+    plot_all(cfg.benchmark, cfg.run)
