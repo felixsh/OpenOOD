@@ -79,7 +79,4 @@ def eval_nc(benchmark_name, ckpt_path):
         "nc4_classifier_agreement": nctb.nc4_classifier_agreement(H, W, B, mu_c),
     }
 
-    nc_metrics = pd.DataFrame([results])
-    print(nc_metrics)
-
-    return nc_metrics
+    return results

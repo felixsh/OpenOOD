@@ -1,7 +1,8 @@
 import json
+import yaml
 
 from omegaconf import OmegaConf
-from pandas import HDFStore
+from pandas import DataFrame, HDFStore
 
 from eval_nc import eval_nc
 from eval_ood import eval_ood
@@ -29,7 +30,7 @@ postprocessors = [
 # ["openmax", "msp", "temp_scaling", "odin", "mds", "mds_ensemble", "rmds", "gram", "ebo", "gradnorm", "react", "mls", "klm", "vim", "knn", "dice", "rankfeat", "ash", "she"]
 
 
-def save_metrics(df, save_dir, key):
+def save_ood(df, save_dir, key):
     # Print markdown table to file
     with open(save_dir / 'metrics.md', 'a') as f:
         f.write(f'---\n{key}\n')
@@ -37,6 +38,19 @@ def save_metrics(df, save_dir, key):
         f.write('\n')
 
     # Store in HDF5 format
+    with HDFStore(save_dir / 'metrics.h5') as store:
+        store.put(key, df)
+
+
+def save_nc(res_dict, save_dir, key):
+    # Print values to file
+    with open(save_dir / 'metrics.md', 'a') as f:
+        f.write(f'---\n{key}\n')
+        f.write(yaml.dump(res_dict))
+        f.write('\n')
+
+    # Store in HDF5 format
+    df = DataFrame([res_dict])
     with HDFStore(save_dir / 'metrics.h5') as store:
         store.put(key, df)
 
@@ -65,9 +79,9 @@ def nc_all_ckpt(benchmark_name, run_id):
         save_dir = path.res_data / benchmark_name / run_id / epoch_id
         save_dir.mkdir(exist_ok=True, parents=True)
 
-        save_metrics(metrics,
-                     save_dir,
-                     'nc')
+        save_nc(metrics,
+                save_dir,
+                'nc')
 
 
 def nc_best_ckpt(benchmark_name):
@@ -78,9 +92,9 @@ def nc_best_ckpt(benchmark_name):
 
     metrics = eval_nc(benchmark_name, ckpt_path)
 
-    save_metrics(metrics,
-                 save_dir,
-                 'nc')
+    save_nc(metrics,
+            save_dir,
+            'nc')
 
 
 def ood_all_ckpt(benchmark_name, run_id, postprocessor_name):
@@ -94,9 +108,9 @@ def ood_all_ckpt(benchmark_name, run_id, postprocessor_name):
         save_dir = path.res_data / benchmark_name / run_id / epoch_id
         save_dir.mkdir(exist_ok=True, parents=True)
 
-        save_metrics(metrics,
-                     save_dir,
-                     postprocessor_name)
+        save_ood(metrics,
+                 save_dir,
+                 postprocessor_name)
 
         save_scores(scores,
                     save_dir,
@@ -111,9 +125,9 @@ def ood_best_ckpt(benchmark_name, postprocessor_name):
 
     metrics, scores = eval_ood(benchmark_name, ckpt_path, postprocessor_name)
 
-    save_metrics(metrics,
-                 save_dir,
-                 postprocessor_name)
+    save_ood(metrics,
+             save_dir,
+             postprocessor_name)
 
     save_scores(scores,
                 save_dir,
