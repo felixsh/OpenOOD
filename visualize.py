@@ -140,6 +140,50 @@ def plot_nc(benchmark_name,
     plt.close()
 
 
+def plot_ood(benchmark_name,
+             run_id,
+             ood_metric='AUROC'):
+    
+    nc_ood_methods = ['nusa', 'vim', 'ncscore', 'neco', 'epa']
+
+    main_dir = path.res_data / benchmark_name / run_id
+    ckpt_dirs = sorted(list(main_dir.glob('e*')))
+
+    for ckpt_dir in ckpt_dirs:
+        with pd.HDFStore(ckpt_dir / 'metrics.h5') as store:
+            ood_keys = list(store.keys())
+            ood_keys.remove('/nc')
+            for k in ood_keys:
+                color = colors[1] if k[1:] in nc_ood_methods else colors[0]
+                label = 'nc method' if k[1:] in nc_ood_methods else 'baseline method'
+
+                ood_df = store.get(k)
+                near_ood = ood_df.at['nearood', ood_metric]
+                far_ood = ood_df.at['farood', ood_metric]
+                plt.plot(near_ood, far_ood, 'o', color=color, label=label)
+        
+        ax = plt.gca()
+        x0 = ax.get_xlim()[0]
+        y0 = ax.get_ylim()[0]
+        ax.axline((x0, y0), slope=1, ls='--', color='k', alpha=0.5, zorder=1)
+
+        plt.title(f'{benchmark_name} {run_id} {ckpt_dir.name} {ood_metric}')
+        plt.xlabel('nearood')
+        plt.ylabel('farood')
+        
+        # https://stackoverflow.com/a/13589144
+        handles, labels = plt.gca().get_legend_handles_labels()
+        by_label = dict(zip(labels, handles))
+        plt.legend(by_label.values(), by_label.keys())
+
+        save_path = path.res_plots / benchmark_name / run_id
+        save_path.mkdir(exist_ok=True, parents=True)
+        filename = f'{ood_metric}_{ckpt_dir.name}.png'
+        plt.savefig(save_path / filename, bbox_inches='tight')
+        plt.close()
+
+
 if __name__ == '__main__':
-    # plot_nc_ood('cifar10', 'run0')
+    plot_nc_ood('cifar10', 'run0')
     plot_nc('cifar10', 'run0')
+    plot_ood('cifar10', 'run0')
