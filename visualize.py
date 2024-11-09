@@ -177,6 +177,8 @@ def plot_ood(benchmark_name,
         by_label = dict(zip(labels, handles))
         plt.legend(by_label.values(), by_label.keys())
 
+        ax.set_aspect('equal')
+
         save_path = path.res_plots / benchmark_name / run_id
         save_path.mkdir(exist_ok=True, parents=True)
         filename = f'{ood_metric}_{ckpt_dir.name}.png'
