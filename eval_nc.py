@@ -15,7 +15,7 @@ def eval_nc(benchmark_name, ckpt_path):
     # Parameters
     batch_size = get_batch_size(benchmark_name)
     shuffle = False
-    num_workers = 8
+    num_workers = 0
     
     # Prepare stuff
     data_root = str(path.data_root)
