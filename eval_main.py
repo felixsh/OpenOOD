@@ -1,8 +1,7 @@
 import json
-import yaml
 
 from omegaconf import OmegaConf
-from pandas import DataFrame, HDFStore
+from pandas import HDFStore
 
 from eval_nc import eval_nc
 from eval_ood import eval_ood
@@ -31,28 +30,27 @@ postprocessors = [
 
 
 def save_ood(df, save_dir, key):
+    # Store in HDF5 format
+    with HDFStore(save_dir / 'metrics.h5') as store:
+        store.put(key, df)
+
     # Print markdown table to file
     with open(save_dir / 'metrics.md', 'a') as f:
         f.write(f'---\n{key}\n')
         f.write(df.to_markdown())
         f.write('\n')
 
+
+def save_nc(df, save_dir, key):
     # Store in HDF5 format
     with HDFStore(save_dir / 'metrics.h5') as store:
         store.put(key, df)
 
-
-def save_nc(res_dict, save_dir, key):
     # Print values to file
     with open(save_dir / 'metrics.md', 'a') as f:
         f.write(f'---\n{key}\n')
-        f.write(yaml.dump(res_dict))
+        f.write(df.transpose().to_markdown())
         f.write('\n')
-
-    # Store in HDF5 format
-    df = DataFrame([res_dict])
-    with HDFStore(save_dir / 'metrics.h5') as store:
-        store.put(key, df)
 
 
 def save_scores(score_dict, save_dir, filename):
