@@ -9,7 +9,7 @@ import path
 from utils import get_epoch_id, convert_numpy_to_lists
 
 
-ckpt_glob = '*.ckpt'
+ckpt_suffixes = ['.ckpt', '.pth']
 
 postprocessors = [
     'msp',
@@ -68,7 +68,7 @@ def save_scores(score_dict, save_dir, filename):
 
 def nc_all_ckpt(benchmark_name, run_id):
     ckpt_dir = path.ckpt_root / benchmark_name / run_id
-    ckpt_list = list(ckpt_dir.glob(ckpt_glob))
+    ckpt_list = [p for p in ckpt_dir.glob('*') if p.suffix in ckpt_suffixes]
 
     for ckpt_path in ckpt_list:
         metrics = eval_nc(benchmark_name, ckpt_path)
@@ -97,7 +97,7 @@ def nc_best_ckpt(benchmark_name):
 
 def ood_all_ckpt(benchmark_name, run_id, postprocessor_name):
     ckpt_dir = path.ckpt_root / benchmark_name / run_id
-    ckpt_list = list(ckpt_dir.glob(ckpt_glob))
+    ckpt_list = [p for p in ckpt_dir.glob('*') if p.suffix in ckpt_suffixes]
 
     for ckpt_path in ckpt_list:
         metrics, scores = eval_ood(benchmark_name, ckpt_path, postprocessor_name)
