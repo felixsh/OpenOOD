@@ -6,7 +6,7 @@ from pandas import HDFStore
 from eval_nc import eval_nc
 from eval_ood import eval_ood
 import path
-from utils import get_epoch_id, convert_numpy_to_lists
+from utils import get_epoch_number, get_epoch_name, convert_numpy_to_lists
 
 
 ckpt_suffixes = ['.ckpt', '.pth']
@@ -66,14 +66,25 @@ def save_scores(score_dict, save_dir, filename):
         json.dump(converted_dict, f, indent=4)
 
 
+def filter_ckpts(ckpt_list, filter_list=[1, 2, 5, 10, 20, 50, 100, 200, 500]):
+    """Only use ckpts from epochs defined in filter list, plus final epoch"""
+    filter_list = [f-1 for f in filter_list]  # Shifted indices
+    ckpt_list = sorted(ckpt_list)
+    ckpts_filtered = [p for p in ckpt_list if get_epoch_number(p) in filter_list]
+    ckpts_filtered.append(ckpt_list[-1])
+    ckpts_filtered = sorted(list(set(ckpts_filtered)))
+    return ckpts_filtered
+
+
 def nc_all_ckpt(benchmark_name, run_id):
     ckpt_dir = path.ckpt_root / benchmark_name / run_id
     ckpt_list = [p for p in ckpt_dir.glob('*') if p.suffix in ckpt_suffixes]
+    ckpt_list = filter_ckpts(ckpt_list)
 
     for ckpt_path in ckpt_list:
         metrics = eval_nc(benchmark_name, ckpt_path)
 
-        epoch_id = get_epoch_id(ckpt_path)
+        epoch_id = get_epoch_name(ckpt_path)
         save_dir = path.res_data / benchmark_name / run_id / epoch_id
         save_dir.mkdir(exist_ok=True, parents=True)
 
@@ -98,11 +109,12 @@ def nc_best_ckpt(benchmark_name):
 def ood_all_ckpt(benchmark_name, run_id, postprocessor_name):
     ckpt_dir = path.ckpt_root / benchmark_name / run_id
     ckpt_list = [p for p in ckpt_dir.glob('*') if p.suffix in ckpt_suffixes]
+    ckpt_list = filter_ckpts(ckpt_list)
 
     for ckpt_path in ckpt_list:
         metrics, scores = eval_ood(benchmark_name, ckpt_path, postprocessor_name)
 
-        epoch_id = get_epoch_id(ckpt_path)
+        epoch_id = get_epoch_name(ckpt_path)
         save_dir = path.res_data / benchmark_name / run_id / epoch_id
         save_dir.mkdir(exist_ok=True, parents=True)
 

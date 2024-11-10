@@ -36,9 +36,15 @@ def get_batch_size(benchmark_name):
     return batch_size
 
 
-def get_epoch_id(ckpt_path):
+def get_epoch_number(ckpt_path):
+    """Return episode in format '100' """
+    episode_number = int(re.search(r"_e(\d+)", str(ckpt_path)).group(1))
+    return episode_number
+
+
+def get_epoch_name(ckpt_path):
     """Return episode in format 'e100' """
-    episode_name = f'e{re.search(r"_e(\d+)", str(ckpt_path)).group(1)}'
+    episode_name = f'e{get_epoch_number(ckpt_path)}'
     return episode_name
 
 
