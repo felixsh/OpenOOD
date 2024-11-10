@@ -16,7 +16,7 @@ def load_network(benchmark_name, ckpt_path):
     elif benchmark_name == 'imagenet':
         net = ResNet50(num_classes=1000)
 
-    net.load_state_dict(load(ckpt_path, weights_only=True))
+    net.load_state_dict(load(ckpt_path, weights_only=True, map_location='cuda:0'))
     net.cuda()
     net.eval()
 
