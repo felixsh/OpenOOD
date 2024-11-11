@@ -2,7 +2,7 @@ from collections import defaultdict
 import json
 
 import matplotlib.pyplot as plt
-from natsort import natsorted, realsorted
+from natsort import natsorted
 import numpy as np
 from omegaconf import OmegaConf
 import pandas as pd
@@ -154,6 +154,7 @@ def plot_nc(benchmark_name,
             nc_df = store.get('nc')
             for name, value in nc_df.items():
                 nc[name].append(value)
+    epoch = np.array(epoch)
     
     def plot_line(ax, x, y, label, marker, color=None):
         if color is None:
@@ -165,71 +166,80 @@ def plot_nc(benchmark_name,
     with open(json_dir / 'data.json', 'r') as f:
         data = json.load(f)
 
-    acc_train_values = data['metrics']['Accuracy']['train']['values']
-    acc_train_epochs = data['metrics']['Accuracy']['train']['epochs']
-    acc_val_values = data['metrics']['Accuracy']['val']['values']
-    acc_val_epochs = data['metrics']['Accuracy']['val']['epochs']
+    acc_train_values = np.array(data['metrics']['Accuracy']['train']['values'])
+    acc_train_epochs = np.array(data['metrics']['Accuracy']['train']['epochs'])
+    acc_val_values = np.array(data['metrics']['Accuracy']['val']['values'])
+    acc_val_epochs = np.array(data['metrics']['Accuracy']['val']['epochs'])
+    acc_train = acc_train_values[np.isin(acc_train_epochs, epoch)]
 
-    fig, axes = plt.subplots(2, 2, figsize=(10, 8))
+    def plot_nc_(x, x_label):
+        fig, axes = plt.subplots(2, 2, figsize=(10, 8))
 
-    # Subplot 00
-    plot_line(axes[0, 0], epoch, nc['nc1_weak_between'], 'nc1_weak_between', markers[1])
-    plot_line(axes[0, 0], epoch, nc['nc1_weak_within'], 'nc1_weak_within', markers[2])
-    plot_line(axes[0, 0], epoch, nc['nc1_cdnv'], 'nc1_cdnv', markers[3])
-    ax001 = axes[0, 0].twinx()
-    plot_line(ax001, epoch, nc['nc1_strong'], 'nc1_strong', markers[0], color=colors[3])
-    ax001.set_ylabel('strong')
-    axes[0, 0].set_ylabel('other')
-    # Subplot 01
-    plot_line(axes[0, 1], epoch, nc['nc2_equinormness'], 'nc2_equinormness', markers[0])
-    plot_line(axes[0, 1], epoch, nc['nc2_equiangularity'], 'nc2_equiangularity', markers[1])
-    plot_line(axes[0, 1], epoch, nc['gnc2_hyperspherical_uniformity'], 'gnc2_hyperspherical_uniformity', markers[2])
-    # Subplot 10
-    plot_line(axes[1, 0], epoch, nc['nc3_self_duality'], 'nc3_self_duality', markers[0])
-    ax011 = axes[1, 0].twinx()
-    plot_line(ax011, epoch, nc['unc3_uniform_duality'], 'unc3_uniform_duality', markers[1], color=colors[1])
-    ax011.set_ylabel('unc3')
-    axes[1, 0].set_ylabel('nc3')
-    # Subplot 11
-    plot_line(axes[1, 1], epoch, nc['nc4_classifier_agreement'], 'nc4_classifier_agreement', markers[0])
-    ax111 = axes[1, 1].twinx()
-    plot_line(ax111, acc_train_epochs, acc_train_values, 'acc train', 'None', color=colors[1])
-    plot_line(ax111, acc_val_epochs, acc_val_values, 'acc val', 'None', color=colors[2])
-    ax111.set_ylabel('accuracy')
-    axes[1, 1].set_ylabel('agreement')
+        # Subplot 00
+        plot_line(axes[0, 0], x, nc['nc1_weak_between'], 'nc1_weak_between', markers[1])
+        plot_line(axes[0, 0], x, nc['nc1_weak_within'], 'nc1_weak_within', markers[2])
+        plot_line(axes[0, 0], x, nc['nc1_cdnv'], 'nc1_cdnv', markers[3])
+        ax001 = axes[0, 0].twinx()
+        plot_line(ax001, x, nc['nc1_strong'], 'nc1_strong', markers[0], color=colors[3])
+        ax001.set_ylabel('strong')
+        axes[0, 0].set_ylabel('other')
+        # Subplot 01
+        plot_line(axes[0, 1], x, nc['nc2_equinormness'], 'nc2_equinormness', markers[0])
+        plot_line(axes[0, 1], x, nc['nc2_equiangularity'], 'nc2_equiangularity', markers[1])
+        plot_line(axes[0, 1], x, nc['gnc2_hyperspherical_uniformity'], 'gnc2_hyperspherical_uniformity', markers[2])
+        # Subplot 10
+        plot_line(axes[1, 0], x, nc['nc3_self_duality'], 'nc3_self_duality', markers[0])
+        ax011 = axes[1, 0].twinx()
+        plot_line(ax011, x, nc['unc3_uniform_duality'], 'unc3_uniform_duality', markers[1], color=colors[1])
+        ax011.set_ylabel('unc3')
+        axes[1, 0].set_ylabel('nc3')
+        # Subplot 11
+        plot_line(axes[1, 1], x, nc['nc4_classifier_agreement'], 'nc4_classifier_agreement', markers[0])
+        ax111 = axes[1, 1].twinx()
+        if x_label == 'epoch':
+            plot_line(ax111, acc_train_epochs, acc_train_values, 'acc train', 'None', color=colors[1])
+            plot_line(ax111, acc_val_epochs, acc_val_values, 'acc val', 'None', color=colors[2])
+            ax111.set_ylabel('accuracy')
+        axes[1, 1].set_ylabel('agreement')
 
-    # Legend subplot 00
-    lines000, labels000 = axes[0, 0].get_legend_handles_labels()
-    lines001, labels001 = ax001.get_legend_handles_labels()
-    ax001.legend(lines000 + lines001, labels000 + labels001)
-    # Legend subplot 01
-    axes[0, 1].legend()
-    # Legend subplot 10
-    lines100, labels100 = axes[1, 0].get_legend_handles_labels()
-    lines101, labels101 = ax011.get_legend_handles_labels()
-    ax011.legend(lines100 + lines101, labels100 + labels101)
-    # Legend subplot 11
-    lines110, labels110 = axes[1, 1].get_legend_handles_labels()
-    lines111, labels111 = ax111.get_legend_handles_labels()
-    ax111.legend(lines110 + lines111, labels110 + labels111)
+        # Legend subplot 00
+        lines000, labels000 = axes[0, 0].get_legend_handles_labels()
+        lines001, labels001 = ax001.get_legend_handles_labels()
+        ax001.legend(lines000 + lines001, labels000 + labels001)
+        # Legend subplot 01
+        axes[0, 1].legend()
+        # Legend subplot 10
+        lines100, labels100 = axes[1, 0].get_legend_handles_labels()
+        lines101, labels101 = ax011.get_legend_handles_labels()
+        ax011.legend(lines100 + lines101, labels100 + labels101)
+        # Legend subplot 11
+        if x_label == 'epoch':
+            lines110, labels110 = axes[1, 1].get_legend_handles_labels()
+            lines111, labels111 = ax111.get_legend_handles_labels()
+            ax111.legend(lines110 + lines111, labels110 + labels111)
+        else:
+            axes[1, 1].legend()
 
-    axes[0, 0].set_title('NC1')
-    axes[0, 1].set_title('NC2')
-    axes[1, 0].set_title('NC3')
-    axes[1, 1].set_title('NC4')
-    
-    axes[0, 0].set_xlabel('epoch')
-    axes[0, 1].set_xlabel('epoch')
-    axes[1, 0].set_xlabel('epoch')
-    axes[1, 1].set_xlabel('epoch')
+        axes[0, 0].set_title('NC1')
+        axes[0, 1].set_title('NC2')
+        axes[1, 0].set_title('NC3')
+        axes[1, 1].set_title('NC4')
 
-    plt.tight_layout()
+        axes[0, 0].set_xlabel(x_label)
+        axes[0, 1].set_xlabel(x_label)
+        axes[1, 0].set_xlabel(x_label)
+        axes[1, 1].set_xlabel(x_label)
 
-    save_path = path.res_plots / benchmark_name / run_id
-    save_path.mkdir(exist_ok=True, parents=True)
-    filename = 'nc_all.png'
-    plt.savefig(save_path / filename)
-    plt.close()
+        plt.tight_layout()
+
+        save_path = path.res_plots / benchmark_name / run_id
+        save_path.mkdir(exist_ok=True, parents=True)
+        filename = f'nc_{x_label}.png'
+        plt.savefig(save_path / filename)
+        plt.close()
+
+    plot_nc_(epoch, 'epoch')
+    plot_nc_(acc_train, 'acc_train')
 
 
 def plot_ood(benchmark_name,
