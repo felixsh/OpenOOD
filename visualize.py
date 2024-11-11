@@ -83,6 +83,62 @@ def plot_nc_ood(benchmark_name,
     plt.close()
 
 
+def plot_acc_ood(benchmark_name,
+                 run_id,
+                 acc_split='val',  # train or val
+                 ood_metric='AUROC'):
+
+    main_dir = path.res_data / benchmark_name / run_id
+    ckpt_dirs = natsorted(list(main_dir.glob('e*')), key=str)
+
+    acc = []
+    epoch = []
+    near_ood = defaultdict(list)
+    far_ood = defaultdict(list)
+
+    for ckpt_dir in ckpt_dirs:
+        with pd.HDFStore(ckpt_dir / 'metrics.h5') as store:
+            epoch.append(int(ckpt_dir.name[1:]))
+
+            ood_keys = list(store.keys())
+            ood_keys.remove('/nc')
+            for k in ood_keys:
+                ood_df = store.get(k)
+                near_ood[k].append(ood_df.at['nearood', ood_metric])
+                far_ood[k].append(ood_df.at['farood', ood_metric])
+
+    epoch = np.array(epoch)
+
+    json_dir = path.ckpt_root / benchmark_name / run_id
+    with open(json_dir / 'data.json', 'r') as f:
+        data = json.load(f)
+
+    acc_values = np.array(data['metrics']['Accuracy'][acc_split]['values'])
+    acc_epochs = np.array(data['metrics']['Accuracy'][acc_split]['epochs'])
+    acc = acc_values[np.isin(acc_epochs, epoch)]
+    
+    for ood_key in near_ood.keys():
+        plt.plot(acc, near_ood[ood_key], '-', alpha=0.3, color=colors[0])
+        plt.plot(acc, far_ood[ood_key], '-', alpha=0.3, color=colors[1])
+        plt.plot(acc, near_ood[ood_key], 'o', color=colors[0], label='nearood')
+        plt.plot(acc, far_ood[ood_key], 'o', color=colors[1], label='farood')
+
+    plt.title(f'{benchmark_name} {run_id}')
+    plt.xlabel(f'acc {acc_split}')
+    plt.ylabel(ood_metric)
+    
+    # https://stackoverflow.com/a/13589144
+    handles, labels = plt.gca().get_legend_handles_labels()
+    by_label = dict(zip(labels, handles))
+    plt.legend(by_label.values(), by_label.keys())
+
+    save_path = path.res_plots / benchmark_name / run_id
+    save_path.mkdir(exist_ok=True, parents=True)
+    filename = f'acc_{acc_split}_{ood_metric}.png'
+    plt.savefig(save_path / filename, bbox_inches='tight')
+    plt.close()
+
+
 def plot_nc(benchmark_name,
             run_id):
 
@@ -277,6 +333,8 @@ def plot_ood_combined(benchmark_name,
 
 def plot_all(benchmark_name, run_id):
     plot_nc_ood(benchmark_name, run_id)
+    plot_acc_ood(benchmark_name, run_id, acc_split='val')
+    plot_acc_ood(benchmark_name, run_id, acc_split='train')
     plot_nc(benchmark_name, run_id)
     plot_ood(benchmark_name, run_id)
     plot_ood_combined(benchmark_name, run_id)
