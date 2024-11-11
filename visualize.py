@@ -205,10 +205,65 @@ def plot_ood(benchmark_name,
         plt.close()
 
 
+
+def plot_ood_combined(benchmark_name,
+                      run_id,
+                      ood_metric='AUROC'):
+    
+    nc_ood_methods = ['nusa', 'vim', 'ncscore', 'neco', 'epa']
+
+    main_dir = path.res_data / benchmark_name / run_id
+    ckpt_dirs = natsorted(list(main_dir.glob('e*')))
+
+    epoch = []
+    near_ood = defaultdict(list)
+    far_ood = defaultdict(list)
+
+    for ckpt_dir in ckpt_dirs:
+        with pd.HDFStore(ckpt_dir / 'metrics.h5') as store:
+            epoch.append(int(ckpt_dir.name[1:]))
+            ood_keys = list(store.keys())
+            ood_keys.remove('/nc')
+            for k in ood_keys:
+                ood_df = store.get(k)
+                key = k[1:]
+                near_ood[key].append(ood_df.at['nearood', ood_metric])
+                far_ood[key].append(ood_df.at['farood', ood_metric])
+
+    for k in near_ood.keys():
+        color = colors[1] if k in nc_ood_methods else colors[0]
+        label = 'nc method' if k in nc_ood_methods else 'baseline method'
+        plt.plot(near_ood[k], far_ood[k], '-', color=color, alpha=0.3)
+        plt.plot(near_ood[k], far_ood[k], 'o', color=color, label=label)
+
+    ax = plt.gca()
+    x0 = ax.get_xlim()[0]
+    y0 = ax.get_ylim()[0]
+    ax.axline((x0, y0), slope=1, ls='--', color='k', alpha=0.5, zorder=1)
+
+    plt.title(f'{benchmark_name} {run_id} {ckpt_dir.name} {ood_metric}')
+    plt.xlabel('nearood')
+    plt.ylabel('farood')
+        
+    # https://stackoverflow.com/a/13589144
+    handles, labels = plt.gca().get_legend_handles_labels()
+    by_label = dict(zip(labels, handles))
+    plt.legend(by_label.values(), by_label.keys())
+
+    ax.set_aspect('equal')
+
+    save_path = path.res_plots / benchmark_name / run_id
+    save_path.mkdir(exist_ok=True, parents=True)
+    filename = f'{ood_metric}_near_far.png'
+    plt.savefig(save_path / filename, bbox_inches='tight')
+    plt.close()
+
+
 def plot_all(benchmark_name, run_id):
     plot_nc_ood(benchmark_name, run_id)
     plot_nc(benchmark_name, run_id)
     plot_ood(benchmark_name, run_id)
+    plot_ood_combined(benchmark_name, run_id)
 
 
 if __name__ == '__main__':
