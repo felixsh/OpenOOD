@@ -2,6 +2,7 @@ import json
 
 from omegaconf import OmegaConf
 from pandas import HDFStore
+import torch.multiprocessing as mp
 
 from eval_nc import eval_nc
 from eval_ood import eval_ood
@@ -161,6 +162,10 @@ def eval_benchmark(benchmark_name, run_id):
 
 
 if __name__ == '__main__':
+    # https://stackoverflow.com/q/64654838
+    # mp.set_start_method('spawn', force=True)
+    mp.set_start_method('fork', force=True)
+
     # main_cfg = OmegaConf.load('cfg/main.yaml')
     cfg = OmegaConf.from_cli()
     # cfg = OmegaConf.merge(main_cfg, cli_cfg)
