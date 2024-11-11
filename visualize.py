@@ -2,6 +2,7 @@ from collections import defaultdict
 import re
 
 import matplotlib.pyplot as plt
+from natsort import natsorted, realsorted
 import numpy as np
 from omegaconf import OmegaConf
 import pandas as pd
@@ -37,7 +38,7 @@ def plot_nc_ood(benchmark_name,
                 ood_metric='AUROC'):
 
     main_dir = path.res_data / benchmark_name / run_id
-    ckpt_dirs = sorted(list(main_dir.glob('e*')))
+    ckpt_dirs = natsorted(list(main_dir.glob('e*')), key=str)
 
     nc = []
     epoch = []
@@ -46,7 +47,7 @@ def plot_nc_ood(benchmark_name,
 
     for ckpt_dir in ckpt_dirs:
         with pd.HDFStore(ckpt_dir / 'metrics.h5') as store:
-            epoch.append(int(re.search(r'e(\d+)$', ckpt_dir.name).group(1)))
+            epoch.append(int(ckpt_dir.name[1:]))
             nc_df = store.get('nc')
             nc.append(nc_df.iloc[0][nc_metric])
 
@@ -85,41 +86,59 @@ def plot_nc(benchmark_name,
             run_id):
 
     main_dir = path.res_data / benchmark_name / run_id
-    ckpt_dirs = sorted(list(main_dir.glob('e*')))
+    ckpt_dirs = natsorted(list(main_dir.glob('e*')), key=str)
 
     epoch = []
     nc = defaultdict(list)
 
     for ckpt_dir in ckpt_dirs:
         with pd.HDFStore(ckpt_dir / 'metrics.h5') as store:
-            epoch.append(int(re.search(r'e(\d+)$', ckpt_dir.name).group(1)))
+            epoch.append(int(ckpt_dir.name[1:]))
             nc_df = store.get('nc')
             for name, value in nc_df.items():
                 nc[name].append(value)
     
-    def plot_line(ax, values, label, marker):
-        ax.plot(values, label=label, marker=marker, markersize=5)
+    def plot_line(ax, x, y, label, marker, color=None):
+        if color is None:
+            ax.plot(x, y, label=label, marker=marker, markersize=5)
+        else:
+            ax.plot(x, y, label=label, marker=marker, markersize=5, color=color)
     
 
     fig, axes = plt.subplots(2, 2, figsize=(10, 8))
 
-    plot_line(axes[0, 0], nc['nc1_strong'], 'nc1_strong', markers[0])
-    plot_line(axes[0, 0], nc['nc1_weak_between'], 'nc1_weak_between', markers[1])
-    plot_line(axes[0, 0], nc['nc1_weak_within'], 'nc1_weak_within', markers[2])
-    plot_line(axes[0, 0], nc['nc1_cdnv'], 'nc1_cdnv', markers[3])
+    # Subplot 00
+    plot_line(axes[0, 0], epoch, nc['nc1_weak_between'], 'nc1_weak_between', markers[1])
+    plot_line(axes[0, 0], epoch, nc['nc1_weak_within'], 'nc1_weak_within', markers[2])
+    plot_line(axes[0, 0], epoch, nc['nc1_cdnv'], 'nc1_cdnv', markers[3])
+    ax001 = axes[0, 0].twinx()
+    plot_line(ax001, epoch, nc['nc1_strong'], 'nc1_strong', markers[0], color=colors[3])
+    ax001.set_ylabel('strong')
+    axes[0, 0].set_ylabel('other')
+    # Subplot 01
+    plot_line(axes[0, 1], epoch, nc['nc2_equinormness'], 'nc2_equinormness', markers[0])
+    plot_line(axes[0, 1], epoch, nc['nc2_equiangularity'], 'nc2_equiangularity', markers[1])
+    plot_line(axes[0, 1], epoch, nc['gnc2_hyperspherical_uniformity'], 'gnc2_hyperspherical_uniformity', markers[2])
+    # Subplot 10
+    plot_line(axes[1, 0], epoch, nc['nc3_self_duality'], 'nc3_self_duality', markers[0])
+    ax011 = axes[1, 0].twinx()
+    plot_line(ax011, epoch, nc['unc3_uniform_duality'], 'unc3_uniform_duality', markers[1], color=colors[1])
+    ax011.set_ylabel('unc3')
+    axes[1, 0].set_ylabel('nc3')
+    # Subplot 11
+    plot_line(axes[1, 1], epoch, nc['nc4_classifier_agreement'], 'nc4_classifier_agreement', markers[0])
 
-    plot_line(axes[0, 1], nc['nc2_equinormness'], 'nc2_equinormness', markers[0])
-    plot_line(axes[0, 1], nc['nc2_equiangularity'], 'nc2_equiangularity', markers[1])
-    plot_line(axes[0, 1], nc['gnc2_hyperspherical_uniformity'], 'gnc2_hyperspherical_uniformity', markers[2])
-
-    plot_line(axes[1, 0], nc['nc3_self_duality'], 'nc3_self_duality', markers[0])
-    plot_line(axes[1, 0], nc['unc3_uniform_duality'], 'unc3_uniform_duality', markers[1])
-
-    plot_line(axes[1, 1], nc['nc4_classifier_agreement'], 'nc4_classifier_agreement', markers[0])
-        
-    axes[0, 0].legend()
+    # Legend subplot 00
+    lines000, labels000 = axes[0, 0].get_legend_handles_labels()
+    lines001, labels001 = ax001.get_legend_handles_labels()
+    ax001.legend(lines000 + lines001, labels000 + labels001)
+    # Legend subplot 01
     axes[0, 1].legend()
-    axes[1, 0].legend()
+    # Legend subplot 10
+    lines100, labels100 = axes[1, 0].get_legend_handles_labels()
+    lines101, labels101 = ax011.get_legend_handles_labels()
+    ax011.legend(lines100 + lines101, labels100 + labels101)
+    # Legend subplot 11
     axes[1, 1].legend()
 
     axes[0, 0].set_title('NC1')
@@ -148,7 +167,7 @@ def plot_ood(benchmark_name,
     nc_ood_methods = ['nusa', 'vim', 'ncscore', 'neco', 'epa']
 
     main_dir = path.res_data / benchmark_name / run_id
-    ckpt_dirs = sorted(list(main_dir.glob('e*')))
+    ckpt_dirs = natsorted(list(main_dir.glob('e*')))
 
     for ckpt_dir in ckpt_dirs:
         with pd.HDFStore(ckpt_dir / 'metrics.h5') as store:
