@@ -68,7 +68,7 @@ def save_scores(score_dict, save_dir, filename):
 
 def filter_ckpts(ckpt_list, filter_list=[1, 2, 5, 10, 20, 50, 100, 200, 500]):
     """Only use ckpts from epochs defined in filter list, plus final epoch"""
-    filter_list = [f-1 for f in filter_list]  # Shifted indices
+    # filter_list = [f-1 for f in filter_list]  # Shifted indices
     ckpt_list = sorted(ckpt_list)
     ckpts_filtered = [p for p in ckpt_list if get_epoch_number(p) in filter_list]
     ckpts_filtered.append(ckpt_list[-1])

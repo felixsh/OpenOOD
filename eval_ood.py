@@ -18,7 +18,7 @@ def eval_ood(benchmark_name, ckpt_path, postprocessor_name):
         postprocessor=None,                    # if you want to use your own postprocessor
         batch_size=batch_size,                 # for certain methods the results can be slightly affected by batch size
         shuffle=False,
-        num_workers=0)                         # could use more num_workers outside colab
+        num_workers=6)                         # could use more num_workers outside colab
 
     metrics, scores  = evaluator.eval_ood(fsood=False)
 
