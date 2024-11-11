@@ -38,7 +38,7 @@ def get_batch_size(benchmark_name):
 
 def get_epoch_number(ckpt_path):
     """Return episode in format '100' """
-    episode_number = int(re.search(r"_e(\d+)", str(ckpt_path)).group(1))
+    episode_number = int(re.search(r"_e(\d+)", str(ckpt_path.name)).group(1))
     return episode_number
 
 
