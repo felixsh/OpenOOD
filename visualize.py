@@ -1,5 +1,5 @@
 from collections import defaultdict
-import re
+import json
 
 import matplotlib.pyplot as plt
 from natsort import natsorted, realsorted
@@ -8,6 +8,7 @@ from omegaconf import OmegaConf
 import pandas as pd
 
 import path
+from summarize_json import summarize_json
 
 
 prop_cycle = plt.rcParams['axes.prop_cycle']
@@ -91,9 +92,9 @@ def plot_nc(benchmark_name,
     epoch = []
     nc = defaultdict(list)
 
-    for ckpt_dir in ckpt_dirs:
-        with pd.HDFStore(ckpt_dir / 'metrics.h5') as store:
-            epoch.append(int(ckpt_dir.name[1:]))
+    for json_dir in ckpt_dirs:
+        with pd.HDFStore(json_dir / 'metrics.h5') as store:
+            epoch.append(int(json_dir.name[1:]))
             nc_df = store.get('nc')
             for name, value in nc_df.items():
                 nc[name].append(value)
@@ -103,7 +104,15 @@ def plot_nc(benchmark_name,
             ax.plot(x, y, label=label, marker=marker, markersize=5)
         else:
             ax.plot(x, y, label=label, marker=marker, markersize=5, color=color)
-    
+
+    json_dir = path.ckpt_root / benchmark_name / run_id
+    with open(json_dir / 'data.json', 'r') as f:
+        data = json.load(f)
+
+    acc_train_values = data['metrics']['Accuracy']['train']['values']
+    acc_train_epochs = data['metrics']['Accuracy']['train']['epochs']
+    acc_val_values = data['metrics']['Accuracy']['val']['values']
+    acc_val_epochs = data['metrics']['Accuracy']['val']['epochs']
 
     fig, axes = plt.subplots(2, 2, figsize=(10, 8))
 
@@ -127,6 +136,11 @@ def plot_nc(benchmark_name,
     axes[1, 0].set_ylabel('nc3')
     # Subplot 11
     plot_line(axes[1, 1], epoch, nc['nc4_classifier_agreement'], 'nc4_classifier_agreement', markers[0])
+    ax111 = axes[1, 1].twinx()
+    plot_line(ax111, acc_train_epochs, acc_train_values, 'acc train', 'None', color=colors[1])
+    plot_line(ax111, acc_val_epochs, acc_val_values, 'acc val', 'None', color=colors[2])
+    ax111.set_ylabel('accuracy')
+    axes[1, 1].set_ylabel('agreement')
 
     # Legend subplot 00
     lines000, labels000 = axes[0, 0].get_legend_handles_labels()
@@ -139,7 +153,9 @@ def plot_nc(benchmark_name,
     lines101, labels101 = ax011.get_legend_handles_labels()
     ax011.legend(lines100 + lines101, labels100 + labels101)
     # Legend subplot 11
-    axes[1, 1].legend()
+    lines110, labels110 = axes[1, 1].get_legend_handles_labels()
+    lines111, labels111 = ax111.get_legend_handles_labels()
+    ax111.legend(lines110 + lines111, labels110 + labels111)
 
     axes[0, 0].set_title('NC1')
     axes[0, 1].set_title('NC2')
