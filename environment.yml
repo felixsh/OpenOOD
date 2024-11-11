@@ -25,6 +25,7 @@ dependencies:
   - conda-forge::wandb
   - conda-forge::omegaconf
   - statsmodels
+  - natsort
   - pip
   - pip:
     - libmr
