@@ -6,9 +6,9 @@ from natsort import natsorted
 import numpy as np
 from omegaconf import OmegaConf
 import pandas as pd
+from statsmodels.nonparametric.kernel_density import KDEMultivariate
 
 import path
-from summarize_json import summarize_json
 
 
 prop_cycle = plt.rcParams['axes.prop_cycle']
@@ -31,6 +31,142 @@ markers = [
     '|',  # Vertical line
     '_',  # Horizontal line
 ]
+
+
+def get_acc(benchmark_name, run_id, split='train', filter_epochs=None):
+    json_dir = path.ckpt_root / benchmark_name / run_id
+    with open(json_dir / 'data.json', 'r') as f:
+        data = json.load(f)
+
+    acc_values = np.array(data['metrics']['Accuracy'][split]['values'])
+    acc_epochs = np.array(data['metrics']['Accuracy'][split]['epochs']) + 1
+
+    if run_id in ['run0', 'run1']:
+        acc_epochs -= 1
+
+    if filter_epochs is not None:
+        filter_epochs = np.array(filter_epochs)
+        return acc_values[np.isin(acc_epochs, filter_epochs)], filter_epochs
+    else:
+        return acc_values, acc_epochs
+
+
+def get_acc_nc_ood(benchmark_name,
+                   acc_split='train',
+                   nc_metric='nc1_cdnv',
+                   ood_metric='AUROC'):
+
+    benchmark_dir = path.res_data / benchmark_name
+    data = []
+
+    for run_dir in benchmark_dir.glob('run*'):
+        ckpt_dirs = natsorted(list(run_dir.glob('e*')), key=str)
+        acc_val, acc_epoch = get_acc(benchmark_name, run_dir.name, acc_split)
+
+        for ckpt_dir in ckpt_dirs:
+            with pd.HDFStore(ckpt_dir / 'metrics.h5') as store:
+                nc_df = store.get('nc')
+                nc = nc_df.iloc[0][nc_metric]
+
+                epoch = int(ckpt_dir.name[1:])
+                try:
+                    acc = acc_val[acc_epoch == epoch][0]
+                except IndexError as e:
+                    print(epoch)
+                    print(acc_epoch)
+                    raise e
+
+                ood_keys = list(store.keys())
+                ood_keys.remove('/nc')
+                near_ood = []
+                far_ood = []
+                for k in ood_keys:
+                    ood_df = store.get(k)
+                    near_ood.append(ood_df.at['nearood', ood_metric])
+                    far_ood.append(ood_df.at['farood', ood_metric])
+
+                near_ood = np.mean(np.array(near_ood))
+                far_ood = np.mean(np.array(far_ood))
+
+                data.append([acc, nc, near_ood, far_ood])
+
+    return np.array(data)
+
+
+def plot_acc_nc_ood(benchmark_name,
+                   acc_split='train',
+                   nc_metric='nc1_cdnv',
+                   ood_metric='AUROC'):
+
+    data = get_acc_nc_ood(benchmark_name,
+                          acc_split=acc_split,
+                          nc_metric=nc_metric,
+                          ood_metric=ood_metric)
+
+    labels = ['acc', 'nc', 'nearood', 'farood']
+
+    def plot_cut(x, y, z, resolution=100, cuts=3):
+        kde = KDEMultivariate(data[:, [x, y, z]], 'ccc')
+
+        x_lin = np.linspace(data[:, x].min(), data[:, x].max(), resolution)
+        y_lin = np.linspace(data[:, y].min(), data[:, y].max(), resolution)
+        z_lin = np.linspace(data[:, z].min(), data[:, z].max(), cuts**2)
+
+        X, Y = np.meshgrid(x_lin, y_lin)
+        ones = np.ones_like(X)
+
+        res = []
+        for z_ in z_lin:
+            Z = z_ * ones
+            points = np.column_stack((X.ravel(), Y.ravel(), Z.ravel()))
+            pdf = kde.pdf(points).reshape(X.shape)
+            res.append(pdf)
+
+        fig, axes = plt.subplots(cuts, cuts, figsize=(10, 10))
+
+        for ax, pdf in zip(axes.ravel(), res):
+            ax.contourf(X, Y, pdf)
+            ax.axis('off')
+
+        plt.tight_layout()
+        fig.suptitle(f'{labels[z]}  {labels[x]}-{labels[y]}')
+        
+        save_path = path.res_plots / benchmark_name
+        save_path.mkdir(exist_ok=True, parents=True)
+        filename = f'acc_{acc_split}_{nc_metric}_{ood_metric}_{labels[z]}.png'
+        plt.savefig(save_path / filename, bbox_inches='tight')
+        plt.close()
+
+    plot_cut(0, 1, 2)
+    plot_cut(0, 1, 3)
+
+    def plot_corr(z, label):
+        acc = data[:, 0]
+        nc = data[:, 1]
+        ood = data[:, z]
+
+        fig, axes = plt.subplots(3, 1, figsize=(5, 15))
+
+        axes[0].plot(acc, nc, 'o')
+        axes[0].set_xlabel(f'acc {acc_split}')
+        axes[0].set_ylabel(nc_metric)
+
+        axes[1].plot(acc, ood, 'o')
+        axes[1].set_xlabel(f'acc {acc_split}')
+        axes[1].set_ylabel(f'{ood_metric} {label}')
+
+        axes[2].plot(nc, ood, 'o')
+        axes[2].set_xlabel(nc_metric)
+        axes[2].set_ylabel(f'{ood_metric} {label}')
+
+        save_path = path.res_plots / benchmark_name
+        save_path.mkdir(exist_ok=True, parents=True)
+        filename = f'corr_{label}.png'
+        plt.savefig(save_path / filename, bbox_inches='tight')
+        plt.close()
+
+    plot_corr(2, 'nearood')
+    plot_corr(3, 'farood')
 
 
 def plot_nc_ood(benchmark_name,
@@ -107,15 +243,7 @@ def plot_acc_ood(benchmark_name,
                 near_ood[k].append(ood_df.at['nearood', ood_metric])
                 far_ood[k].append(ood_df.at['farood', ood_metric])
 
-    epoch = np.array(epoch)
-
-    json_dir = path.ckpt_root / benchmark_name / run_id
-    with open(json_dir / 'data.json', 'r') as f:
-        data = json.load(f)
-
-    acc_values = np.array(data['metrics']['Accuracy'][acc_split]['values'])
-    acc_epochs = np.array(data['metrics']['Accuracy'][acc_split]['epochs'])
-    acc = acc_values[np.isin(acc_epochs, epoch)]
+    acc, epoch = get_acc(benchmark_name, run_id, split=acc_split, filter_epochs=epoch)
     
     for ood_key in near_ood.keys():
         plt.plot(acc, near_ood[ood_key], '-', alpha=0.3, color=colors[0])
@@ -162,15 +290,9 @@ def plot_nc(benchmark_name,
         else:
             ax.plot(x, y, label=label, marker=marker, markersize=5, color=color)
 
-    json_dir = path.ckpt_root / benchmark_name / run_id
-    with open(json_dir / 'data.json', 'r') as f:
-        data = json.load(f)
-
-    acc_train_values = np.array(data['metrics']['Accuracy']['train']['values'])
-    acc_train_epochs = np.array(data['metrics']['Accuracy']['train']['epochs'])
-    acc_val_values = np.array(data['metrics']['Accuracy']['val']['values'])
-    acc_val_epochs = np.array(data['metrics']['Accuracy']['val']['epochs'])
-    acc_train = acc_train_values[np.isin(acc_train_epochs, epoch)]
+    acc_train_values_all, acc_train_epochs_all = get_acc(benchmark_name, run_id, split='train')
+    acc_val_values_all, acc_val_epochs_all = get_acc(benchmark_name, run_id, split='val')
+    acc_train_values_filtered, _ = get_acc(benchmark_name, run_id, split='train', filter_epochs=epoch)
 
     def plot_nc_(x, x_label):
         fig, axes = plt.subplots(2, 2, figsize=(10, 8))
@@ -197,8 +319,8 @@ def plot_nc(benchmark_name,
         plot_line(axes[1, 1], x, nc['nc4_classifier_agreement'], 'nc4_classifier_agreement', markers[0])
         ax111 = axes[1, 1].twinx()
         if x_label == 'epoch':
-            plot_line(ax111, acc_train_epochs, acc_train_values, 'acc train', 'None', color=colors[1])
-            plot_line(ax111, acc_val_epochs, acc_val_values, 'acc val', 'None', color=colors[2])
+            plot_line(ax111, acc_train_epochs_all, acc_train_values_all, 'acc train', 'None', color=colors[1])
+            plot_line(ax111, acc_val_epochs_all, acc_val_values_all, 'acc val', 'None', color=colors[2])
             ax111.set_ylabel('accuracy')
         axes[1, 1].set_ylabel('agreement')
 
@@ -239,7 +361,7 @@ def plot_nc(benchmark_name,
         plt.close()
 
     plot_nc_(epoch, 'epoch')
-    plot_nc_(acc_train, 'acc_train')
+    plot_nc_(acc_train_values_filtered, 'acc_train')
 
 
 def plot_ood(benchmark_name,
@@ -348,6 +470,7 @@ def plot_all(benchmark_name, run_id):
     plot_nc(benchmark_name, run_id)
     plot_ood(benchmark_name, run_id)
     plot_ood_combined(benchmark_name, run_id)
+    plot_acc_nc_ood(benchmark_name)
 
 
 if __name__ == '__main__':
