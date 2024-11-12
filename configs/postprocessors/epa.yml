@@ -2,6 +2,6 @@ postprocessor:
   name: epa
   APS_mode: False
   postprocessor_args:
-    d: 20
+    d: 15
   postprocessor_sweep:
     d_list: [20]
