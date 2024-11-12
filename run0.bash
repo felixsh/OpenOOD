@@ -3,23 +3,10 @@
 trap 'pkill -P $$; exit' SIGINT SIGTERM
 
 BENCHMARK=imagenet200
+RUN=run1
 
-CUDA_VISIBLE_DEVICES=1 python main_ood.py benchmark=$BENCHMARK postprocessor=msp &
-CUDA_VISIBLE_DEVICES=2 python main_ood.py benchmark=$BENCHMARK postprocessor=mds &
-wait $(jobs -p)
-CUDA_VISIBLE_DEVICES=1 python main_ood.py benchmark=$BENCHMARK postprocessor=odin &
-CUDA_VISIBLE_DEVICES=2 python main_ood.py benchmark=$BENCHMARK postprocessor=knn &
-wait $(jobs -p)
+CUDA_VISIBLE_DEVICES=0 python eval_main.py benchmark=$BENCHMARK run=$RUN pps="[msp,mds,odin, react]" &
+CUDA_VISIBLE_DEVICES=1 python eval_main.py benchmark=$BENCHMARK run=$RUN pps="[dice,knn,vim,epa]" &
+CUDA_VISIBLE_DEVICES=2 python eval_main.py benchmark=$BENCHMARK run=$RUN pps="[neco,nusa,ncscore]" &
 
-CUDA_VISIBLE_DEVICES=1 python main_ood.py benchmark=$BENCHMARK postprocessor=react &
-CUDA_VISIBLE_DEVICES=2 python main_ood.py benchmark=$BENCHMARK postprocessor=dice &
-wait $(jobs -p)
-CUDA_VISIBLE_DEVICES=1 python main_ood.py benchmark=$BENCHMARK postprocessor=nusa &
-CUDA_VISIBLE_DEVICES=2 python main_ood.py benchmark=$BENCHMARK postprocessor=vim &
-wait $(jobs -p)
-
-CUDA_VISIBLE_DEVICES=1 python main_ood.py benchmark=$BENCHMARK postprocessor=ncscore &
-CUDA_VISIBLE_DEVICES=2 python main_ood.py benchmark=$BENCHMARK postprocessor=neco &
-wait $(jobs -p)
-CUDA_VISIBLE_DEVICES=1 python main_ood.py benchmark=$BENCHMARK postprocessor=epa &
 wait $(jobs -p)

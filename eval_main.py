@@ -6,6 +6,7 @@ import torch.multiprocessing as mp
 
 from eval_nc import eval_nc
 from eval_ood import eval_ood
+from natsort import natsorted
 import path
 from utils import get_epoch_number, get_epoch_name, convert_numpy_to_lists
 
@@ -70,10 +71,10 @@ def save_scores(score_dict, save_dir, filename):
 def filter_ckpts(ckpt_list, filter_list=[1, 2, 5, 10, 20, 50, 100, 200, 500]):
     """Only use ckpts from epochs defined in filter list, plus final epoch"""
     # filter_list = [f-1 for f in filter_list]  # Shifted indices
-    ckpt_list = sorted(ckpt_list)
+    ckpt_list = natsorted(ckpt_list, key=str)
     ckpts_filtered = [p for p in ckpt_list if get_epoch_number(p) in filter_list]
     ckpts_filtered.append(ckpt_list[-1])
-    ckpts_filtered = sorted(list(set(ckpts_filtered)))
+    ckpts_filtered = natsorted(list(set(ckpts_filtered)), key=str)
     return ckpts_filtered
 
 
@@ -145,20 +146,19 @@ def ood_best_ckpt(benchmark_name, postprocessor_name):
                 postprocessor_name)
 
 
-def eval_benchmark(benchmark_name, run_id):
+def eval_benchmark(benchmark_name, run_id, pps):
+    for postpro in postprocessors:
+        if run_id == 'best':
+            ood_best_ckpt(benchmark_name, postpro)
+        else:
+            ood_all_ckpt(benchmark_name, run_id, postpro)
+
+
+def evaluate_nc(benchmark_name, run_id):
     if run_id == 'best':
         nc_best_ckpt(benchmark_name)
     else:
         nc_all_ckpt(benchmark_name, run_id)
-
-    for postpro in postprocessors:
-        try:
-            if run_id == 'best':
-                ood_best_ckpt(benchmark_name, postpro)
-            else:
-                ood_all_ckpt(benchmark_name, run_id, postpro)
-        except Exception:
-            continue
 
 
 if __name__ == '__main__':
@@ -170,4 +170,7 @@ if __name__ == '__main__':
     cfg = OmegaConf.from_cli()
     # cfg = OmegaConf.merge(main_cfg, cli_cfg)
 
-    eval_benchmark(cfg.benchmark, cfg.run)
+    if 'pps' in cfg:
+        eval_benchmark(cfg.benchmark, cfg.run, cfg.pps)
+    else:
+        evaluate_nc(cfg.benchmark, cfg.run)

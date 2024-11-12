@@ -12,7 +12,7 @@ def load_network(benchmark_name, ckpt_path):
     elif benchmark_name == 'cifar100':
         net = ResNet18_32x32(num_classes=100)
     elif benchmark_name == 'imagenet200':
-        net = ResNet18_224x224(num_classes=200)
+        net = ResNet18_224x224(num_classes=1000)
     elif benchmark_name == 'imagenet':
         net = ResNet50(num_classes=1000)
 
@@ -30,7 +30,7 @@ def get_batch_size(benchmark_name):
     elif benchmark_name == 'cifar100':
         batch_size = 1024
     elif benchmark_name == 'imagenet200':
-        batch_size = 512
+        batch_size = 256
     elif benchmark_name == 'imagenet':
         batch_size = 512
     return batch_size

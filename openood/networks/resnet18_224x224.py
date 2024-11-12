@@ -10,6 +10,7 @@ class ResNet18_224x224(ResNet):
                                                layers=layers,
                                                num_classes=num_classes)
         self.feature_size = 512
+        self.limit_c = 200
 
     def forward(self, x, return_feature=False, return_feature_list=False):
         feature1 = self.relu(self.bn1(self.conv1(x)))
@@ -21,6 +22,7 @@ class ResNet18_224x224(ResNet):
         feature5 = self.avgpool(feature5)
         feature = feature5.view(feature5.size(0), -1)
         logits_cls = self.fc(feature)
+        logits_cls = logits_cls[:, :self.limit_c]
 
         feature_list = [feature1, feature2, feature3, feature4, feature5]
         if return_feature:
@@ -41,6 +43,7 @@ class ResNet18_224x224(ResNet):
         feature = feature5.clip(max=threshold)
         feature = feature.view(feature.size(0), -1)
         logits_cls = self.fc(feature)
+        logits_cls = logits_cls[:, :self.limit_c]
 
         return logits_cls
 
@@ -68,7 +71,9 @@ class ResNet18_224x224(ResNet):
 
     def get_fc(self):
         fc = self.fc
-        return fc.weight.cpu().detach().numpy(), fc.bias.cpu().detach().numpy()
+        w = fc.weight.cpu().detach().numpy()
+        b = fc.bias.cpu().detach().numpy()
+        return w[:self.limit_c, :], b[:self.limit_c] 
 
     def get_fc_layer(self):
         return self.fc
