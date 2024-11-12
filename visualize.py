@@ -58,10 +58,12 @@ def get_acc_nc_ood(benchmark_name,
 
     benchmark_dir = path.res_data / benchmark_name
     data = []
+    run_ids = []
 
     for run_dir in benchmark_dir.glob('run*'):
         ckpt_dirs = natsorted(list(run_dir.glob('e*')), key=str)
         acc_val, acc_epoch = get_acc(benchmark_name, run_dir.name, acc_split)
+        run_number = int(run_dir.name[3:])
 
         for ckpt_dir in ckpt_dirs:
             with pd.HDFStore(ckpt_dir / 'metrics.h5') as store:
@@ -69,12 +71,7 @@ def get_acc_nc_ood(benchmark_name,
                 nc = nc_df.iloc[0][nc_metric]
 
                 epoch = int(ckpt_dir.name[1:])
-                try:
-                    acc = acc_val[acc_epoch == epoch][0]
-                except IndexError as e:
-                    print(epoch)
-                    print(acc_epoch)
-                    raise e
+                acc = acc_val[acc_epoch == epoch][0]
 
                 ood_keys = list(store.keys())
                 ood_keys.remove('/nc')
@@ -89,19 +86,20 @@ def get_acc_nc_ood(benchmark_name,
                 far_ood = np.mean(np.array(far_ood))
 
                 data.append([acc, nc, near_ood, far_ood])
+                run_ids.append(run_number)
 
-    return np.array(data)
+    return np.array(data), np.array(run_ids)
 
 
 def plot_acc_nc_ood(benchmark_name,
-                   acc_split='train',
-                   nc_metric='nc1_cdnv',
-                   ood_metric='AUROC'):
+                    acc_split='train',
+                    nc_metric='nc1_cdnv',
+                    ood_metric='AUROC'):
 
-    data = get_acc_nc_ood(benchmark_name,
-                          acc_split=acc_split,
-                          nc_metric=nc_metric,
-                          ood_metric=ood_metric)
+    data, run_ids = get_acc_nc_ood(benchmark_name,
+                                   acc_split=acc_split,
+                                   nc_metric=nc_metric,
+                                   ood_metric=ood_metric)
 
     labels = ['acc', 'nc', 'nearood', 'farood']
 
@@ -147,17 +145,21 @@ def plot_acc_nc_ood(benchmark_name,
 
         fig, axes = plt.subplots(3, 1, figsize=(5, 15))
 
-        axes[0].plot(acc, nc, 'o')
+        c = [colors[i] for i in run_ids]
+
+        axes[0].scatter(acc, nc, c=c, marker='o')
         axes[0].set_xlabel(f'acc {acc_split}')
         axes[0].set_ylabel(nc_metric)
 
-        axes[1].plot(acc, ood, 'o')
+        axes[1].scatter(acc, ood, c=c, marker='o')
         axes[1].set_xlabel(f'acc {acc_split}')
         axes[1].set_ylabel(f'{ood_metric} {label}')
 
-        axes[2].plot(nc, ood, 'o')
+        axes[2].scatter(nc, ood, c=c, marker='o')
         axes[2].set_xlabel(nc_metric)
         axes[2].set_ylabel(f'{ood_metric} {label}')
+
+        plt.tight_layout()
 
         save_path = path.res_plots / benchmark_name
         save_path.mkdir(exist_ok=True, parents=True)
@@ -167,6 +169,30 @@ def plot_acc_nc_ood(benchmark_name,
 
     plot_corr(2, 'nearood')
     plot_corr(3, 'farood')
+
+    def plot_corr_matrix():
+        df_near = pd.DataFrame(data[:, [0, 1, 2]])
+        df_far = pd.DataFrame(data[:, [0, 1, 3]])
+
+        fig, axes = plt.subplots(1, 2, figsize=(10, 5))
+
+        im0 = axes[0].matshow(df_near.corr())
+        axes[0].set_title('nearood')
+        fig.colorbar(im0, ax=axes[0])
+
+        im1 = axes[1].matshow(df_far.corr())
+        axes[1].set_title('farood')
+        fig.colorbar(im1, ax=axes[1])
+
+        plt.tight_layout()
+
+        save_path = path.res_plots / benchmark_name
+        save_path.mkdir(exist_ok=True, parents=True)
+        filename = f'corr_matrix.png'
+        plt.savefig(save_path / filename, bbox_inches='tight')
+        plt.close()
+
+    plot_corr_matrix()
 
 
 def plot_nc_ood(benchmark_name,
@@ -197,11 +223,19 @@ def plot_nc_ood(benchmark_name,
 
     epoch = np.array(epoch)
     
-    for ood_key in near_ood.keys():
-        plt.plot(nc, near_ood[ood_key], '-', alpha=0.3, color=colors[0])
-        plt.plot(nc, far_ood[ood_key], '-', alpha=0.3, color=colors[1])
-        plt.plot(nc, near_ood[ood_key], 'o', color=colors[0], label='nearood')
-        plt.plot(nc, far_ood[ood_key], 'o', color=colors[1], label='farood')
+    try:
+        for ood_key in near_ood.keys():
+            plt.plot(nc, near_ood[ood_key], '-', alpha=0.3, color=colors[0])
+            plt.plot(nc, far_ood[ood_key], '-', alpha=0.3, color=colors[1])
+            plt.plot(nc, near_ood[ood_key], 'o', color=colors[0], label='nearood')
+            plt.plot(nc, far_ood[ood_key], 'o', color=colors[1], label='farood')
+    except ValueError as e:
+        print(run_id)
+        print(nc)
+        print(ood_key)
+        print(near_ood[ood_key])
+        print(far_ood[ood_key])
+        raise e
 
     plt.title(f'{benchmark_name} {run_id}')
     plt.xlabel(nc_metric)
@@ -470,7 +504,7 @@ def plot_all(benchmark_name, run_id):
     plot_nc(benchmark_name, run_id)
     plot_ood(benchmark_name, run_id)
     plot_ood_combined(benchmark_name, run_id)
-    plot_acc_nc_ood(benchmark_name)
+    # plot_acc_nc_ood(benchmark_name)
 
 
 if __name__ == '__main__':
