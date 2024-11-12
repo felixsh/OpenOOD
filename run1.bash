@@ -1,3 +1,5 @@
+#!/bin/bash
+
 trap 'pkill -P $$; exit' SIGINT SIGTERM
 
 BENCHMARK=imagenet200
