@@ -15,6 +15,7 @@ if [ -f "$IMAGENET_DIR/ILSVRC2012_img_train.tar" ]; then
   
   # Unpack ILSVRC2012_img_train.tar into the temporary directory
   tar -xf "$IMAGENET_DIR/ILSVRC2012_img_train.tar" -C "$TMP_DIR"
+  # rm "$IMAGENET_DIR/ILSVRC2012_img_train.tar"
   echo "Unpacked ILSVRC2012_img_train.tar into $TMP_DIR/"
 else
   echo "ILSVRC2012_img_train.tar not found in $IMAGENET_DIR. Exiting."
@@ -39,6 +40,7 @@ for tarfile in "$TMP_DIR"/*.tar "$TMP_DIR"/*.tar.gz "$TMP_DIR"/*.tgz; do
     # Unpack the tar file into the target directory
     tar -xf "$tarfile" -C "$target_dir"
     echo "Unpacked $tarfile into $target_dir/"
+    # rm "$tarfile"
   else
     echo "No additional tar files found in $TMP_DIR."
     break
