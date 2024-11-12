@@ -9,6 +9,7 @@ import pandas as pd
 from statsmodels.nonparametric.kernel_density import KDEMultivariate
 
 import path
+from summarize_json import summarize_json
 
 
 prop_cycle = plt.rcParams['axes.prop_cycle']
@@ -41,7 +42,7 @@ def get_acc(benchmark_name, run_id, split='train', filter_epochs=None):
     acc_values = np.array(data['metrics']['Accuracy'][split]['values'])
     acc_epochs = np.array(data['metrics']['Accuracy'][split]['epochs']) + 1
 
-    if run_id in ['run0', 'run1']:
+    if benchmark_name == 'cifar10' and run_id in ['run0', 'run1']:
         acc_epochs -= 1
 
     if filter_epochs is not None:
@@ -143,21 +144,21 @@ def plot_acc_nc_ood(benchmark_name,
         nc = data[:, 1]
         ood = data[:, z]
 
-        fig, axes = plt.subplots(3, 1, figsize=(5, 15))
+        fig, axes = plt.subplots(1, 3, figsize=(15, 5))
 
         c = [colors[i] for i in run_ids]
 
-        axes[0].scatter(acc, nc, c=c, marker='o')
-        axes[0].set_xlabel(f'acc {acc_split}')
-        axes[0].set_ylabel(nc_metric)
+        axes.ravel()[0].scatter(acc, nc, c=c, marker='o')
+        axes.ravel()[0].set_xlabel(f'acc {acc_split}')
+        axes.ravel()[0].set_ylabel(nc_metric)
 
-        axes[1].scatter(acc, ood, c=c, marker='o')
-        axes[1].set_xlabel(f'acc {acc_split}')
-        axes[1].set_ylabel(f'{ood_metric} {label}')
+        axes.ravel()[1].scatter(acc, ood, c=c, marker='o')
+        axes.ravel()[1].set_xlabel(f'acc {acc_split}')
+        axes.ravel()[1].set_ylabel(f'{ood_metric} {label}')
 
-        axes[2].scatter(nc, ood, c=c, marker='o')
-        axes[2].set_xlabel(nc_metric)
-        axes[2].set_ylabel(f'{ood_metric} {label}')
+        axes.ravel()[2].scatter(nc, ood, c=c, marker='o')
+        axes.ravel()[2].set_xlabel(nc_metric)
+        axes.ravel()[2].set_ylabel(f'{ood_metric} {label}')
 
         plt.tight_layout()
 
@@ -324,9 +325,9 @@ def plot_nc(benchmark_name,
         else:
             ax.plot(x, y, label=label, marker=marker, markersize=5, color=color)
 
-    acc_train_values_all, acc_train_epochs_all = get_acc(benchmark_name, run_id, split='train')
+    # acc_train_values_all, acc_train_epochs_all = get_acc(benchmark_name, run_id, split='train')
     acc_val_values_all, acc_val_epochs_all = get_acc(benchmark_name, run_id, split='val')
-    acc_train_values_filtered, _ = get_acc(benchmark_name, run_id, split='train', filter_epochs=epoch)
+    acc_train_values_filtered, _ = get_acc(benchmark_name, run_id, split='val', filter_epochs=epoch)
 
     def plot_nc_(x, x_label):
         fig, axes = plt.subplots(2, 2, figsize=(10, 8))
@@ -353,7 +354,7 @@ def plot_nc(benchmark_name,
         plot_line(axes[1, 1], x, nc['nc4_classifier_agreement'], 'nc4_classifier_agreement', markers[0])
         ax111 = axes[1, 1].twinx()
         if x_label == 'epoch':
-            plot_line(ax111, acc_train_epochs_all, acc_train_values_all, 'acc train', 'None', color=colors[1])
+            #plot_line(ax111, acc_train_epochs_all, acc_train_values_all, 'acc train', 'None', color=colors[1])
             plot_line(ax111, acc_val_epochs_all, acc_val_values_all, 'acc val', 'None', color=colors[2])
             ax111.set_ylabel('accuracy')
         axes[1, 1].set_ylabel('agreement')
@@ -405,7 +406,7 @@ def plot_ood(benchmark_name,
     nc_ood_methods = ['nusa', 'vim', 'ncscore', 'neco', 'epa']
 
     main_dir = path.res_data / benchmark_name / run_id
-    ckpt_dirs = natsorted(list(main_dir.glob('e*')))
+    ckpt_dirs = natsorted(list(main_dir.glob('e*')), key=str)
 
     for ckpt_dir in ckpt_dirs:
         with pd.HDFStore(ckpt_dir / 'metrics.h5') as store:
@@ -451,7 +452,7 @@ def plot_ood_combined(benchmark_name,
     nc_ood_methods = ['nusa', 'vim', 'ncscore', 'neco', 'epa']
 
     main_dir = path.res_data / benchmark_name / run_id
-    ckpt_dirs = natsorted(list(main_dir.glob('e*')))
+    ckpt_dirs = natsorted(list(main_dir.glob('e*')), key=str)
 
     epoch = []
     near_ood = defaultdict(list)
@@ -504,7 +505,7 @@ def plot_all(benchmark_name, run_id):
     plot_nc(benchmark_name, run_id)
     plot_ood(benchmark_name, run_id)
     plot_ood_combined(benchmark_name, run_id)
-    # plot_acc_nc_ood(benchmark_name)
+    plot_acc_nc_ood(benchmark_name)
 
 
 if __name__ == '__main__':
