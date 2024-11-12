@@ -513,4 +513,7 @@ if __name__ == '__main__':
     # cfg.benchmark = 'cifar10'
     # cfg.run = 'run0'
 
-    plot_all(cfg.benchmark, cfg.run)
+    if 'run' in cfg:
+        plot_all(cfg.benchmark, cfg.run)
+    else:
+        plot_acc_nc_ood(cfg.benchmark)
