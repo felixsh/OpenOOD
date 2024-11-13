@@ -52,7 +52,7 @@ def get_acc(benchmark_name, run_id, split='val', filter_epochs=None):
         return acc_values, acc_epochs
 
 
-def get_acc_nc_ood(benchmark_name,
+def get_acc_nc_ood_mean(benchmark_name,
                    acc_split='val',
                    nc_metric='nc1_cdnv',
                    ood_metric='AUROC'):
@@ -92,24 +92,71 @@ def get_acc_nc_ood(benchmark_name,
     return np.array(data), np.array(run_ids)
 
 
+def get_acc_nc_ood(benchmark_name,
+                   acc_split='val',
+                   nc_metric='nc1_cdnv',
+                   ood_metric='AUROC'):
+
+    benchmark_dir = path.res_data / benchmark_name
+    acc_dict = defaultdict(list)
+    nc_dict = defaultdict(list)
+    nearood_dict = defaultdict(list)
+    farood_dict = defaultdict(list)
+    run_id_dict = defaultdict(list)
+
+    for run_dir in benchmark_dir.glob('run*'):
+        ckpt_dirs = natsorted(list(run_dir.glob('e*')), key=str)
+        acc_val, acc_epoch = get_acc(benchmark_name, run_dir.name, acc_split)
+        run_number = int(run_dir.name[3:])
+
+        for ckpt_dir in ckpt_dirs:
+            with pd.HDFStore(ckpt_dir / 'metrics.h5') as store:
+                nc_df = store.get('nc')
+                nc = nc_df.iloc[0][nc_metric]
+
+                epoch = int(ckpt_dir.name[1:])
+                acc = acc_val[acc_epoch == epoch][0]
+
+                ood_keys = list(store.keys())
+                ood_keys.remove('/nc')
+                near_ood = []
+                far_ood = []
+                for k in ood_keys:
+                    ood_df = store.get(k)
+                    key = k[1:]
+
+                    acc_dict[key].append(acc)
+                    nc_dict[key].append(nc)
+                    nearood_dict[key].append(ood_df.at['nearood', ood_metric])
+                    farood_dict[key].append(ood_df.at['farood', ood_metric])
+                    run_id_dict[key].append(run_number)
+
+    return acc_dict, nc_dict, nearood_dict, farood_dict, run_id_dict
+
+
 def plot_acc_nc_ood(benchmark_name,
                     acc_split='val',
                     nc_metric='nc1_cdnv',
                     ood_metric='AUROC'):
 
-    data, run_ids = get_acc_nc_ood(benchmark_name,
-                                   acc_split=acc_split,
-                                   nc_metric=nc_metric,
-                                   ood_metric=ood_metric)
+    data_mean, run_ids_mean = get_acc_nc_ood_mean(benchmark_name,
+                                        acc_split=acc_split,
+                                        nc_metric=nc_metric,
+                                        ood_metric=ood_metric)
+
+    acc, nc, nearood, farood, run_ids = get_acc_nc_ood(benchmark_name,
+                                        acc_split=acc_split,
+                                        nc_metric=nc_metric,
+                                        ood_metric=ood_metric)
 
     labels = ['acc', 'nc', 'nearood', 'farood']
 
     def plot_cut(x, y, z, resolution=100, cuts=3):
-        kde = KDEMultivariate(data[:, [x, y, z]], 'ccc')
+        kde = KDEMultivariate(data_mean[:, [x, y, z]], 'ccc')
 
-        x_lin = np.linspace(data[:, x].min(), data[:, x].max(), resolution)
-        y_lin = np.linspace(data[:, y].min(), data[:, y].max(), resolution)
-        z_lin = np.linspace(data[:, z].min(), data[:, z].max(), cuts**2)
+        x_lin = np.linspace(data_mean[:, x].min(), data_mean[:, x].max(), resolution)
+        y_lin = np.linspace(data_mean[:, y].min(), data_mean[:, y].max(), resolution)
+        z_lin = np.linspace(data_mean[:, z].min(), data_mean[:, z].max(), cuts**2)
 
         X, Y = np.meshgrid(x_lin, y_lin)
         ones = np.ones_like(X)
@@ -139,14 +186,14 @@ def plot_acc_nc_ood(benchmark_name,
     plot_cut(0, 2, 1)
     plot_cut(0, 3, 1)
 
-    def plot_corr(z, label):
-        acc = data[:, 0]
-        nc = data[:, 1]
-        ood = data[:, z]
+    def plot_corr_mean(z, label):
+        acc = data_mean[:, 0]
+        nc = data_mean[:, 1]
+        ood = data_mean[:, z]
 
         fig, axes = plt.subplots(1, 3, figsize=(15, 5))
 
-        c = [colors[i] for i in run_ids]
+        c = [colors[i] for i in run_ids_mean]
 
         axes.ravel()[0].scatter(acc, nc, c=c, marker='o')
         axes.ravel()[0].set_xlabel(f'acc {acc_split}')
@@ -168,12 +215,42 @@ def plot_acc_nc_ood(benchmark_name,
         plt.savefig(save_path / filename, bbox_inches='tight')
         plt.close()
 
-    plot_corr(2, 'nearood')
-    plot_corr(3, 'farood')
+    plot_corr_mean(2, 'nearood')
+    plot_corr_mean(3, 'farood')
+
+    def plot_corr_method(acc, nc, ood, ood_label, run_ids):
+        for k in acc.keys():
+            fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+            fig.suptitle(f'{k} {ood_label}')
+
+            c = [colors[i] for i in run_ids[k]]
+
+            axes.ravel()[0].scatter(acc[k], nc[k], c=c, marker='o')
+            axes.ravel()[0].set_xlabel(f'acc {acc_split}')
+            axes.ravel()[0].set_ylabel(nc_metric)
+
+            axes.ravel()[1].scatter(acc[k], ood[k], c=c, marker='o')
+            axes.ravel()[1].set_xlabel(f'acc {acc_split}')
+            axes.ravel()[1].set_ylabel(f'{ood_metric}')
+
+            axes.ravel()[2].scatter(nc[k], ood[k], c=c, marker='o')
+            axes.ravel()[2].set_xlabel(nc_metric)
+            axes.ravel()[2].set_ylabel(f'{ood_metric}')
+
+            plt.tight_layout()
+
+            save_path = path.res_plots / benchmark_name / f'corr_{ood_label}'
+            save_path.mkdir(exist_ok=True, parents=True)
+            filename = f'{k}.png'
+            plt.savefig(save_path / filename, bbox_inches='tight')
+            plt.close()
+    
+    plot_corr_method(acc, nc, nearood, 'nearood', run_ids)
+    plot_corr_method(acc, nc, farood, 'farood', run_ids)
 
     def plot_corr_matrix():
-        df_near = pd.DataFrame(data[:, [0, 1, 2]])
-        df_far = pd.DataFrame(data[:, [0, 1, 3]])
+        df_near = pd.DataFrame(data_mean[:, [0, 1, 2]])
+        df_far = pd.DataFrame(data_mean[:, [0, 1, 3]])
 
         fig, axes = plt.subplots(1, 2, figsize=(10, 5))
 
