@@ -33,6 +33,20 @@ markers = [
     '_',  # Horizontal line
 ]
 
+metric_markers = {
+    "dice" : 'o',
+    "epa" : 's',
+    "knn" : 'D',
+    "mds" : '^',
+    "msp" : 'v',
+    "ncscore" : 'p',
+    "neco" : '*',
+    "nusa" : 'h',
+    "odin" : 'X',
+    "react" : '+', 
+    "vim" : 'x',
+}
+
 
 def get_acc(benchmark_name, run_id, split='val', filter_epochs=None):
     json_dir = path.ckpt_root / benchmark_name / run_id
@@ -257,7 +271,9 @@ def plot_nc_ood(benchmark_name,
 def plot_acc_ood(benchmark_name,
                  run_id,
                  acc_split='val',  # train or val
-                 ood_metric='AUROC'):
+                 ood_metric='AUROC',
+                 far=False
+                 ):
 
     main_dir = path.res_data / benchmark_name / run_id
     ckpt_dirs = natsorted(list(main_dir.glob('e*')), key=str)
@@ -279,14 +295,21 @@ def plot_acc_ood(benchmark_name,
                 far_ood[k].append(ood_df.at['farood', ood_metric])
 
     acc, epoch = get_acc(benchmark_name, run_id, split=acc_split, filter_epochs=epoch)
-    
-    for ood_key in near_ood.keys():
-        plt.plot(acc, near_ood[ood_key], '-', alpha=0.3, color=colors[0])
-        plt.plot(acc, far_ood[ood_key], '-', alpha=0.3, color=colors[1])
-        plt.plot(acc, near_ood[ood_key], 'o', color=colors[0], label='nearood')
-        plt.plot(acc, far_ood[ood_key], 'o', color=colors[1], label='farood')
 
-    plt.title(f'{benchmark_name} {run_id}')
+    
+    if far:
+        plt.title(f'{benchmark_name} {run_id} far')
+        for ood_key in near_ood.keys():
+            print(ood_key)
+            plt.plot(acc, far_ood[ood_key], '-', alpha=0.3, color=colors[1])
+            plt.plot(acc, far_ood[ood_key], metric_markers[ood_key[1:]], color=colors[1], label=ood_key)
+    else:
+        for ood_key in near_ood.keys():
+            plt.title(f'{benchmark_name} {run_id} near')
+            print(ood_key)
+            plt.plot(acc, near_ood[ood_key], '-', alpha=0.3, color=colors[0])
+            plt.plot(acc, near_ood[ood_key], metric_markers[ood_key[1:]], color=colors[0], label=ood_key)
+
     plt.xlabel(f'acc {acc_split}')
     plt.ylabel(ood_metric)
     
@@ -297,7 +320,7 @@ def plot_acc_ood(benchmark_name,
 
     save_path = path.res_plots / benchmark_name / run_id
     save_path.mkdir(exist_ok=True, parents=True)
-    filename = f'acc_{acc_split}_{ood_metric}.png'
+    filename = f'acc_{acc_split}_{ood_metric}_{"far" if far else "near"}.png'
     plt.savefig(save_path / filename, bbox_inches='tight')
     plt.close()
 
@@ -499,13 +522,14 @@ def plot_ood_combined(benchmark_name,
 
 
 def plot_all(benchmark_name, run_id):
-    plot_nc_ood(benchmark_name, run_id)
+    #plot_nc_ood(benchmark_name, run_id)
     plot_acc_ood(benchmark_name, run_id, acc_split='val')
+    plot_acc_ood(benchmark_name, run_id, acc_split='val', far=True)
     # plot_acc_ood(benchmark_name, run_id, acc_split='train')
-    plot_nc(benchmark_name, run_id)
-    plot_ood(benchmark_name, run_id)
-    plot_ood_combined(benchmark_name, run_id)
-    plot_acc_nc_ood(benchmark_name)
+    #plot_nc(benchmark_name, run_id)
+    #plot_ood(benchmark_name, run_id)
+    #plot_ood_combined(benchmark_name, run_id)
+    #plot_acc_nc_ood(benchmark_name)
 
 
 if __name__ == '__main__':
