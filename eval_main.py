@@ -147,7 +147,7 @@ def ood_best_ckpt(benchmark_name, postprocessor_name):
 
 
 def eval_benchmark(benchmark_name, run_id, pps):
-    for postpro in postprocessors:
+    for postpro in pps:
         if run_id == 'best':
             ood_best_ckpt(benchmark_name, postpro)
         else:
