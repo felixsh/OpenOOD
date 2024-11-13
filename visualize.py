@@ -82,6 +82,7 @@ def get_acc_nc_ood_mean(benchmark_name,
 
         for ckpt_dir in ckpt_dirs:
             with pd.HDFStore(ckpt_dir / 'metrics.h5') as store:
+                print(str(ckpt_dir))
                 nc_df = store.get('nc')
                 nc = nc_df.iloc[0][nc_metric]
 
@@ -589,10 +590,104 @@ def plot_ood_combined(benchmark_name,
     plt.close()
 
 
+def plot_acc_ood_avg(benchmark_name,
+                     acc_split='val',  # 'train' or 'val'
+                     ood_metric='AUROC',
+                     far=False,
+                     x_axis = "epoch" 
+                     ):
+    main_dir = path.res_data / benchmark_name
+    run_dirs = natsorted(list(main_dir.glob('run*')), key=str)
+
+    # Initialize data structures
+    acc_dict = defaultdict(list)
+    near_ood_dict = defaultdict(lambda: defaultdict(list))  # ood_key -> epoch -> list of values
+    far_ood_dict = defaultdict(lambda: defaultdict(list))
+
+    for run_dir in run_dirs:
+        # For each run, get the ckpt_dirs
+        ckpt_dirs = natsorted(list(run_dir.glob('e*')), key=str)
+        epochs = []
+        for ckpt_dir in ckpt_dirs:
+            epoch_num = int(ckpt_dir.name[1:])
+            epochs.append(epoch_num)
+            with pd.HDFStore(ckpt_dir / 'metrics.h5') as store:
+                ood_keys = list(store.keys())
+                ood_keys.remove('/nc')
+                for k in ood_keys:
+                    ood_df = store.get(k)
+                    near_ood_dict[k][epoch_num].append(ood_df.at['nearood', ood_metric])
+                    far_ood_dict[k][epoch_num].append(ood_df.at['farood', ood_metric])
+        # Get accuracy for this run
+        acc_values, _ = get_acc(benchmark_name, run_dir.name, split=acc_split, filter_epochs=epochs)
+        for epoch_num, acc_value in zip(epochs, acc_values):
+            acc_dict[epoch_num].append(acc_value)
+
+    # Get all unique epochs and sort them
+    epochs = sorted(acc_dict.keys())
+    log_epochs = np.log(epochs)
+    log_epochs = np.where(np.isinf(log_epochs), 0, log_epochs)
+    print(log_epochs)
+
+    # Compute average accuracy per epoch
+    avg_acc = [np.mean(acc_dict[epoch]) for epoch in epochs]
+
+    # Get all OOD keys
+    ood_keys = near_ood_dict.keys()
+
+    # Compute average near OOD and far OOD metrics per epoch
+    avg_near_ood = {
+        k: [np.mean(near_ood_dict[k][epoch]) if epoch in near_ood_dict[k] else np.nan for epoch in epochs]
+        for k in ood_keys
+    }
+    avg_far_ood = {
+        k: [np.mean(far_ood_dict[k][epoch]) if epoch in far_ood_dict[k] else np.nan for epoch in epochs]
+        for k in ood_keys
+    }
+
+    epochs = log_epochs 
+
+    # Plotting
+    plt.title(f'{benchmark_name} {"far" if far else "near"}')
+    for ood_key in ood_keys:
+        print(ood_key)
+        y_values = avg_far_ood[ood_key] if far else avg_near_ood[ood_key]
+
+        zipped =  zip(epochs, y_values) if x_axis == "epoch" else zip(avg_acc, y_values)
+
+        # Remove NaNs from data
+        valid_data = [(x, y) for x, y in zipped if not np.isnan(y)]
+        if not valid_data:
+            continue
+        x_values, y_values = zip(*valid_data)
+        plt.plot(x_values, y_values, '-', alpha=0.3, color=colors[1] if far else colors[0])
+        plt.plot(x_values, y_values, metric_markers[ood_key[1:]],
+                 color=colors[1] if far else colors[0], label=ood_key)
+
+    plt.xlabel(f'acc {acc_split}')
+    plt.ylabel(ood_metric)
+
+    # Create legend without duplicates
+    handles, labels = plt.gca().get_legend_handles_labels()
+    by_label = dict(zip(labels, handles))
+    plt.legend(by_label.values(), by_label.keys())
+
+    # Save the plot
+    save_path = path.res_plots / benchmark_name
+    save_path.mkdir(exist_ok=True, parents=True)
+    filename = f'acc_{acc_split}_{ood_metric}_{"far" if far else "near"}_{"avg"}_{"epoch" if x_axis == "epoch" else "acc"}.png'
+    plt.savefig(save_path / filename, bbox_inches='tight')
+    plt.close()
+
+
 def plot_all(benchmark_name, run_id):
     plot_nc_ood(benchmark_name, run_id)
     plot_acc_ood(benchmark_name, run_id, acc_split='val')
     # plot_acc_ood(benchmark_name, run_id, acc_split='train')
+    plot_acc_ood_avg(benchmark_name, acc_split='train', far=False, x_axis='acc')
+    plot_acc_ood_avg(benchmark_name, acc_split='train', far=True, x_axis='acc')
+    plot_acc_ood_avg(benchmark_name, acc_split='train', far=False, x_axis='epoch')
+    plot_acc_ood_avg(benchmark_name, acc_split='train', far=True, x_axis='epoch')
     plot_nc(benchmark_name, run_id)
     plot_ood(benchmark_name, run_id)
     plot_ood_combined(benchmark_name, run_id)
