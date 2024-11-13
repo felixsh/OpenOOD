@@ -136,8 +136,8 @@ def plot_acc_nc_ood(benchmark_name,
         plt.savefig(save_path / filename, bbox_inches='tight')
         plt.close()
 
-    plot_cut(0, 1, 2)
-    plot_cut(0, 1, 3)
+    plot_cut(0, 2, 1)
+    plot_cut(0, 3, 1)
 
     def plot_corr(z, label):
         acc = data[:, 0]
