@@ -33,6 +33,20 @@ markers = [
     '_',  # Horizontal line
 ]
 
+metric_markers = {
+    "dice" : 'o',
+    "epa" : 's',
+    "knn" : 'D',
+    "mds" : '^',
+    "msp" : 'v',
+    "ncscore" : 'p',
+    "neco" : '*',
+    "nusa" : 'h',
+    "odin" : 'X',
+    "react" : '+', 
+    "vim" : 'x',
+}
+
 
 def get_acc(benchmark_name, run_id, split='val', filter_epochs=None):
     json_dir = path.ckpt_root / benchmark_name / run_id
@@ -305,8 +319,8 @@ def plot_nc_ood(benchmark_name,
         for ood_key in near_ood.keys():
             plt.plot(nc, near_ood[ood_key], '-', alpha=0.3, color=colors[0])
             plt.plot(nc, far_ood[ood_key], '-', alpha=0.3, color=colors[1])
-            plt.plot(nc, near_ood[ood_key], 'o', color=colors[0], label='nearood')
-            plt.plot(nc, far_ood[ood_key], 'o', color=colors[1], label='farood')
+            plt.plot(nc, near_ood[ood_key], marker=metric_markers[ood_key[1:]], color=colors[0], label='nearood')
+            plt.plot(nc, far_ood[ood_key], marker=metric_markers[ood_key[1:]], color=colors[1], label='farood')
     except ValueError as e:
         print(run_id)
         print(nc)
@@ -360,8 +374,8 @@ def plot_acc_ood(benchmark_name,
     for ood_key in near_ood.keys():
         plt.plot(acc, near_ood[ood_key], '-', alpha=0.3, color=colors[0])
         plt.plot(acc, far_ood[ood_key], '-', alpha=0.3, color=colors[1])
-        plt.plot(acc, near_ood[ood_key], 'o', color=colors[0], label='nearood')
-        plt.plot(acc, far_ood[ood_key], 'o', color=colors[1], label='farood')
+        plt.plot(acc, near_ood[ood_key], marker=metric_markers[ood_key[1:]], color=colors[0], label='nearood')
+        plt.plot(acc, far_ood[ood_key], marker=metric_markers[ood_key[1:]], color=colors[1], label='farood')
 
     plt.title(f'{benchmark_name} {run_id}')
     plt.xlabel(f'acc {acc_split}')
