@@ -34,7 +34,7 @@ markers = [
 ]
 
 
-def get_acc(benchmark_name, run_id, split='train', filter_epochs=None):
+def get_acc(benchmark_name, run_id, split='val', filter_epochs=None):
     json_dir = path.ckpt_root / benchmark_name / run_id
     with open(json_dir / 'data.json', 'r') as f:
         data = json.load(f)
@@ -53,7 +53,7 @@ def get_acc(benchmark_name, run_id, split='train', filter_epochs=None):
 
 
 def get_acc_nc_ood(benchmark_name,
-                   acc_split='train',
+                   acc_split='val',
                    nc_metric='nc1_cdnv',
                    ood_metric='AUROC'):
 
@@ -93,7 +93,7 @@ def get_acc_nc_ood(benchmark_name,
 
 
 def plot_acc_nc_ood(benchmark_name,
-                    acc_split='train',
+                    acc_split='val',
                     nc_metric='nc1_cdnv',
                     ood_metric='AUROC'):
 
@@ -501,7 +501,7 @@ def plot_ood_combined(benchmark_name,
 def plot_all(benchmark_name, run_id):
     plot_nc_ood(benchmark_name, run_id)
     plot_acc_ood(benchmark_name, run_id, acc_split='val')
-    plot_acc_ood(benchmark_name, run_id, acc_split='train')
+    # plot_acc_ood(benchmark_name, run_id, acc_split='train')
     plot_nc(benchmark_name, run_id)
     plot_ood(benchmark_name, run_id)
     plot_ood_combined(benchmark_name, run_id)
