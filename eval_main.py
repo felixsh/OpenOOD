@@ -78,10 +78,13 @@ def filter_ckpts(ckpt_list, filter_list=[1, 2, 5, 10, 20, 50, 100, 200, 500]):
     return ckpts_filtered
 
 
-def nc_all_ckpt(benchmark_name, run_id):
+def nc_all_ckpt(benchmark_name, run_id, epoch=None):
     ckpt_dir = path.ckpt_root / benchmark_name / run_id
     ckpt_list = [p for p in ckpt_dir.glob('*') if p.suffix in ckpt_suffixes]
     ckpt_list = filter_ckpts(ckpt_list)
+
+    if epoch is not None:
+        ckpt_list = [p for p in ckpt_list if f'e{epoch}' in str(p)]
 
     for ckpt_path in ckpt_list:
         metrics = eval_nc(benchmark_name, ckpt_path)
@@ -154,11 +157,11 @@ def eval_benchmark(benchmark_name, run_id, pps):
             ood_all_ckpt(benchmark_name, run_id, postpro)
 
 
-def evaluate_nc(benchmark_name, run_id):
+def evaluate_nc(benchmark_name, run_id, epoch=None):
     if run_id == 'best':
         nc_best_ckpt(benchmark_name)
     else:
-        nc_all_ckpt(benchmark_name, run_id)
+        nc_all_ckpt(benchmark_name, run_id, epoch)
 
 
 if __name__ == '__main__':
@@ -173,4 +176,4 @@ if __name__ == '__main__':
     if 'pps' in cfg:
         eval_benchmark(cfg.benchmark, cfg.run, cfg.pps)
     else:
-        evaluate_nc(cfg.benchmark, cfg.run)
+        evaluate_nc(cfg.benchmark, cfg.run, cfg.epoch)
