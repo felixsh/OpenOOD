@@ -76,6 +76,8 @@ def get_acc_nc_ood_mean(benchmark_name,
     run_ids = []
 
     for run_dir in benchmark_dir.glob('run*'):
+        if benchmark_name == 'imagenet200' and run_dir.name == 'run0':
+            continue
         ckpt_dirs = natsorted(list(run_dir.glob('e*')), key=str)
         acc_val, acc_epoch = get_acc(benchmark_name, run_dir.name, acc_split)
         run_number = int(run_dir.name[3:])
@@ -120,6 +122,8 @@ def get_acc_nc_ood(benchmark_name,
     run_id_dict = defaultdict(list)
 
     for run_dir in benchmark_dir.glob('run*'):
+        if benchmark_name == 'imagenet200' and run_dir.name == 'run0':
+            continue
         ckpt_dirs = natsorted(list(run_dir.glob('e*')), key=str)
         acc_val, acc_epoch = get_acc(benchmark_name, run_dir.name, acc_split)
         run_number = int(run_dir.name[3:])
@@ -200,6 +204,57 @@ def plot_acc_nc_ood(benchmark_name,
 
     plot_cut(0, 2, 1)
     plot_cut(0, 3, 1)
+
+    def filter_and_join_dict(dict_data, keys_to_exclude):
+        # Filter out the specified keys and get the remaining values
+        filtered_values = [value for key, value in dict_data.items() if key not in keys_to_exclude]
+        
+        # Flatten and join the remaining values into a single numpy array
+        joined_array = np.concatenate([np.array(v) for v in filtered_values])
+        
+        return joined_array
+
+    def plot_cut_all(acc, nc, ood, ood_label, resolution=100, cuts=3):
+        filt_keys_out = ['neco', 'mds', 'nusa']
+        acc = filter_and_join_dict(acc, filt_keys_out)
+        ood = filter_and_join_dict(ood, filt_keys_out)
+        nc = filter_and_join_dict(nc, filt_keys_out)
+
+        inp = np.stack([acc, ood, nc], axis=0).T
+        kde = KDEMultivariate(inp, 'ccc')
+
+        x_lin = np.linspace(acc.min(), acc.max(), resolution)
+        y_lin = np.linspace(ood.min(), ood.max(), resolution)
+        z_lin = np.linspace(nc.min(), nc.max(), cuts**2)
+
+        X, Y = np.meshgrid(x_lin, y_lin)
+        ones = np.ones_like(X)
+
+        res = []
+        for z_ in z_lin:
+            Z = z_ * ones
+            points = np.column_stack((X.ravel(), Y.ravel(), Z.ravel()))
+            pdf = kde.pdf(points).reshape(X.shape)
+            res.append(pdf)
+
+        fig, axes = plt.subplots(cuts, cuts, figsize=(10, 10))
+
+        for ax, pdf, z_ in zip(axes.ravel(), res, z_lin):
+            ax.contourf(X, Y, pdf)
+            ax.axis('off')
+            ax.text(0.95, 0.05, f'{z_:.2f}', ha='right', va='top', transform=ax.transAxes)
+
+        plt.tight_layout()
+        fig.suptitle(f'P(acc, ood | nc)')
+        
+        save_path = path.res_plots / benchmark_name
+        save_path.mkdir(exist_ok=True, parents=True)
+        filename = f'all_acc_{acc_split}_{nc_metric}_{ood_metric}_{ood_label}.png'
+        plt.savefig(save_path / filename, bbox_inches='tight')
+        plt.close()
+    
+    plot_cut_all(acc, nc, nearood, 'nearood')
+    plot_cut_all(acc, nc, farood, 'farood')
 
     def plot_corr_mean(z, label):
         acc = data_mean[:, 0]
@@ -605,8 +660,14 @@ def plot_acc_ood_avg(benchmark_name,
     far_ood_dict = defaultdict(lambda: defaultdict(list))
 
     for run_dir in run_dirs:
+        print(run_dir.name)
+        if benchmark_name == 'cifar10' and run_dir.name in ['run0', 'run1']:
+            continue
+        if benchmark_name == 'imagenet200' and run_dir.name in ['run0',]:
+            continue
         # For each run, get the ckpt_dirs
         ckpt_dirs = natsorted(list(run_dir.glob('e*')), key=str)
+        ckpt_dirs = [p for p in ckpt_dirs if 'e9' not in str(p)]
         epochs = []
         for ckpt_dir in ckpt_dirs:
             epoch_num = int(ckpt_dir.name[1:])
@@ -624,10 +685,10 @@ def plot_acc_ood_avg(benchmark_name,
             acc_dict[epoch_num].append(acc_value)
 
     # Get all unique epochs and sort them
-    epochs = sorted(acc_dict.keys())
-    log_epochs = np.log(epochs)
-    log_epochs = np.where(np.isinf(log_epochs), 0, log_epochs)
-    print(log_epochs)
+    # epochs = sorted(acc_dict.keys())
+    # log_epochs = np.log(epochs)
+    # log_epochs = np.where(np.isinf(log_epochs), 0, log_epochs)
+    # print(log_epochs)
 
     # Compute average accuracy per epoch
     avg_acc = [np.mean(acc_dict[epoch]) for epoch in epochs]
@@ -645,7 +706,7 @@ def plot_acc_ood_avg(benchmark_name,
         for k in ood_keys
     }
 
-    epochs = log_epochs 
+    # epochs = log_epochs 
 
     # Plotting
     plt.title(f'{benchmark_name} {"far" if far else "near"}')
@@ -662,10 +723,15 @@ def plot_acc_ood_avg(benchmark_name,
         x_values, y_values = zip(*valid_data)
         plt.plot(x_values, y_values, '-', alpha=0.3, color=colors[1] if far else colors[0])
         plt.plot(x_values, y_values, metric_markers[ood_key[1:]],
-                 color=colors[1] if far else colors[0], label=ood_key)
+                 color=colors[1] if far else colors[0], label=ood_key[1:])
 
-    plt.xlabel(f'acc {acc_split}')
+    if x_axis == "epoch":
+        plt.xlabel('epoch')
+        plt.gca().set_xscale('log')
+    else:
+        plt.xlabel(f'acc {acc_split}')
     plt.ylabel(ood_metric)
+
 
     # Create legend without duplicates
     handles, labels = plt.gca().get_legend_handles_labels()
@@ -680,18 +746,21 @@ def plot_acc_ood_avg(benchmark_name,
     plt.close()
 
 
-def plot_all(benchmark_name, run_id):
+def plot_run_specific(benchmark_name, run_id):
     plot_nc_ood(benchmark_name, run_id)
     plot_acc_ood(benchmark_name, run_id, acc_split='val')
     # plot_acc_ood(benchmark_name, run_id, acc_split='train')
-    plot_acc_ood_avg(benchmark_name, acc_split='train', far=False, x_axis='acc')
-    plot_acc_ood_avg(benchmark_name, acc_split='train', far=True, x_axis='acc')
-    plot_acc_ood_avg(benchmark_name, acc_split='train', far=False, x_axis='epoch')
-    plot_acc_ood_avg(benchmark_name, acc_split='train', far=True, x_axis='epoch')
     plot_nc(benchmark_name, run_id)
     plot_ood(benchmark_name, run_id)
     plot_ood_combined(benchmark_name, run_id)
+
+
+def plot_benchmark_specific(benchmark_name):
     plot_acc_nc_ood(benchmark_name)
+    plot_acc_ood_avg(benchmark_name, acc_split='val', far=False, x_axis='acc')
+    plot_acc_ood_avg(benchmark_name, acc_split='val', far=True, x_axis='acc')
+    plot_acc_ood_avg(benchmark_name, acc_split='val', far=False, x_axis='epoch')
+    plot_acc_ood_avg(benchmark_name, acc_split='val', far=True, x_axis='epoch')
 
 
 if __name__ == '__main__':
@@ -701,6 +770,6 @@ if __name__ == '__main__':
     # cfg.run = 'run0'
 
     if 'run' in cfg:
-        plot_all(cfg.benchmark, cfg.run)
+        plot_run_specific(cfg.benchmark, cfg.run)
     else:
-        plot_acc_nc_ood(cfg.benchmark)
+        plot_benchmark_specific(cfg.benchmark)
