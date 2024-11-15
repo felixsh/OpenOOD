@@ -4,19 +4,24 @@
 
 trap 'pkill -P $$; exit' SIGINT SIGTERM
 
-BENCHMARK=imagenet
-RUN=run0
+BENCHMARK=cifar10_noise
 
-CUDA_VISIBLE_DEVICES=0 python eval_main.py benchmark=$BENCHMARK run=$RUN epoch=1 &
-CUDA_VISIBLE_DEVICES=1 python eval_main.py benchmark=$BENCHMARK run=$RUN epoch=2 &
-CUDA_VISIBLE_DEVICES=2 python eval_main.py benchmark=$BENCHMARK run=$RUN epoch=5 &
+CUDA_VISIBLE_DEVICES=0 python eval_main.py benchmark=$BENCHMARK run=run0 &
+CUDA_VISIBLE_DEVICES=1 python eval_main.py benchmark=$BENCHMARK run=run1 &
+CUDA_VISIBLE_DEVICES=2 python eval_main.py benchmark=$BENCHMARK run=run2 &
 wait $(jobs -p)
 
-CUDA_VISIBLE_DEVICES=0 python eval_main.py benchmark=$BENCHMARK run=$RUN epoch=10 &
-CUDA_VISIBLE_DEVICES=1 python eval_main.py benchmark=$BENCHMARK run=$RUN epoch=20 &
-CUDA_VISIBLE_DEVICES=2 python eval_main.py benchmark=$BENCHMARK run=$RUN epoch=50 &
+CUDA_VISIBLE_DEVICES=0 python eval_main.py benchmark=$BENCHMARK run=run3 &
+CUDA_VISIBLE_DEVICES=1 python eval_main.py benchmark=$BENCHMARK run=run4 &
+CUDA_VISIBLE_DEVICES=2 python eval_main.py benchmark=$BENCHMARK run=run5 &
 wait $(jobs -p)
 
-CUDA_VISIBLE_DEVICES=0 python eval_main.py benchmark=$BENCHMARK run=$RUN epoch=100 &
-CUDA_VISIBLE_DEVICES=1 python eval_main.py benchmark=$BENCHMARK run=$RUN epoch=150 &
+CUDA_VISIBLE_DEVICES=0 python eval_main.py benchmark=$BENCHMARK run=run6 &
+CUDA_VISIBLE_DEVICES=1 python eval_main.py benchmark=$BENCHMARK run=run7 &
+CUDA_VISIBLE_DEVICES=2 python eval_main.py benchmark=$BENCHMARK run=run8 &
+wait $(jobs -p)
+
+CUDA_VISIBLE_DEVICES=0 python eval_main.py benchmark=$BENCHMARK run=run9 &
+CUDA_VISIBLE_DEVICES=1 python eval_main.py benchmark=$BENCHMARK run=run10 &
+CUDA_VISIBLE_DEVICES=2 python eval_main.py benchmark=$BENCHMARK run=run11 &
 wait $(jobs -p)

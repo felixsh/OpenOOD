@@ -11,6 +11,10 @@ from utils import load_network, get_batch_size
 
 
 def eval_nc(benchmark_name, ckpt_path):
+
+    network_name = benchmark_name
+    if benchmark_name == 'cifar10_noise':
+        benchmark_name = 'cifar10'
     
     # Parameters
     batch_size = get_batch_size(benchmark_name)
@@ -20,7 +24,7 @@ def eval_nc(benchmark_name, ckpt_path):
     # Prepare stuff
     data_root = str(path.data_root)
     preprocessor = get_default_preprocessor(benchmark_name)
-    net = load_network(benchmark_name, ckpt_path)
+    net = load_network(network_name, ckpt_path)
 
     # Load data
     data_setup(data_root, benchmark_name)

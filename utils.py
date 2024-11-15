@@ -7,6 +7,18 @@ from openood.networks import ResNet18_32x32, ResNet18_224x224, ResNet50
 
 
 def load_network(benchmark_name, ckpt_path):
+
+    if benchmark_name == 'cifar10_noise':
+        net = ResNet18_32x32(num_classes=10)
+        state_dict = load(ckpt_path, weights_only=True, map_location='cuda:0')
+        state_dict = {k.removeprefix('model.'): v for k, v in state_dict.items()}
+        state_dict.pop('extraction_layer.weight', None)
+        state_dict.pop('extraction_layer.bias', None)
+        net.load_state_dict(state_dict)
+        net.cuda()
+        net.eval()
+        return net
+
     if benchmark_name == 'cifar10':
         net = ResNet18_32x32(num_classes=10)
     elif benchmark_name == 'cifar100':

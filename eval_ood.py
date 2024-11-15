@@ -5,7 +5,11 @@ from utils import load_network, get_batch_size
 
 def eval_ood(benchmark_name, ckpt_path, postprocessor_name):
     
-    net = load_network(benchmark_name, ckpt_path)
+    network_name = benchmark_name
+    if benchmark_name == 'cifar10_noise':
+        benchmark_name = 'cifar10'
+
+    net = load_network(network_name, ckpt_path)
     batch_size = get_batch_size(benchmark_name)
 
     evaluator = Evaluator(
