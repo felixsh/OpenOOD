@@ -30,9 +30,9 @@ def get_batch_size(benchmark_name):
     elif benchmark_name == 'cifar100':
         batch_size = 1024
     elif benchmark_name == 'imagenet200':
-        batch_size = 256
+        batch_size = 256 
     elif benchmark_name == 'imagenet':
-        batch_size = 512
+        batch_size = 256 # 384 # 512
     return batch_size
 
 
