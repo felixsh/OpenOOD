@@ -5,17 +5,17 @@ channels:
   - defaults
 dependencies:
   - python=3.12
-  - numpy
+  - numpy=1.26.4
   - matplotlib
-  - scikit-learn
-  - scipy
+  - scikit-learn=1.5.1
+  - scipy=1.14.1
   - pandas
   - pytables  
   - dask
   - tabulate
   - tqdm
-  - pytorch:pytorch
-  - pytorch:torchvision
+  - pytorch:pytorch=2.5.1
+  - pytorch:torchvision=0.20.1
   - nvidia:pytorch-cuda=12.1
   - datasets
   - transformers
