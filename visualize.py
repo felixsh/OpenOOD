@@ -12,6 +12,7 @@ import path
 from summarize_json import summarize_json
 import seaborn as sns  
 from scipy.stats import spearmanr
+import tikzplotlib
 
 
 prop_cycle = plt.rcParams['axes.prop_cycle']
@@ -212,6 +213,8 @@ def plot_acc_nc_ood(benchmark_name,
         save_path.mkdir(exist_ok=True, parents=True)
         filename = f'acc_{acc_split}_{nc_metric}_{ood_metric}_{labels[z]}.png'
         plt.savefig(save_path / filename, bbox_inches='tight')
+        tikz_filename = filename.replace('.png', '.tex')
+        tikzplotlib.save(save_path / tikz_filename)
         plt.close()
 
     plot_cut(0, 2, 1)
@@ -263,6 +266,8 @@ def plot_acc_nc_ood(benchmark_name,
         save_path.mkdir(exist_ok=True, parents=True)
         filename = f'all_acc_{acc_split}_{nc_metric}_{ood_metric}_{ood_label}.png'
         plt.savefig(save_path / filename, bbox_inches='tight')
+        tikz_filename = filename.replace('.png', '.tex')
+        tikzplotlib.save(save_path / tikz_filename)
         plt.close()
     
     plot_cut_all(acc, nc, nearood, 'nearood')
@@ -295,6 +300,8 @@ def plot_acc_nc_ood(benchmark_name,
         save_path.mkdir(exist_ok=True, parents=True)
         filename = f'corr_{label}.png'
         plt.savefig(save_path / filename, bbox_inches='tight')
+        tikz_filename = filename.replace('.png', '.tex')
+        tikzplotlib.save(save_path / tikz_filename)
         plt.close()
 
     plot_corr_mean(2, 'nearood')
@@ -350,6 +357,8 @@ def plot_acc_nc_ood(benchmark_name,
         save_path.mkdir(exist_ok=True, parents=True)
         filename = f'corr_matrix.png'
         plt.savefig(save_path / filename, bbox_inches='tight')
+        tikz_filename = filename.replace('.png', '.tex')
+        tikzplotlib.save(save_path / tikz_filename)
         plt.close()
 
     plot_corr_matrix()
@@ -410,6 +419,8 @@ def plot_nc_ood(benchmark_name,
     save_path.mkdir(exist_ok=True, parents=True)
     filename = f'{nc_metric}_{ood_metric}.png'
     plt.savefig(save_path / filename, bbox_inches='tight')
+    tikz_filename = filename.replace('.png', '.tex')
+    tikzplotlib.save(save_path / tikz_filename)
     plt.close()
 
 
@@ -458,6 +469,8 @@ def plot_acc_ood(benchmark_name,
     save_path.mkdir(exist_ok=True, parents=True)
     filename = f'acc_{acc_split}_{ood_metric}.png'
     plt.savefig(save_path / filename, bbox_inches='tight')
+    tikz_filename = filename.replace('.png', '.tex')
+    tikzplotlib.save(save_path / tikz_filename)
     plt.close()
 
 
@@ -550,6 +563,8 @@ def plot_nc(benchmark_name,
         save_path.mkdir(exist_ok=True, parents=True)
         filename = f'nc_{x_label}.png'
         plt.savefig(save_path / filename)
+        tikz_filename = filename.replace('.png', '.tex')
+        tikzplotlib.save(save_path / tikz_filename)
         plt.close()
 
     plot_nc_(epoch, 'epoch')
@@ -598,6 +613,8 @@ def plot_ood(benchmark_name,
         save_path.mkdir(exist_ok=True, parents=True)
         filename = f'{ood_metric}_{ckpt_dir.name}.png'
         plt.savefig(save_path / filename, bbox_inches='tight')
+        tikz_filename = filename.replace('.png', '.tex')
+        tikzplotlib.save(save_path / tikz_filename)
         plt.close()
 
 
@@ -652,6 +669,8 @@ def plot_ood_combined(benchmark_name,
     save_path.mkdir(exist_ok=True, parents=True)
     filename = f'{ood_metric}_near_far.png'
     plt.savefig(save_path / filename, bbox_inches='tight')
+    tikz_filename = filename.replace('.png', '.tex')
+    tikzplotlib.save(save_path / tikz_filename)
     plt.close()
 
 
@@ -753,6 +772,8 @@ def plot_acc_ood_avg(benchmark_name,
     save_path.mkdir(exist_ok=True, parents=True)
     filename = f'acc_{acc_split}_{ood_metric}_{"far" if far else "near"}_{"avg"}_{"epoch" if x_axis == "epoch" else "acc"}.png'
     plt.savefig(save_path / filename, bbox_inches='tight')
+    tikz_filename = filename.replace('.png', '.tex')
+    tikzplotlib.save(save_path / tikz_filename)
     plt.close()
 
 
@@ -858,6 +879,8 @@ def plot_correlation(benchmark_name,
         save_path.mkdir(exist_ok=True, parents=True)
         filename = f'acc_{acc_split}_{nc_metric}_{ood_metric}_{labels[z]}.png'
         plt.savefig(save_path / filename, bbox_inches='tight')
+        tikz_filename = filename.replace('.png', '.tex')
+        tikzplotlib.save(save_path / tikz_filename)
         plt.show()
 
     plot_cut(0, 2, 1)
@@ -909,6 +932,8 @@ def plot_correlation(benchmark_name,
         save_path.mkdir(exist_ok=True, parents=True)
         filename = f'all_acc_{acc_split}_{nc_metric}_{ood_metric}_{ood_label}.png'
         plt.savefig(save_path / filename, bbox_inches='tight')
+        tikz_filename = filename.replace('.png', '.tex')
+        tikzplotlib.save(save_path / tikz_filename)
         plt.close()
     
     plot_cut_all(acc, nc, nearood, 'nearood')
@@ -941,6 +966,8 @@ def plot_correlation(benchmark_name,
         save_path.mkdir(exist_ok=True, parents=True)
         filename = f'corr_{label}.png'
         plt.savefig(save_path / filename, bbox_inches='tight')
+        tikz_filename = filename.replace('.png', '.tex')
+        tikzplotlib.save(save_path / tikz_filename)
         plt.close()
 
     plot_corr_mean(2, 'nearood')
@@ -982,6 +1009,8 @@ def plot_correlation(benchmark_name,
         filename = f'corr_{label}.png'
         print(str(save_path))
         plt.savefig(save_path / filename, bbox_inches='tight')
+        tikz_filename = filename.replace('.png', '.tex')
+        tikzplotlib.save(save_path / tikz_filename)
         plt.show()
 
     plot_corr_mean(2, 'nearood')
@@ -1025,6 +1054,8 @@ def plot_correlation(benchmark_name,
             filename = f'{k}.png'
             print(str(save_path))
             plt.savefig(save_path / filename, bbox_inches='tight')
+            tikz_filename = filename.replace('.png', '.tex')
+            tikzplotlib.save(save_path / tikz_filename)
             plt.show()
 
     plot_corr_method(acc, nc, nearood, 'nearood', run_ids)
@@ -1069,6 +1100,8 @@ def plot_correlation(benchmark_name,
         filename = f'corr_matrix_spearman.png'
         print(str(save_path))
         plt.savefig(save_path / filename, bbox_inches='tight')
+        tikz_filename = filename.replace('.png', '.tex')
+        tikzplotlib.save(save_path / tikz_filename)
         plt.show()
 
     plot_corr_matrix()
