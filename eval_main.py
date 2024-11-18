@@ -1,14 +1,16 @@
 import json
+from pathlib import Path
 
+from natsort import natsorted
 from omegaconf import OmegaConf
 from pandas import HDFStore
 import torch.multiprocessing as mp
 
 from eval_nc import eval_nc
 from eval_ood import eval_ood
-from natsort import natsorted
+from feature_cache import FeatureCache
 import path
-from utils import get_epoch_number, get_epoch_name, convert_numpy_to_lists
+from utils import get_epoch_number, get_epoch_name, convert_numpy_to_lists, get_benchmark_name
 
 
 ckpt_suffixes = ['.ckpt', '.pth']
@@ -31,25 +33,25 @@ postprocessors = [
 # ["openmax", "msp", "temp_scaling", "odin", "mds", "mds_ensemble", "rmds", "gram", "ebo", "gradnorm", "react", "mls", "klm", "vim", "knn", "dice", "rankfeat", "ash", "she"]
 
 
-def save_ood(df, save_dir, key):
+def save_ood(df, save_dir, filename, key):
     # Store in HDF5 format
-    with HDFStore(save_dir / 'metrics.h5') as store:
+    with HDFStore(save_dir / f'{filename}.h5') as store:
         store.put(key, df)
 
     # Print markdown table to file
-    with open(save_dir / 'metrics.md', 'a') as f:
+    with open(save_dir / f'{filename}.md', 'a') as f:
         f.write(f'---\n{key}\n')
         f.write(df.to_markdown())
         f.write('\n')
 
 
-def save_nc(df, save_dir, key):
+def save_nc(df, save_dir, filename, key):
     # Store in HDF5 format
-    with HDFStore(save_dir / 'metrics.h5') as store:
+    with HDFStore(save_dir / f'{filename}.h5') as store:
         store.put(key, df)
 
     # Print values to file
-    with open(save_dir / 'metrics.md', 'a') as f:
+    with open(save_dir / f'{filename}.md', 'a') as f:
         f.write(f'---\n{key}\n')
         f.write(df.transpose().to_markdown())
         f.write('\n')
@@ -75,53 +77,32 @@ def filter_ckpts(ckpt_list, filter_list=[1, 2, 5, 10, 20, 50, 100, 200, 500]):
     ckpts_filtered = [p for p in ckpt_list if get_epoch_number(p) in filter_list]
     ckpts_filtered.append(ckpt_list[-1])
     ckpts_filtered = natsorted(list(set(ckpts_filtered)), key=str)
-    return ckpts_filtered
+    return ckpts_filtered        
 
 
-def eval_nc(benchmark_name, run_id, epoch=None):
-    ckpt_dir = path.ckpt_root / benchmark_name / run_id
-    ckpt_list = [p for p in ckpt_dir.glob('*') if p.suffix in ckpt_suffixes]
+def eval_run(run_dir, ood_method_list=postprocessors):
+    run_dir = Path(run_dir)
+    ckpt_list = [p for p in run_dir.glob('*') if p.suffix in ckpt_suffixes]
     ckpt_list = filter_ckpts(ckpt_list)
 
-    if epoch is not None:
-        ckpt_list = [p for p in ckpt_list if f'e{epoch}' in str(p)]
+    benchmark_name = get_benchmark_name(run_dir)
+    save_dir = path.res_data / run_dir.relative_to(path.ckpt_root)
+    save_dir.mkdir(exist_ok=True, parents=True)
 
     for ckpt_path in ckpt_list:
-        metrics = eval_nc(benchmark_name, ckpt_path)
-
-        epoch_id = get_epoch_name(ckpt_path)
-        save_dir = path.res_data / benchmark_name / run_id / epoch_id
-        save_dir.mkdir(exist_ok=True, parents=True)
-
-        save_nc(metrics,
-                save_dir,
-                'nc')
+        eval_ckpt(benchmark_name, ckpt_path, save_dir, ood_method_list)
 
 
-def ood_all_ckpt(benchmark_name, run_id, postprocessor_name):
-    ckpt_dir = path.ckpt_root / benchmark_name / run_id
-    ckpt_list = [p for p in ckpt_dir.glob('*') if p.suffix in ckpt_suffixes]
-    ckpt_list = filter_ckpts(ckpt_list)
+def eval_ckpt(benchmark_name, ckpt_path, save_dir, ood_method_list):
+    file_name = get_epoch_name(ckpt_path)
+    feature_cache = FeatureCache(benchmark_name, path.cache_root)
 
-    for ckpt_path in ckpt_list:
-        metrics, scores = eval_ood(benchmark_name, ckpt_path, postprocessor_name)
+    nc_metrics = eval_nc(benchmark_name, ckpt_path)
+    save_nc(nc_metrics, save_dir, file_name, 'nc')
 
-        epoch_id = get_epoch_name(ckpt_path)
-        save_dir = path.res_data / benchmark_name / run_id / epoch_id
-        save_dir.mkdir(exist_ok=True, parents=True)
-
-        save_ood(metrics,
-                 save_dir,
-                 postprocessor_name)
-
-        save_scores(scores,
-                    save_dir,
-                    postprocessor_name)
-
-
-def eval_benchmark(benchmark_name, run_id, pps):
-    for postpro in pps:
-        ood_all_ckpt(benchmark_name, run_id, postpro)
+    for ood_method in ood_method_list:
+        ood_metrics,  = eval_ood(benchmark_name, ckpt_path, ood_method)
+        save_ood(ood_metrics, save_dir, file_name, ood_method)
 
 
 def eval_noise(benchmark_name, run_id):
@@ -155,10 +136,7 @@ if __name__ == '__main__':
     cfg = OmegaConf.from_cli()
     # cfg = OmegaConf.merge(main_cfg, cli_cfg)
 
-    if cfg.benchmark == 'cifar10_noise':
+    if 'cifar10_noise' in cfg.run:
         eval_noise(cfg.benchmark, cfg.run)
 
-    if 'pps' in cfg:
-        eval_benchmark(cfg.benchmark, cfg.run, cfg.pps)
-    else:
-        eval_nc(cfg.benchmark, cfg.run, cfg.epoch)
+    eval_run(cfg.run, cfg.method)
