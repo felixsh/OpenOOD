@@ -4,6 +4,7 @@ import numpy as np
 from torch import load
 
 from openood.networks import ResNet18_32x32, ResNet18_224x224, ResNet50
+import path
 
 
 def load_network(benchmark_name, ckpt_path):
@@ -84,3 +85,14 @@ def convert_lists_to_numpy(data):
             return [convert_lists_to_numpy(item) for item in data]
     else:
         return data  # Leave other data types unchanged
+
+
+def get_benchmark_name(full_path):
+    rel_path = full_path.relative_to(path.ckpt_root)
+    return rel_path.parents[-2]
+
+
+if __name__ == '__main__':
+    from pathlib import Path
+    p = Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/ResNet18_32x32/no_noise/300+_epochs/run_e300_2024_11_14-12_51_57')
+    print(get_benchmark_name(p))
