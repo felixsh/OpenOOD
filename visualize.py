@@ -66,6 +66,14 @@ def get_acc(benchmark_name, run_id, split='val', filter_epochs=None):
         return acc_values, acc_epochs
 
 
+def get_noise(benchmark_name, run_id):
+    json_dir = path.ckpt_root / benchmark_name / f'run{run_id}'
+    with open(json_dir / 'data.json', 'r') as f:
+        data = json.load(f)
+
+    return data['metadata']['noise']
+
+
 def get_acc_nc_ood_mean(benchmark_name,
                    acc_split='val',
                    nc_metric='nc1_cdnv',
@@ -78,33 +86,35 @@ def get_acc_nc_ood_mean(benchmark_name,
     for run_dir in benchmark_dir.glob('run*'):
         if benchmark_name == 'imagenet200' and run_dir.name == 'run0':
             continue
-        ckpt_dirs = natsorted(list(run_dir.glob('e*')), key=str)
         acc_val, acc_epoch = get_acc(benchmark_name, run_dir.name, acc_split)
         run_number = int(run_dir.name[3:])
 
-        for ckpt_dir in ckpt_dirs:
-            with pd.HDFStore(ckpt_dir / 'metrics.h5') as store:
-                print(str(ckpt_dir))
-                nc_df = store.get('nc')
-                nc = nc_df.iloc[0][nc_metric]
+        if run_number > 7:
+            continue
 
-                epoch = int(ckpt_dir.name[1:])
-                acc = acc_val[acc_epoch == epoch][0]
+        with pd.HDFStore(run_dir / 'metrics.h5') as store:
+            print(str(run_dir))
+            nc_df = store.get('/nc')
+            nc = nc_df.iloc[0][nc_metric]
+            print(nc)
 
-                ood_keys = list(store.keys())
-                ood_keys.remove('/nc')
-                near_ood = []
-                far_ood = []
-                for k in ood_keys:
-                    ood_df = store.get(k)
-                    near_ood.append(ood_df.at['nearood', ood_metric])
-                    far_ood.append(ood_df.at['farood', ood_metric])
+            acc = acc_val[-1]
 
-                near_ood = np.mean(np.array(near_ood))
-                far_ood = np.mean(np.array(far_ood))
+            ood_keys = list(store.keys())
+            ood_keys.remove('/nc')
+            near_ood = []
+            far_ood = []
+            for k in ood_keys:
+                ood_df = store.get(k)
+                near_ood.append(ood_df.at['nearood', ood_metric])
+                print(ood_df.at['nearood', ood_metric])
+                far_ood.append(ood_df.at['farood', ood_metric])
 
-                data.append([acc, nc, near_ood, far_ood])
-                run_ids.append(run_number)
+            near_ood = np.mean(np.array(near_ood))
+            far_ood = np.mean(np.array(far_ood))
+
+            data.append([acc, nc, near_ood, far_ood])
+            run_ids.append(run_number)
 
     return np.array(data), np.array(run_ids)
 
@@ -490,15 +500,15 @@ def plot_nc(benchmark_name,
         # Subplot 01
         plot_line(axes[0, 1], x, nc['nc2_equinormness'], 'nc2_equinormness', markers[0])
         axes[0, 1].set_ylabel('nc2_equinormness')
-        ax011 = axes[0, 0].twinx()
+        ax011 = axes[0, 1].twinx()
         plot_line(ax011, x, nc['nc2_equiangularity'], 'nc2_equiangularity', markers[1], color=colors[1])
         ax011.set_ylabel('nc2_equiangularity')
         # plot_line(axes[0, 1], x, nc['gnc2_hyperspherical_uniformity'], 'gnc2_hyperspherical_uniformity', markers[2])
         # Subplot 10
         plot_line(axes[1, 0], x, nc['nc3_self_duality'], 'nc3_self_duality', markers[0])
-        ax011 = axes[1, 0].twinx()
-        plot_line(ax011, x, nc['unc3_uniform_duality'], 'unc3_uniform_duality', markers[1], color=colors[1])
-        ax011.set_ylabel('unc3')
+        ax101 = axes[1, 0].twinx()
+        plot_line(ax101, x, nc['unc3_uniform_duality'], 'unc3_uniform_duality', markers[1], color=colors[1])
+        ax101.set_ylabel('unc3')
         axes[1, 0].set_ylabel('nc3')
         # Subplot 11
         plot_line(axes[1, 1], x, nc['nc4_classifier_agreement'], 'nc4_classifier_agreement', markers[0])
@@ -508,17 +518,19 @@ def plot_nc(benchmark_name,
         # Legend subplot 00
         lines000, labels000 = axes[0, 0].get_legend_handles_labels()
         lines001, labels001 = ax001.get_legend_handles_labels()
-        ax001.legend(lines000 + lines001, labels000 + labels001)
+        ax001.legend(lines000 + lines001, labels000 + labels001, loc=1)
         # Legend subplot 01
         lines010, labels010 = axes[0, 1].get_legend_handles_labels()
         lines011, labels011 = ax011.get_legend_handles_labels()
-        ax001.legend(lines010 + lines011, labels010 + labels011)
+        loc = 5 if benchmark_name == 'cifar10' else 4
+        ax011.legend(lines010 + lines011, labels010 + labels011, loc=loc)
         # Legend subplot 10
         lines100, labels100 = axes[1, 0].get_legend_handles_labels()
-        lines101, labels101 = ax011.get_legend_handles_labels()
-        ax011.legend(lines100 + lines101, labels100 + labels101)
+        lines101, labels101 = ax101.get_legend_handles_labels()
+        loc = 5 if benchmark_name == 'cifar10' else 1
+        ax101.legend(lines100 + lines101, labels100 + labels101, loc=loc)
         # Legend subplot 11
-        axes[1, 1].legend()
+        axes[1, 1].legend(loc=4)
 
         # axes[0, 0].set_title('NC1')
         # axes[0, 1].set_title('NC2')
@@ -705,7 +717,7 @@ def plot_acc_ood_avg(benchmark_name,
     # epochs = log_epochs 
 
     # Plotting
-    plt.title(f'{benchmark_name} {"far" if far else "near"}')
+    # plt.title(f'{benchmark_name} {"far" if far else "near"}')
     for ood_key in ood_keys:
         print(ood_key)
         y_values = avg_far_ood[ood_key] if far else avg_near_ood[ood_key]
@@ -732,12 +744,58 @@ def plot_acc_ood_avg(benchmark_name,
     # Create legend without duplicates
     handles, labels = plt.gca().get_legend_handles_labels()
     by_label = dict(zip(labels, handles))
-    plt.legend(by_label.values(), by_label.keys())
+    plt.legend(by_label.values(), by_label.keys(), loc=2)
 
     # Save the plot
     save_path = path.res_plots / benchmark_name
     save_path.mkdir(exist_ok=True, parents=True)
     filename = f'acc_{acc_split}_{ood_metric}_{"far" if far else "near"}_{"avg"}_{"epoch" if x_axis == "epoch" else "acc"}.png'
+    plt.savefig(save_path / filename, bbox_inches='tight')
+    plt.close()
+
+
+def plot_noise():
+    benchmark_name = 'cifar10_noise'
+    nc_metric='nc1_cdnv'
+    ood_metric='AUROC'
+    data, run_ids = get_acc_nc_ood_mean(benchmark_name,
+                                    acc_split='val',
+                                    nc_metric='nc1_cdnv',
+                                    ood_metric='AUROC')
+    # data: [acc, nc, near_ood, far_ood]
+
+    noise_lvl =  np.array([get_noise(benchmark_name, r) for r in run_ids])
+    c = [colors[i] for i in run_ids]
+
+    acc = data[:, 0]
+    nc = data[:, 1]
+    nearood = data[:, 2]
+    farood = data[:, 3]
+
+    #########################################################################
+    fig, axes = plt.subplots(1, 4, figsize=(20, 5))
+
+    axes.ravel()[0].scatter(noise_lvl, acc, c=c, marker='o')
+    axes.ravel()[0].set_xlabel('noise level')
+    axes.ravel()[0].set_ylabel('accuracy')
+
+    axes.ravel()[1].scatter(noise_lvl, nc, c=c, marker='o')
+    axes.ravel()[1].set_xlabel('noise level')
+    axes.ravel()[1].set_ylabel(f'{nc_metric}')
+
+    axes.ravel()[2].scatter(noise_lvl, nearood, c=c, marker='o')
+    axes.ravel()[2].set_xlabel('noise level')
+    axes.ravel()[2].set_ylabel(f'{ood_metric} nearood')
+
+    axes.ravel()[3].scatter(noise_lvl, farood, c=c, marker='o')
+    axes.ravel()[3].set_xlabel('noise level')
+    axes.ravel()[3].set_ylabel(f'{ood_metric} farood')
+
+    plt.tight_layout()
+
+    save_path = path.res_plots / benchmark_name
+    save_path.mkdir(exist_ok=True, parents=True)
+    filename = f'noise_corr.png'
     plt.savefig(save_path / filename, bbox_inches='tight')
     plt.close()
 
@@ -760,12 +818,14 @@ def plot_benchmark_specific(benchmark_name):
 
 
 if __name__ == '__main__':
-    cfg = OmegaConf.from_cli()
+    # cfg = OmegaConf.from_cli()
     
     # cfg.benchmark = 'cifar10'
     # cfg.run = 'run0'
 
-    if 'run' in cfg:
-        plot_run_specific(cfg.benchmark, cfg.run)
-    else:
-        plot_benchmark_specific(cfg.benchmark)
+    plot_noise()
+
+    # if 'run' in cfg:
+    #     plot_run_specific(cfg.benchmark, cfg.run)
+    # else:
+    #     plot_benchmark_specific(cfg.benchmark)
