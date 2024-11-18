@@ -78,7 +78,7 @@ def filter_ckpts(ckpt_list, filter_list=[1, 2, 5, 10, 20, 50, 100, 200, 500]):
     return ckpts_filtered
 
 
-def nc_all_ckpt(benchmark_name, run_id, epoch=None):
+def eval_nc(benchmark_name, run_id, epoch=None):
     ckpt_dir = path.ckpt_root / benchmark_name / run_id
     ckpt_list = [p for p in ckpt_dir.glob('*') if p.suffix in ckpt_suffixes]
     ckpt_list = filter_ckpts(ckpt_list)
@@ -96,19 +96,6 @@ def nc_all_ckpt(benchmark_name, run_id, epoch=None):
         save_nc(metrics,
                 save_dir,
                 'nc')
-
-
-def nc_best_ckpt(benchmark_name):
-    ckpt_path = path.ckpt_root / benchmark_name / 'best.ckpt'
-
-    save_dir = path.res_data / benchmark_name / 'best'
-    save_dir.mkdir(exist_ok=True, parents=True)
-
-    metrics = eval_nc(benchmark_name, ckpt_path)
-
-    save_nc(metrics,
-            save_dir,
-            'nc')
 
 
 def ood_all_ckpt(benchmark_name, run_id, postprocessor_name):
@@ -132,36 +119,9 @@ def ood_all_ckpt(benchmark_name, run_id, postprocessor_name):
                     postprocessor_name)
 
 
-def ood_best_ckpt(benchmark_name, postprocessor_name):
-    ckpt_path = path.ckpt_root / benchmark_name / 'best.ckpt'
-
-    save_dir = path.res_data / benchmark_name / 'best'
-    save_dir.mkdir(exist_ok=True, parents=True)
-
-    metrics, scores = eval_ood(benchmark_name, ckpt_path, postprocessor_name)
-
-    save_ood(metrics,
-             save_dir,
-             postprocessor_name)
-
-    save_scores(scores,
-                save_dir,
-                postprocessor_name)
-
-
 def eval_benchmark(benchmark_name, run_id, pps):
     for postpro in pps:
-        if run_id == 'best':
-            ood_best_ckpt(benchmark_name, postpro)
-        else:
-            ood_all_ckpt(benchmark_name, run_id, postpro)
-
-
-def evaluate_nc(benchmark_name, run_id, epoch=None):
-    if run_id == 'best':
-        nc_best_ckpt(benchmark_name)
-    else:
-        nc_all_ckpt(benchmark_name, run_id, epoch)
+        ood_all_ckpt(benchmark_name, run_id, postpro)
 
 
 def eval_noise(benchmark_name, run_id):
@@ -201,4 +161,4 @@ if __name__ == '__main__':
     if 'pps' in cfg:
         eval_benchmark(cfg.benchmark, cfg.run, cfg.pps)
     else:
-        evaluate_nc(cfg.benchmark, cfg.run, cfg.epoch)
+        eval_nc(cfg.benchmark, cfg.run, cfg.epoch)
