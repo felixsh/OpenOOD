@@ -41,9 +41,9 @@ class MDSPostprocessor(BasePostprocessor):
                 all_preds = torch.cat(all_preds)
             
             else:
-                all_feats = feature_cache.get('train', 'features', torch=True)
-                all_labels = feature_cache.get('train', 'labels', torch=True)
-                all_preds = feature_cache.get('train', 'predictions', torch=True)
+                all_feats = feature_cache.get('train', 'features', return_torch=True)
+                all_labels = feature_cache.get('train', 'labels', return_torch=True)
+                all_preds = feature_cache.get('train', 'predictions', return_torch=True)
                 
             # sanity check on train acc
             train_acc = all_preds.eq(all_labels).float().mean()
