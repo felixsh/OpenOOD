@@ -23,10 +23,16 @@ class FeatureCache():
         self.data['train'] = self._load_or_compute(self.train_path, split='train')
         self.data['val'] = self._load_or_compute(self.val_path, split='val')
     
-    def get(self, split, key):
+    def get(self, split, key, torch=False):
         assert split in ('train', 'val')
         assert key in ('logits', 'features', 'labels', 'predictions', 'weights', 'bias')
-        return self.data[split][key]
+
+        res = self.data[split][key]
+
+        if torch:
+            return torch.as_tensor(res)
+        else:
+            return res
 
     def _load_or_compute(self, data_path, split='train'):
         try:
