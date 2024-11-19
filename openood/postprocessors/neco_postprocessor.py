@@ -20,22 +20,27 @@ class NECOPostprocessor(BasePostprocessor):
         self.args_dict = self.config.postprocessor.postprocessor_sweep
         self.setup_flag = False
 
-    def setup(self, net: nn.Module, id_loader_dict, ood_loader_dict):
+    def setup(self, net: nn.Module, id_loader_dict, ood_loader_dict, feature_cache=None):
         if not self.setup_flag:
-            H = []
-            net.eval()
-            with torch.no_grad():
-                for batch in tqdm(id_loader_dict['train'],
-                                  desc='Setup: ',
-                                  position=0,
-                                  leave=True):
-                    data = batch['data'].cuda()
-                    data = data.float()
+            
+            if feature_cache is None:
+                H = []
+                net.eval()
+                with torch.no_grad():
+                    for batch in tqdm(id_loader_dict['train'],
+                                    desc='Setup: ',
+                                    position=0,
+                                    leave=True):
+                        data = batch['data'].cuda()
+                        data = data.float()
 
-                    _, feature = net(data, return_feature=True)
-                    H.append(feature.data)
+                        _, feature = net(data, return_feature=True)
+                        H.append(feature.data)
 
-            H = torch.cat(H, dim=0).cpu().numpy()
+                H = torch.cat(H, dim=0).cpu().numpy()
+            
+            else:
+                H = feature_cache.get('train', 'features')
 
             if self.center:
                 P, _, mean = principal_decomp(H, n_components=self.D, center=True)

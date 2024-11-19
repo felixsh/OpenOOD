@@ -17,27 +17,34 @@ class MDSPostprocessor(BasePostprocessor):
         self.num_classes = num_classes_dict[self.config.dataset.name]
         self.setup_flag = False
 
-    def setup(self, net: nn.Module, id_loader_dict, ood_loader_dict):
+    def setup(self, net: nn.Module, id_loader_dict, ood_loader_dict, feature_cache=None):
         if not self.setup_flag:
-            # estimate mean and variance from training set
-            print('\n Estimating mean and variance from training set...')
-            all_feats = []
-            all_labels = []
-            all_preds = []
-            with torch.no_grad():
-                for batch in tqdm(id_loader_dict['train'],
-                                  desc='Setup: ',
-                                  position=0,
-                                  leave=True):
-                    data, labels = batch['data'].cuda(), batch['label']
-                    logits, features = net(data, return_feature=True)
-                    all_feats.append(features.cpu())
-                    all_labels.append(deepcopy(labels))
-                    all_preds.append(logits.argmax(1).cpu())
+            if feature_cache is None:
+                # estimate mean and variance from training set
+                print('\n Estimating mean and variance from training set...')
+                all_feats = []
+                all_labels = []
+                all_preds = []
+                with torch.no_grad():
+                    for batch in tqdm(id_loader_dict['train'],
+                                    desc='Setup: ',
+                                    position=0,
+                                    leave=True):
+                        data, labels = batch['data'].cuda(), batch['label']
+                        logits, features = net(data, return_feature=True)
+                        all_feats.append(features.cpu())
+                        all_labels.append(deepcopy(labels))
+                        all_preds.append(logits.argmax(1).cpu())
 
-            all_feats = torch.cat(all_feats)
-            all_labels = torch.cat(all_labels)
-            all_preds = torch.cat(all_preds)
+                all_feats = torch.cat(all_feats)
+                all_labels = torch.cat(all_labels)
+                all_preds = torch.cat(all_preds)
+            
+            else:
+                all_feats = feature_cache.get('train', 'features', torch=True)
+                all_labels = feature_cache.get('train', 'labels', torch=True)
+                all_preds = feature_cache.get('train', 'predictions', torch=True)
+                
             # sanity check on train acc
             train_acc = all_preds.eq(all_labels).float().mean()
             print(f' Train acc: {train_acc:.2%}')

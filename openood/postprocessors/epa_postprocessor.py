@@ -37,7 +37,7 @@ class EPAPostprocessor(BasePostprocessor):
         a = norm_transformed / norm
         return np.arccos(a)
 
-    def setup(self, net: nn.Module, id_loader_dict, ood_loader_dict):
+    def setup(self, net: nn.Module, id_loader_dict, ood_loader_dict, feature_cache=None):
         if not self.setup_flag:
 
             # Calc new origin
@@ -45,37 +45,29 @@ class EPAPostprocessor(BasePostprocessor):
             self.o_prime = -np.linalg.pinv(w) @ b
 
             # Get logits & features
-            logits = []
-            H = []
-            net.eval()
-            with torch.no_grad():
-                for batch in tqdm(id_loader_dict['train'],
-                                  desc='Setup: ',
-                                  position=0,
-                                  leave=True):
-                    data = batch['data'].cuda()
-                    data = data.float()
+            if feature_cache is None:
+                logits = []
+                H = []
+                net.eval()
+                with torch.no_grad():
+                    for batch in tqdm(id_loader_dict['train'],
+                                    desc='Setup: ',
+                                    position=0,
+                                    leave=True):
+                        data = batch['data'].cuda()
+                        data = data.float()
 
-                    logit, feature = net(data, return_feature=True)
-                    logits.append(logit)
-                    H.append(feature)
+                        logit, feature = net(data, return_feature=True)
+                        logits.append(logit)
+                        H.append(feature)
 
-            logits = torch.cat(logits, dim=0)
-            H = torch.cat(H, dim=0).cpu().numpy()
-
-            '''
-            # Show characterisitic lenghts of the geometry
-            b_norm = np.linalg.norm(b)
-            o_prime_norm = np.linalg.norm(self.o_prime)
-            mu_g = features.mean(dim=0)
-            mu_g_norm = torch.norm(mu_g).item()
-            alpha = torch.norm(features - mu_g, dim=1).mean()
+                logits = torch.cat(logits, dim=0)
+                H = torch.cat(H, dim=0).cpu().numpy()
             
-            #print(f"$\|b\| = {b_norm:.4}$")
-            #print(f"$\|o'\| = {o_prime_norm:.4}$")
-            #print(f"$\|\mu_g\| = {mu_g_norm:.4}$")
-            #print(f"$\|\\alpha\| = {alpha:.4}$")
-            '''
+            else:
+                logits = feature_cache.get('train', 'logits')
+                H = feature_cache.get('train', 'features')
+
             self.P, _ = principal_decomp(H - self.o_prime, n_components=self.d, center=False)
 
             entropy = self._entropy(logits)

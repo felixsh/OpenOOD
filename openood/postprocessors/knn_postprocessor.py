@@ -16,29 +16,33 @@ class KNNPostprocessor(BasePostprocessor):
         super(KNNPostprocessor, self).__init__(config)
         self.args = self.config.postprocessor.postprocessor_args
         self.K = self.args.K
-        self.activation_log = None
         self.args_dict = self.config.postprocessor.postprocessor_sweep
         self.setup_flag = False
 
-    def setup(self, net: nn.Module, id_loader_dict, ood_loader_dict):
+    def setup(self, net: nn.Module, id_loader_dict, ood_loader_dict, feature_cache=None):
         if not self.setup_flag:
-            activation_log = []
-            net.eval()
-            with torch.no_grad():
-                for batch in tqdm(id_loader_dict['train'],
-                                  desc='Setup: ',
-                                  position=0,
-                                  leave=True):
-                    data = batch['data'].cuda()
-                    data = data.float()
+            if feature_cache is None:
+                activation_log = []
+                net.eval()
+                with torch.no_grad():
+                    for batch in tqdm(id_loader_dict['train'],
+                                    desc='Setup: ',
+                                    position=0,
+                                    leave=True):
+                        data = batch['data'].cuda()
+                        data = data.float()
 
-                    _, feature = net(data, return_feature=True)
-                    activation_log.append(
-                        normalizer(feature.data.cpu().numpy()))
+                        _, feature = net(data, return_feature=True)
+                        activation_log.append(
+                            normalizer(feature.data.cpu().numpy()))
 
-            self.activation_log = np.concatenate(activation_log, axis=0)
+                activation_log = np.concatenate(activation_log, axis=0)
+            
+            else:
+                activation_log = feature_cache.get('train', 'features')
+            
             self.index = faiss.IndexFlatL2(feature.shape[1])
-            self.index.add(self.activation_log)
+            self.index.add(activation_log)
             self.setup_flag = True
         else:
             pass

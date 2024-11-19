@@ -16,28 +16,29 @@ class ReactPostprocessor(BasePostprocessor):
         self.args_dict = self.config.postprocessor.postprocessor_sweep
         self.setup_flag = False
 
-    def setup(self, net: nn.Module, id_loader_dict, ood_loader_dict):
+    def setup(self, net: nn.Module, id_loader_dict, ood_loader_dict, feature_cache=None):
         if not self.setup_flag:
-            activation_log = []
-            net.eval()
-            with torch.no_grad():
-                for batch in tqdm(id_loader_dict['val'],
-                                  desc='Setup: ',
-                                  position=0,
-                                  leave=True):
-                    data = batch['data'].cuda()
-                    data = data.float()
+            if feature_cache is None:
+                activation_log = []
+                net.eval()
+                with torch.no_grad():
+                    for batch in tqdm(id_loader_dict['val'],
+                                    desc='Setup: ',
+                                    position=0,
+                                    leave=True):
+                        data = batch['data'].cuda()
+                        data = data.float()
 
-                    _, feature = net(data, return_feature=True)
-                    activation_log.append(feature.data.cpu().numpy())
+                        _, feature = net(data, return_feature=True)
+                        activation_log.append(feature.data.cpu().numpy())
 
-            self.activation_log = np.concatenate(activation_log, axis=0)
+                self.activation_log = np.concatenate(activation_log, axis=0)
+            else:
+                self.activation_log = feature_cache.get('val', 'features')
+
+            self.threshold = np.percentile(self.activation_log.flatten(),
+                                           self.percentile)
             self.setup_flag = True
-        else:
-            pass
-
-        self.threshold = np.percentile(self.activation_log.flatten(),
-                                       self.percentile)
 
     @torch.no_grad()
     def postprocess(self, net: nn.Module, data: Any):

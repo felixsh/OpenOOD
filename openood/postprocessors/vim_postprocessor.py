@@ -19,24 +19,30 @@ class VIMPostprocessor(BasePostprocessor):
         self.dim = self.args.dim
         self.setup_flag = False
 
-    def setup(self, net: nn.Module, id_loader_dict, ood_loader_dict):
+    def setup(self, net: nn.Module, id_loader_dict, ood_loader_dict, feature_cache=None):
         if not self.setup_flag:
-            net.eval()
+            self.w, self.b = net.get_fc()
 
-            with torch.no_grad():
-                self.w, self.b = net.get_fc()
-                print('Extracting id training feature')
-                feature_id_train = []
-                for batch in tqdm(id_loader_dict['train'],
-                                  desc='Setup: ',
-                                  position=0,
-                                  leave=True):
-                    data = batch['data'].cuda()
-                    data = data.float()
-                    _, feature = net(data, return_feature=True)
-                    feature_id_train.append(feature.cpu().numpy())
-                feature_id_train = np.concatenate(feature_id_train, axis=0)
-                logit_id_train = feature_id_train @ self.w.T + self.b
+            if feature_cache is None:
+                net.eval()
+
+                with torch.no_grad():
+                    print('Extracting id training feature')
+                    feature_id_train = []
+                    for batch in tqdm(id_loader_dict['train'],
+                                    desc='Setup: ',
+                                    position=0,
+                                    leave=True):
+                        data = batch['data'].cuda()
+                        data = data.float()
+                        _, feature = net(data, return_feature=True)
+                        feature_id_train.append(feature.cpu().numpy())
+                    feature_id_train = np.concatenate(feature_id_train, axis=0)
+                    logit_id_train = feature_id_train @ self.w.T + self.b
+            
+            else:
+                feature_id_train = feature_cache.get('train', 'features')
+                logit_id_train = feature_cache.get('train', 'logits')
 
             self.u = -np.matmul(pinv(self.w), self.b)
             ec = EmpiricalCovariance(assume_centered=True)

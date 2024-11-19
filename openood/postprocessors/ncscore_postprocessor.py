@@ -21,22 +21,28 @@ class NCScorePostprocessor(BasePostprocessor):
         self.args_dict = self.config.postprocessor.postprocessor_sweep
         self.setup_flag = False
 
-    def setup(self, net: nn.Module, id_loader_dict, ood_loader_dict):
+    def setup(self, net: nn.Module, id_loader_dict, ood_loader_dict, feature_cache=None):
         if not self.setup_flag:
-            h = []
-            net.eval()
-            with torch.no_grad():
-                for batch in tqdm(id_loader_dict['train'],
-                                  desc='Setup: ',
-                                  position=0,
-                                  leave=True):
-                    data = batch['data'].cuda()
-                    data = data.float()
+            
+            if feature_cache is None:
+                h = []
+                net.eval()
+                with torch.no_grad():
+                    for batch in tqdm(id_loader_dict['train'],
+                                    desc='Setup: ',
+                                    position=0,
+                                    leave=True):
+                        data = batch['data'].cuda()
+                        data = data.float()
 
-                    _, feature = net(data, return_feature=True)
-                    h.append(feature.data.cpu().numpy())
+                        _, feature = net(data, return_feature=True)
+                        h.append(feature.data.cpu().numpy())
 
-            h = np.concatenate(h, axis=0)
+                h = np.concatenate(h, axis=0)
+            
+            else:
+                h = feature_cache.get('train', 'features')
+
             self.mu_g = torch.as_tensor(nctb.global_embedding_mean(h)).cuda()
 
             self.w, _ = net.get_fc()  # (c x d)
