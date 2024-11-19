@@ -4,13 +4,8 @@
 
 trap 'pkill -P $$; exit' SIGINT SIGTERM
 
-BENCHMARK=imagenet200
-RUN=run0
+RUN=/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/ResNet18_32x32/no_noise/300+_epochs/run_e300_2024_11_14-06_28_59/
+OOD="[msp,odin,mds,react,dice,knn,nusa,vim,ncscore,neco,epa]"
 
-CUDA_VISIBLE_DEVICES=0 python eval_main.py benchmark=$BENCHMARK run=$RUN pps="[msp,odin,dice,knn]" &
-CUDA_VISIBLE_DEVICES=1 python eval_main.py benchmark=$BENCHMARK run=$RUN pps="[mds,vim,epa]" &
-CUDA_VISIBLE_DEVICES=2 python eval_main.py benchmark=$BENCHMARK run=$RUN pps="[react,nusa,neco,ncscore]" &
-wait $(jobs -p)
-
-python eval_main.py benchmark=$BENCHMARK run=$RUN
+CUDA_VISIBLE_DEVICES=3 python eval_main.py run=$RUN ood=$OOD
 wait $(jobs -p)
