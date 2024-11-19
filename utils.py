@@ -47,6 +47,8 @@ def get_batch_size(benchmark_name):
         batch_size = 256
     elif benchmark_name == 'imagenet':
         batch_size = 512
+    else:
+        raise NotImplementedError
     return batch_size
 
 
@@ -89,7 +91,7 @@ def convert_lists_to_numpy(data):
 
 def get_benchmark_name(full_path):
     rel_path = full_path.relative_to(path.ckpt_root)
-    return rel_path.parents[-2]
+    return str(rel_path.parents[-2])
 
 
 if __name__ == '__main__':

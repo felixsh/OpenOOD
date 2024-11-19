@@ -86,6 +86,7 @@ def eval_run(run_dir, ood_method_list=postprocessors):
     ckpt_list = filter_ckpts(ckpt_list)
 
     benchmark_name = get_benchmark_name(run_dir)
+    print('BENCHMARK', benchmark_name)
     save_dir = path.res_data / run_dir.relative_to(path.ckpt_root)
     save_dir.mkdir(exist_ok=True, parents=True)
 
@@ -95,13 +96,13 @@ def eval_run(run_dir, ood_method_list=postprocessors):
 
 def eval_ckpt(benchmark_name, ckpt_path, save_dir, ood_method_list):
     file_name = get_epoch_name(ckpt_path)
-    feature_cache = FeatureCache(benchmark_name, path.cache_root)
+    feature_cache = FeatureCache(benchmark_name, ckpt_path)
 
-    nc_metrics = eval_nc(benchmark_name, ckpt_path)
+    nc_metrics = eval_nc(feature_cache)
     save_nc(nc_metrics, save_dir, file_name, 'nc')
 
     for ood_method in ood_method_list:
-        ood_metrics,  = eval_ood(benchmark_name, ckpt_path, ood_method)
+        ood_metrics, _ = eval_ood(benchmark_name, ckpt_path, ood_method, feature_cache)
         save_ood(ood_metrics, save_dir, file_name, ood_method)
 
 
@@ -139,4 +140,4 @@ if __name__ == '__main__':
     if 'cifar10_noise' in cfg.run:
         eval_noise(cfg.benchmark, cfg.run)
 
-    eval_run(cfg.run, cfg.method)
+    eval_run(cfg.run, cfg.ood)

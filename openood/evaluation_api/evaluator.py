@@ -17,7 +17,6 @@ from openood.networks.scale_net import ScaleNet
 from .datasets import DATA_INFO, data_setup, get_id_ood_dataloader
 from .postprocessor import get_postprocessor
 from .preprocessor import get_default_preprocessor
-import path
 
 
 class Evaluator:
@@ -33,6 +32,7 @@ class Evaluator:
         batch_size: int = 200,
         shuffle: bool = False,
         num_workers: int = 4,
+        feature_cache = None,
     ) -> None:
         """A unified, easy-to-use API for evaluating (most) discriminative OOD
         detection methods.
@@ -99,6 +99,8 @@ class Evaluator:
         if not isinstance(postprocessor, BasePostprocessor):
             raise TypeError(
                 'postprocessor should inherit BasePostprocessor in OpenOOD')
+        
+        self.feature_cache = feature_cache
 
         # load data
         data_setup(data_root, id_name)
@@ -119,7 +121,7 @@ class Evaluator:
             net = ScaleNet(net)
 
         # postprocessor setup
-        postprocessor.setup(net, dataloader_dict['id'], dataloader_dict['ood'])
+        postprocessor.setup(net, dataloader_dict['id'], dataloader_dict['ood'], feature_cache=feature_cache)
 
         self.id_name = id_name
         self.net = net

@@ -1,67 +1,14 @@
 import nc_toolbox as nctb
-import numpy as np
 import pandas as pd
-import torch
-from tqdm import tqdm
-
-from openood.evaluation_api.datasets import data_setup, get_id_ood_dataloader
-from openood.evaluation_api.preprocessor import get_default_preprocessor
-import path
-from utils import load_network, get_batch_size
 
 
-def eval_nc(benchmark_name, ckpt_path):
+def eval_nc(feature_cache):
 
-    network_name = benchmark_name
-    if benchmark_name == 'cifar10_noise':
-        benchmark_name = 'cifar10'
-    
-    # Parameters
-    batch_size = get_batch_size(benchmark_name)
-    shuffle = False
-    num_workers = 6
-    
-    # Prepare stuff
-    data_root = str(path.data_root)
-    preprocessor = get_default_preprocessor(benchmark_name)
-    net = load_network(network_name, ckpt_path)
-
-    # Load data
-    data_setup(data_root, benchmark_name)
-    loader_kwargs = {
-        'batch_size': batch_size,
-        'shuffle': shuffle,
-        'num_workers': num_workers
-    }
-    dataloader_dict = get_id_ood_dataloader(benchmark_name, data_root,
-                                                preprocessor, **loader_kwargs)
-    dataloader = dataloader_dict['id']['train']
-
-    # Get features and labels
-    exampel_batch = next(iter(dataloader))
-    exampel_inp = exampel_batch['data'].cuda().float()
-
-    _, exampel_feature = net(exampel_inp, return_feature=True)
-
-    n = len(dataloader.dataset)
-    d = exampel_feature.shape[1]
-
-    H = np.zeros((n, d), dtype=np.float32)
-    L = np.zeros(n, dtype=int)
-
-    with torch.no_grad():
-        idx = 0
-        for batch in tqdm(dataloader):
-            inp = batch['data'].cuda().float()
-            _, feature = net(inp, return_feature=True)
-
-            bs = inp.shape[0]
-            H[idx : idx + bs] = feature.flatten(start_dim=1).cpu().numpy()
-            L[idx : idx + bs] = batch['label']
-            idx += bs
-
-    # Get weights and bias
-    W, B = net.get_fc()  # (c x d), (c,)
+    split = 'train'
+    H = feature_cache.get(split, 'features')
+    L = feature_cache.get(split, 'labels')
+    W = feature_cache.get(split, 'weights')
+    B = feature_cache.get(split, 'bias')
 
     # Statistics
     mu_c = nctb.class_embedding_means(H, L)
