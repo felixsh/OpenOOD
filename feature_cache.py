@@ -41,7 +41,7 @@ class FeatureCache():
             logits, features, labels, predictions, weights, bias = self._compute(self.ckpt_path, split=split)
             
             data_path.parent.mkdir(exist_ok=True, parents=True)
-            np.savez(
+            np.savez_compressed(
                 data_path,
                 logits=logits,
                 features=features,
