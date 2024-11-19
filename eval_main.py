@@ -1,5 +1,7 @@
 import json
 from pathlib import Path
+from timeit import default_timer as timer
+from datetime import timedelta
 
 from natsort import natsorted
 from omegaconf import OmegaConf
@@ -91,7 +93,9 @@ def eval_run(run_dir, ood_method_list=postprocessors):
     save_dir.mkdir(exist_ok=True, parents=True)
 
     for ckpt_path in ckpt_list:
+        start_time = timer()
         eval_ckpt(benchmark_name, ckpt_path, save_dir, ood_method_list)
+        print(f'{'\033[91m'}Checkpoint took {timedelta(seconds=timer()-start_time)}{'\033[0m'}')
 
 
 def eval_ckpt(benchmark_name, ckpt_path, save_dir, ood_method_list):
