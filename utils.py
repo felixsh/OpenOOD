@@ -40,16 +40,15 @@ def load_network(benchmark_name, ckpt_path):
 def get_batch_size(benchmark_name):
     # For 12GB VRAM
     if benchmark_name == 'cifar10':
-        batch_size = 1024
+        return 1024
     elif benchmark_name == 'cifar100':
-        batch_size = 1024
+        return 1024
     elif benchmark_name == 'imagenet200':
-        batch_size = 256
+        return 256
     elif benchmark_name == 'imagenet':
-        batch_size = 512
+        return 256
     else:
         raise NotImplementedError
-    return batch_size
 
 
 def get_epoch_number(ckpt_path):
