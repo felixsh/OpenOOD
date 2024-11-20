@@ -57,6 +57,12 @@ class NCWrapper(nn.Module):
             return y, self.extraction_layer.nc_features
         return y
 
+    def get_fc(self):
+        fc = self.extraction_layer
+        w = fc.weight.cpu().detach().numpy()
+        b = fc.bias.cpu().detach().numpy()
+        return w, b
+
 class NCVGG16(NCWrapper):
     def __init__(self, num_classes):
         # pass auf, vgg hat dropout layer!
