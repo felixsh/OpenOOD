@@ -10,10 +10,11 @@ from utils import load_network, get_batch_size
 
 class FeatureCache():
 
-    def __init__(self, benchmark_name, ckpt_path):
+    def __init__(self, benchmark_name, ckpt_path, recompute=False):
         self.benchmark_name = benchmark_name
         self.cache_path = path.cache_root
         self.ckpt_path = ckpt_path
+        self.recompute = recompute
 
         full_path = path.cache_root / ckpt_path.relative_to(path.ckpt_root)
         self.train_path = full_path.with_name(f'{full_path.stem}_train.npz')
@@ -36,6 +37,9 @@ class FeatureCache():
 
     def _load_or_compute(self, data_path, split='train'):
         try:
+            if self.recompute:
+                raise FileNotFoundError
+
             return np.load(data_path)
         except FileNotFoundError:
             logits, features, labels, predictions, weights, bias = self._compute(self.ckpt_path, split=split)
