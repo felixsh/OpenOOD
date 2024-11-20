@@ -16,7 +16,7 @@ class NuSAPostprocessor(BasePostprocessor):
         self.args_dict = self.config.postprocessor.postprocessor_sweep
         self.setup_flag = False
 
-    def setup(self, net: nn.Module, id_loader_dict, ood_loader_dict):
+    def setup(self, net: nn.Module, id_loader_dict, ood_loader_dict, feature_cache=None):
         if not self.setup_flag:
             W, _ = net.get_fc()  # (c x d), (c,)
             print(f"==>> W.shape: {W.shape}")
