@@ -72,6 +72,16 @@ def save_scores(score_dict, save_dir, filename):
         json.dump(converted_dict, f, indent=4)
 
 
+def existing_keys(save_dir, filename):
+    full_name = save_dir / f'{filename}.h5'
+    
+    if full_name.is_file():
+        with HDFStore(full_name, mode='r') as store:
+            return list(store.keys())
+    else:
+        return []
+
+
 def filter_ckpts(ckpt_list, filter_list=[1, 2, 5, 10, 20, 50, 100, 200, 500]):
     """Only use ckpts from epochs defined in filter list, plus final epoch"""
     # filter_list = [f-1 for f in filter_list]  # Shifted indices
@@ -94,20 +104,29 @@ def eval_run(run_dir, ood_method_list=postprocessors):
 
     for ckpt_path in ckpt_list:
         start_time = timer()
-        eval_ckpt(benchmark_name, ckpt_path, save_dir, ood_method_list)
+        eval_ckpt(benchmark_name, ckpt_path, save_dir, list(ood_method_list))
         print(f'{'\033[91m'}Checkpoint took {timedelta(seconds=timer()-start_time)}{'\033[0m'}')
 
 
 def eval_ckpt(benchmark_name, ckpt_path, save_dir, ood_method_list):
     file_name = get_epoch_name(ckpt_path)
-    feature_cache = FeatureCache(benchmark_name, ckpt_path)
 
-    nc_metrics = eval_nc(feature_cache)
-    save_nc(nc_metrics, save_dir, file_name, 'nc')
+    done_keys = existing_keys(save_dir, file_name)
+    all_done = all([k in done_keys for k in ood_method_list + ['nc']])
 
-    for ood_method in ood_method_list:
-        ood_metrics, _ = eval_ood(benchmark_name, ckpt_path, ood_method, feature_cache)
-        save_ood(ood_metrics, save_dir, file_name, ood_method)
+    if not all_done:
+        feature_cache = FeatureCache(benchmark_name, ckpt_path)
+
+        if not 'nc' in done_keys:
+            nc_metrics = eval_nc(feature_cache)
+            save_nc(nc_metrics, save_dir, file_name, 'nc')
+
+        for ood_method in ood_method_list:
+            if ood_method in done_keys:
+                continue
+
+            ood_metrics, _ = eval_ood(benchmark_name, ckpt_path, ood_method, feature_cache)
+            save_ood(ood_metrics, save_dir, file_name, ood_method)
 
 
 def eval_noise(benchmark_name, run_id):
