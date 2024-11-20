@@ -65,7 +65,7 @@ class EPAPostprocessor(BasePostprocessor):
                 H = torch.cat(H, dim=0).cpu().numpy()
             
             else:
-                logits = feature_cache.get('train', 'logits')
+                logits = torch.as_tensor(feature_cache.get('train', 'logits'))
                 H = feature_cache.get('train', 'features')
 
             self.P, _ = principal_decomp(H - self.o_prime, n_components=self.d, center=False)
