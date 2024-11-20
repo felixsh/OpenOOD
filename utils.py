@@ -1,10 +1,17 @@
+import json
 import re
+import sys
 
 import numpy as np
 from torch import load
 
 from openood.networks import ResNet18_32x32, ResNet18_224x224, ResNet50
 import path
+
+
+def str_to_class(classname):
+    """https://stackoverflow.com/a/1176180"""
+    return getattr(sys.modules[__name__], classname)
 
 
 def load_network(benchmark_name, ckpt_path):
@@ -20,21 +27,32 @@ def load_network(benchmark_name, ckpt_path):
         net.eval()
         return net
 
+    json_file = ckpt_path.parent / 'data.json'
+    with open(json_file, 'r') as f:
+        data = json.load(f)
+
+    model_name = data['metadata']['model']
+    model_class = str_to_class(model_name)
+
+    limit_classes = None
+
     if benchmark_name == 'cifar10':
-        net = ResNet18_32x32(num_classes=10)
+        num_classes = 10
     elif benchmark_name == 'cifar100':
-        net = ResNet18_32x32(num_classes=100)
+        num_classes = 100
     elif benchmark_name == 'imagenet200':
-        print('Load network', ckpt_path)
         if '_e150_' in str(ckpt_path):
             num_classes = 1000
             limit_classes = 200
         else:
             num_classes = 200
-            limit_classes = None
-        net = ResNet18_224x224(num_classes=num_classes, limit_classes=limit_classes)
     elif benchmark_name == 'imagenet':
-        net = ResNet50(num_classes=1000)
+        num_classes = 1000
+    
+    if limit_classes is None:
+        net = model_class(num_classes=num_classes)
+    else:
+        net = model_class(num_classes=num_classes, limit_classes=limit_classes)
 
     net.load_state_dict(load(ckpt_path, weights_only=True, map_location='cuda:0'))
     net.cuda()
