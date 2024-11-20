@@ -6,6 +6,7 @@ import numpy as np
 from torch import load
 
 from openood.networks import ResNet18_32x32, ResNet18_224x224, ResNet50
+from nc_models import NCAlexNet, NCLessNet18, NCMobileNetV2, NCVGG16
 import path
 
 
