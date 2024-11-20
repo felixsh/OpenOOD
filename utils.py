@@ -25,8 +25,14 @@ def load_network(benchmark_name, ckpt_path):
     elif benchmark_name == 'cifar100':
         net = ResNet18_32x32(num_classes=100)
     elif benchmark_name == 'imagenet200':
-        limit_classes = 200 if ('run0' in str(ckpt_path) or 'run1' in str(ckpt_path)) else None
-        net = ResNet18_224x224(num_classes=200, limit_classes=limit_classes)
+        print('Load network', ckpt_path)
+        if '_e150_' in str(ckpt_path):
+            num_classes = 1000
+            limit_classes = 200
+        else:
+            num_classes = 200
+            limit_classes = None
+        net = ResNet18_224x224(num_classes=num_classes, limit_classes=limit_classes)
     elif benchmark_name == 'imagenet':
         net = ResNet50(num_classes=1000)
 
