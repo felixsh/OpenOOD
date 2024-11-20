@@ -41,7 +41,7 @@ class KNNPostprocessor(BasePostprocessor):
             else:
                 activation_log = feature_cache.get('train', 'features')
             
-            self.index = faiss.IndexFlatL2(feature.shape[1])
+            self.index = faiss.IndexFlatL2(activation_log.shape[1])
             self.index.add(activation_log)
             self.setup_flag = True
         else:
