@@ -63,6 +63,13 @@ class NCWrapper(nn.Module):
         b = fc.bias.cpu().detach().numpy()
         return w, b
 
+    def forward_threshold(self, x, threshold):
+        _ = self.model(x)
+        feat = self.extraction_layer.nc_features
+        feat = feat.clip(max=threshold)
+        return self.extraction_layer(feat)
+
+
 class NCVGG16(NCWrapper):
     def __init__(self, num_classes):
         # pass auf, vgg hat dropout layer!
