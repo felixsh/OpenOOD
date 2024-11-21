@@ -50,7 +50,7 @@ def numpify_dict(dict_of_lists):
     return dict_of_arrays
 
 
-def load_acc(run_data_dir, split='val', filter_epochs=None):
+def load_acc(run_data_dir, filter_epochs=None):
     """Return accuracy values with corresponding epochs for run from data.json."""
 
     run_ckpt_dir = path.ckpt_root / run_data_dir.relative_to(path.res_data)
@@ -77,28 +77,29 @@ def load_acc(run_data_dir, split='val', filter_epochs=None):
 def load_nc(run_data_dir):
     """Return nc metrics with corresponding epochs for run from hdf5 files."""
     nc = defaultdict(list)
+    epochs = []
 
-    for h5file in run_data_dir.glob('e*.h5'):
+    for h5file in natsorted(list(run_data_dir.glob('e*.h5')), key=str):
         epoch = int(h5file.stem[1:])
-        nc['epoch'].append(epoch)
+        epochs.append(epoch)
 
         with HDFStore(h5file, mode='r') as store:
             df = store.get('nc')
             for metric, value in df.items():
                 nc[metric].append(value)
             
-    return numpify_dict(nc)
+    return numpify_dict(nc), np.array(epochs)
 
 
 def load_ood(run_data_dir, ood_metric='AUROC'):
     """Return ood metrics with corresponding epochs for run from hdf5 files."""
     nearood = defaultdict(list)
     farood = defaultdict(list)
+    epochs = []
 
-    for h5file in run_data_dir.glob('e*.h5'):
-        epoch = int(h5file.name[1:])
-        nearood['epoch'].append(epoch)
-        farood['epoch'].append(epoch)
+    for h5file in natsorted(list(run_data_dir.glob('e*.h5')), key=str):
+        epoch = int(h5file.stem[1:])
+        epochs.append(epoch)
 
         with HDFStore(h5file, mode='r') as store:
             ood_keys = list(store.keys())
@@ -109,7 +110,7 @@ def load_ood(run_data_dir, ood_metric='AUROC'):
                 nearood[key].append(df.at['nearood', ood_metric])
                 farood[key].append(df.at['farood', ood_metric])
         
-    return numpify_dict(nearood), numpify_dict(farood)
+    return numpify_dict(nearood), numpify_dict(farood), np.array(epochs)
 
 
 def load_noise(benchmark_name, run_id):

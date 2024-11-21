@@ -80,8 +80,7 @@ def _plot_grid(nc, acc, x, x_label):
 
 
 def plot_nc(run_data_dir):
-    nc = load_nc(run_data_dir)
-    epoch = nc['epoch']
+    nc, epoch = load_nc(run_data_dir)
     acc = load_acc(run_data_dir)
     acc_filt = load_acc(run_data_dir, filter_epochs=epoch)
 
