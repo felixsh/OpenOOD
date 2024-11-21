@@ -45,22 +45,71 @@ metric_markers = {
 }
 
 
-def load_acc(benchmark_name, run_id, split='val', filter_epochs=None):
-    json_dir = path.ckpt_root / benchmark_name / run_id
-    with open(json_dir / 'data.json', 'r') as f:
+def numpify_dict(dict_of_lists):
+    dict_of_arrays = {key: np.array(value) for key, value in dict_of_lists.items()}
+    return dict_of_arrays
+
+
+def load_acc(run_data_dir, split='val', filter_epochs=None):
+    """Return accuracy values with corresponding epochs for run from data.json."""
+
+    run_ckpt_dir = path.ckpt_root / run_data_dir.relative_to(path.res_data)
+    with open(run_ckpt_dir / 'data.json', 'r') as f:
         data = json.load(f)
 
-    acc_values = np.array(data['metrics']['Accuracy'][split]['values'])
-    acc_epochs = np.array(data['metrics']['Accuracy'][split]['epochs']) + 1
+    acc = {}
+    for split, acc_dict in data['metrics']['Accuracy'].items():
+        acc[split] = numpify_dict(acc_dict)
+        acc[split]['epochs'] += 1
 
-    if benchmark_name == 'cifar10' and run_id in ['run0', 'run1']:
-        acc_epochs -= 1
+        if filter_epochs is not None:
+            filter_epochs = np.array(filter_epochs)
+            idx = np.isin(acc[split]['epochs'], filter_epochs)
+            acc[split]['epochs'] = acc[split]['epochs'][idx]
+            acc[split]['values'] = acc[split]['values'][idx]
 
-    if filter_epochs is not None:
-        filter_epochs = np.array(filter_epochs)
-        return acc_values[np.isin(acc_epochs, filter_epochs)], filter_epochs
-    else:
-        return acc_values, acc_epochs
+    # if benchmark_name == 'cifar10' and run_id in ['run0', 'run1']:
+    #     acc_epochs -= 1
+
+    return acc
+
+
+def load_nc(run_data_dir):
+    """Return nc metrics with corresponding epochs for run from hdf5 files."""
+    nc = defaultdict(list)
+
+    for h5file in run_data_dir.glob('e*.h5'):
+        epoch = int(h5file.stem[1:])
+        nc['epoch'].append(epoch)
+
+        with HDFStore(h5file, mode='r') as store:
+            df = store.get('nc')
+            for metric, value in df.items():
+                nc[metric].append(value)
+            
+    return numpify_dict(nc)
+
+
+def load_ood(run_data_dir, ood_metric='AUROC'):
+    """Return ood metrics with corresponding epochs for run from hdf5 files."""
+    nearood = defaultdict(list)
+    farood = defaultdict(list)
+
+    for h5file in run_data_dir.glob('e*.h5'):
+        epoch = int(h5file.name[1:])
+        nearood['epoch'].append(epoch)
+        farood['epoch'].append(epoch)
+
+        with HDFStore(h5file, mode='r') as store:
+            ood_keys = list(store.keys())
+            ood_keys.remove('/nc')
+            for k in ood_keys:
+                df = store.get(k)
+                key = k[1:]
+                nearood[key].append(df.at['nearood', ood_metric])
+                farood[key].append(df.at['farood', ood_metric])
+        
+    return numpify_dict(nearood), numpify_dict(farood)
 
 
 def load_noise(benchmark_name, run_id):

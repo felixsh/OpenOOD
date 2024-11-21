@@ -311,101 +311,6 @@ def plot_acc_ood(benchmark_name,
     plt.close()
 
 
-def plot_nc(benchmark_name,
-            run_id):
-
-    main_dir = path.res_data / benchmark_name / run_id
-    ckpt_dirs = natsorted(list(main_dir.glob('e*')), key=str)
-
-    epoch = []
-    nc = defaultdict(list)
-
-    for json_dir in ckpt_dirs:
-        with pd.HDFStore(json_dir / 'metrics.h5') as store:
-            epoch.append(int(json_dir.name[1:]))
-            nc_df = store.get('nc')
-            for name, value in nc_df.items():
-                nc[name].append(value)
-    epoch = np.array(epoch)
-    
-    def plot_line(ax, x, y, label, marker, color=None):
-        if color is None:
-            ax.plot(x, y, label=label, marker=marker, markersize=5)
-        else:
-            ax.plot(x, y, label=label, marker=marker, markersize=5, color=color)
-
-    # acc_train_values_all, acc_train_epochs_all = get_acc(benchmark_name, run_id, split='train')
-    acc_val_values_all, acc_val_epochs_all = load_acc(benchmark_name, run_id, split='val')
-    acc_train_values_filtered, _ = load_acc(benchmark_name, run_id, split='val', filter_epochs=epoch)
-
-    def plot_nc_(x, x_label):
-        fig, axes = plt.subplots(2, 2, figsize=(10, 8))
-
-        # Subplot 00
-        plot_line(axes[0, 0], x, nc['nc1_weak_between'], 'nc1_weak_between', markers[1])
-        plot_line(axes[0, 0], x, nc['nc1_weak_within'], 'nc1_weak_within', markers[2])
-        axes[0, 0].set_ylabel('nc1_weak')
-        ax001 = axes[0, 0].twinx()
-        plot_line(ax001, x, nc['nc1_cdnv'], 'nc1_cdnv', markers[3], color=colors[2])
-        ax001.set_ylabel('nc1_cdnv')
-        #plot_line(ax001, x, nc['nc1_strong'], 'nc1_strong', markers[0], color=colors[3])
-        # Subplot 01
-        plot_line(axes[0, 1], x, nc['nc2_equinormness'], 'nc2_equinormness', markers[0])
-        axes[0, 1].set_ylabel('nc2_equinormness')
-        ax011 = axes[0, 1].twinx()
-        plot_line(ax011, x, nc['nc2_equiangularity'], 'nc2_equiangularity', markers[1], color=colors[1])
-        ax011.set_ylabel('nc2_equiangularity')
-        # plot_line(axes[0, 1], x, nc['gnc2_hyperspherical_uniformity'], 'gnc2_hyperspherical_uniformity', markers[2])
-        # Subplot 10
-        plot_line(axes[1, 0], x, nc['nc3_self_duality'], 'nc3_self_duality', markers[0])
-        ax101 = axes[1, 0].twinx()
-        plot_line(ax101, x, nc['unc3_uniform_duality'], 'unc3_uniform_duality', markers[1], color=colors[1])
-        ax101.set_ylabel('unc3')
-        axes[1, 0].set_ylabel('nc3')
-        # Subplot 11
-        plot_line(axes[1, 1], x, nc['nc4_classifier_agreement'], 'nc4_classifier_agreement', markers[0])
-        plot_line(axes[1, 1], acc_val_epochs_all, acc_val_values_all, 'acc val', 'None')
-        axes[1, 1].set_ylabel('agreement/accuracy')
-
-        # Legend subplot 00
-        lines000, labels000 = axes[0, 0].get_legend_handles_labels()
-        lines001, labels001 = ax001.get_legend_handles_labels()
-        ax001.legend(lines000 + lines001, labels000 + labels001, loc=1)
-        # Legend subplot 01
-        lines010, labels010 = axes[0, 1].get_legend_handles_labels()
-        lines011, labels011 = ax011.get_legend_handles_labels()
-        loc = 5 if benchmark_name == 'cifar10' else 4
-        ax011.legend(lines010 + lines011, labels010 + labels011, loc=loc)
-        # Legend subplot 10
-        lines100, labels100 = axes[1, 0].get_legend_handles_labels()
-        lines101, labels101 = ax101.get_legend_handles_labels()
-        loc = 5 if benchmark_name == 'cifar10' else 1
-        ax101.legend(lines100 + lines101, labels100 + labels101, loc=loc)
-        # Legend subplot 11
-        axes[1, 1].legend(loc=4)
-
-        # axes[0, 0].set_title('NC1')
-        # axes[0, 1].set_title('NC2')
-        # axes[1, 0].set_title('NC3')
-        # axes[1, 1].set_title('NC4')
-
-        axes[0, 0].set_xlabel(x_label)
-        axes[0, 1].set_xlabel(x_label)
-        axes[1, 0].set_xlabel(x_label)
-        axes[1, 1].set_xlabel(x_label)
-
-        plt.tight_layout()
-
-        save_path = path.res_plots / benchmark_name / run_id
-        save_path.mkdir(exist_ok=True, parents=True)
-        filename = f'nc_{x_label}.png'
-        plt.savefig(save_path / filename)
-        plt.close()
-
-    plot_nc_(epoch, 'epoch')
-    plot_nc_(acc_train_values_filtered, 'acc_train')
-
-
 def plot_ood(benchmark_name,
              run_id,
              ood_metric='AUROC'):
@@ -656,7 +561,7 @@ def plot_run_specific(benchmark_name, run_id):
     plot_nc_ood(benchmark_name, run_id)
     plot_acc_ood(benchmark_name, run_id, acc_split='val')
     # plot_acc_ood(benchmark_name, run_id, acc_split='train')
-    plot_nc(benchmark_name, run_id)
+    # plot_nc(benchmark_name, run_id)
     plot_ood(benchmark_name, run_id)
     plot_ood_combined(benchmark_name, run_id)
 
