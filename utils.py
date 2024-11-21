@@ -59,6 +59,7 @@ def load_network(benchmark_name, ckpt_path):
 
         net.load_state_dict(load(ckpt_path, weights_only=True, map_location='cuda:0'))
 
+    net.name = model_name
     net.cuda()
     net.eval()
     return net

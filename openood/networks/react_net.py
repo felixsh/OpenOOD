@@ -5,6 +5,7 @@ class ReactNet(nn.Module):
     def __init__(self, backbone):
         super(ReactNet, self).__init__()
         self.backbone = backbone
+        self.name = 'ReactNet'
 
     def forward(self, x, return_feature=False, return_feature_list=False):
         try:

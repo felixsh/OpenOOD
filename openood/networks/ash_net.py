@@ -7,6 +7,7 @@ class ASHNet(nn.Module):
     def __init__(self, backbone):
         super(ASHNet, self).__init__()
         self.backbone = backbone
+        self.name = 'ASHNet'
 
     def forward(self, x, return_feature=False, return_feature_list=False):
         try:

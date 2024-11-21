@@ -7,6 +7,7 @@ class ScaleNet(nn.Module):
     def __init__(self, backbone):
         super(ScaleNet, self).__init__()
         self.backbone = backbone
+        self.name = 'ScaleNet'
 
     def forward(self, x, return_feature=False, return_feature_list=False):
         try:
