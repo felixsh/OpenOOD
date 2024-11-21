@@ -57,17 +57,20 @@ class NCWrapper(nn.Module):
             return y, self.extraction_layer.nc_features
         return y
 
+    def forward_threshold(self, x, threshold):
+        _ = self.model(x)
+        feat = self.extraction_layer.nc_features
+        feat = feat.clip(max=threshold)
+        return self.extraction_layer(feat)
+
     def get_fc(self):
         fc = self.extraction_layer
         w = fc.weight.cpu().detach().numpy()
         b = fc.bias.cpu().detach().numpy()
         return w, b
 
-    def forward_threshold(self, x, threshold):
-        _ = self.model(x)
-        feat = self.extraction_layer.nc_features
-        feat = feat.clip(max=threshold)
-        return self.extraction_layer(feat)
+    def get_fc_layer(self):
+        return self.fc
 
 
 class NCVGG16(NCWrapper):
