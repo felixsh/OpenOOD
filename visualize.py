@@ -405,52 +405,6 @@ def plot_acc_ood_avg(benchmark_name,
     plt.close()
 
 
-def plot_noise():
-    benchmark_name = 'cifar10_noise'
-    nc_metric='nc1_cdnv'
-    ood_metric='AUROC'
-    data, run_ids = load_acc_nc_ood_mean(benchmark_name,
-                                    acc_split='val',
-                                    nc_metric='nc1_cdnv',
-                                    ood_metric='AUROC')
-    # data: [acc, nc, near_ood, far_ood]
-
-    noise_lvl =  np.array([load_noise(benchmark_name, r) for r in run_ids])
-    c = [colors[i] for i in run_ids]
-
-    acc = data[:, 0]
-    nc = data[:, 1]
-    nearood = data[:, 2]
-    farood = data[:, 3]
-
-    #########################################################################
-    fig, axes = plt.subplots(1, 4, figsize=(20, 5))
-
-    axes.ravel()[0].scatter(noise_lvl, acc, c=c, marker='o')
-    axes.ravel()[0].set_xlabel('noise level')
-    axes.ravel()[0].set_ylabel('accuracy')
-
-    axes.ravel()[1].scatter(noise_lvl, nc, c=c, marker='o')
-    axes.ravel()[1].set_xlabel('noise level')
-    axes.ravel()[1].set_ylabel(f'{nc_metric}')
-
-    axes.ravel()[2].scatter(noise_lvl, nearood, c=c, marker='o')
-    axes.ravel()[2].set_xlabel('noise level')
-    axes.ravel()[2].set_ylabel(f'{ood_metric} nearood')
-
-    axes.ravel()[3].scatter(noise_lvl, farood, c=c, marker='o')
-    axes.ravel()[3].set_xlabel('noise level')
-    axes.ravel()[3].set_ylabel(f'{ood_metric} farood')
-
-    plt.tight_layout()
-
-    save_path = path.res_plots / benchmark_name
-    save_path.mkdir(exist_ok=True, parents=True)
-    filename = f'noise_corr.png'
-    plt.savefig(save_path / filename, bbox_inches='tight')
-    plt.close()
-
-
 def plot_run_specific(benchmark_name, run_id):
     plot_nc_ood(benchmark_name, run_id)
     plot_acc_ood(benchmark_name, run_id, acc_split='val')

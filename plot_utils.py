@@ -113,9 +113,9 @@ def load_ood(run_data_dir, ood_metric='AUROC'):
     return numpify_dict(nearood), numpify_dict(farood), np.array(epochs)
 
 
-def load_noise(benchmark_name, run_id):
-    json_dir = path.ckpt_root / benchmark_name / f'run{run_id}'
-    with open(json_dir / 'data.json', 'r') as f:
+def load_noise(run_data_dir):
+    run_ckpt_dir = path.ckpt_root / run_data_dir.relative_to(path.res_data)
+    with open(run_ckpt_dir / 'data.json', 'r') as f:
         data = json.load(f)
 
     return data['metadata']['noise']
