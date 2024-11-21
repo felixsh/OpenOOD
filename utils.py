@@ -17,26 +17,16 @@ def str_to_class(classname):
 
 def load_network(benchmark_name, ckpt_path):
 
-    if benchmark_name == 'cifar10_noise':
-        net = ResNet18_32x32(num_classes=10)
-        state_dict = load(ckpt_path, weights_only=True, map_location='cuda:0')
-        state_dict = {k.removeprefix('model.'): v for k, v in state_dict.items()}
-        state_dict.pop('extraction_layer.weight', None)
-        state_dict.pop('extraction_layer.bias', None)
-        net.load_state_dict(state_dict)
-        net.cuda()
-        net.eval()
-        return net
-
+    # Get model name
     json_file = ckpt_path.parent / 'data.json'
     with open(json_file, 'r') as f:
         data = json.load(f)
 
     model_name = data['metadata']['model']
-    model_class = str_to_class(model_name)
+    print('MODELNAME', model_name)
 
+    # Get number of classes, limitatitions (optional)
     limit_classes = None
-
     if benchmark_name == 'cifar10':
         num_classes = 10
     elif benchmark_name == 'cifar100':
@@ -49,16 +39,28 @@ def load_network(benchmark_name, ckpt_path):
             num_classes = 200
     elif benchmark_name == 'imagenet':
         num_classes = 1000
-    
-    if limit_classes is None:
-        net = model_class(num_classes=num_classes)
-    else:
-        net = model_class(num_classes=num_classes, limit_classes=limit_classes)
 
-    net.load_state_dict(load(ckpt_path, weights_only=True, map_location='cuda:0'))
+    # Create model, load checkpoint
+    if model_name == 'NCResNet18_32x32':
+        net = ResNet18_32x32(num_classes=num_classes)
+        state_dict = load(ckpt_path, weights_only=True, map_location='cuda:0')
+        state_dict.pop('extraction_layer.weight', None)
+        state_dict.pop('extraction_layer.bias', None)
+        state_dict = {k.removeprefix('model.'): v for k, v in state_dict.items()}
+        net.load_state_dict(state_dict)
+
+    else:
+        model_class = str_to_class(model_name)
+
+        if limit_classes is None:
+            net = model_class(num_classes=num_classes)
+        else:
+            net = model_class(num_classes=num_classes, limit_classes=limit_classes)
+
+        net.load_state_dict(load(ckpt_path, weights_only=True, map_location='cuda:0'))
+
     net.cuda()
     net.eval()
-
     return net
 
 
