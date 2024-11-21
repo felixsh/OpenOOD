@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 
 import path
@@ -51,8 +53,8 @@ def _plot_grid(nc, acc, x, x_label):
     # Subplot 11
     _plot_line(axes[1, 1], x, nc['nc4_classifier_agreement'], 'nc4_classifier_agreement', markers[0])
     if x_label == 'epoch':
-        _plot_line(axes[1, 1], acc['train']['epochs'], acc['train']['values'], 'acc train', 'None')
-        _plot_line(axes[1, 1], acc['val']['epochs'], acc['val']['values'], 'acc val', 'None')
+        for k in acc.keys():
+            _plot_line(axes[1, 1], acc[k]['epochs'], acc[k]['values'], f'acc {k}', 'None')
     axes[1, 1].set_ylabel('agreement/accuracy')
 
     # Legend subplot 00
@@ -84,6 +86,10 @@ def plot_nc(run_data_dir):
     acc = load_acc(run_data_dir)
     acc_filt = load_acc(run_data_dir, filter_epochs=epoch)
 
+    # Limit to 500 for cifar100
+    # epoch = epoch[:-1]
+    # nc = {k: v[:-1] for k, v in nc.items()}
+
     fig = _plot_grid(nc, acc, epoch, 'epoch')
     _save_plot(fig, run_data_dir, 'nc_epoch')
 
@@ -96,7 +102,16 @@ def plot_nc(run_data_dir):
         _save_plot(fig, run_data_dir, 'nc_acc_val')
 
 
+def plot_nc_walk():
+    # main_dir = Path('/mrtstorage/users/hauser/openood_res/data/cifar10/ResNet18_32x32/no_noise/300+_epochs')
+    main_dir = Path('/mrtstorage/users/hauser/openood_res/data/cifar100/ResNet18_32x32/no_noise/1000+_epochs')
+    run_dirs = [p for p in main_dir.iterdir() if p.is_dir()]
+    for p in run_dirs:
+        plot_nc(p)
+
+
 if __name__ == '__main__':
-    from pathlib import Path
-    run_dir = Path('/mrtstorage/users/hauser/openood_res/data/cifar10/ResNet18_32x32/no_noise/300+_epochs/run_e300_2024_11_11-15_23_07')
-    plot_nc(run_dir)
+    # run_dir = Path('/mrtstorage/users/hauser/openood_res/data/cifar10/ResNet18_32x32/no_noise/300+_epochs/run_e300_2024_11_11-15_23_07')
+    # plot_nc(run_dir)
+
+    plot_nc_walk()
