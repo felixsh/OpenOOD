@@ -70,7 +70,7 @@ class NCWrapper(nn.Module):
         return w, b
 
     def get_fc_layer(self):
-        return self.fc
+        return self.extraction_layer
 
 
 class NCVGG16(NCWrapper):
