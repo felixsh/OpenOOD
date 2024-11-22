@@ -1,4 +1,3 @@
-from collections import defaultdict
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -28,32 +27,6 @@ benchmark2loaddirs = {
     'imagenet': None,
 }
 
-def _plot(acc, nc, ood, run_ids, nc_metric, ood_metric, ood_label):
-    fig, axes = plt.subplots(1, 3, figsize=(15, 5))
-
-    # c = [colors[i] for i in run_ids]
-    c = run_ids
-
-    axes.ravel()[0].scatter(acc, nc, c=c, marker='o')
-    axes.ravel()[0].set_xlabel(f'acc val')
-    axes.ravel()[0].set_ylabel(nc_metric)
-
-    axes.ravel()[1].scatter(acc, ood, c=c, marker='o')
-    axes.ravel()[1].set_xlabel(f'acc val')
-    axes.ravel()[1].set_ylabel(f'{ood_metric} {ood_label}')
-
-    axes.ravel()[2].scatter(nc, ood, c=c, marker='o')
-    axes.ravel()[2].set_xlabel(nc_metric)
-    axes.ravel()[2].set_ylabel(f'{ood_metric} {ood_label}')
-
-    plt.tight_layout()
-    return fig
-
-def _save(fig, save_path, filename):
-    fig.savefig(save_path / f'{filename}.png', bbox_inches='tight')
-    fig.savefig(save_path / f'{filename}.pdf', bbox_inches='tight')
-    plt.close()
-
 
 def trim_arrays(dict1, dict2, array1, array2):
     min_length = min(
@@ -70,10 +43,10 @@ def trim_arrays(dict1, dict2, array1, array2):
     return trimmed_dict1, trimmed_dict2, trimmed_array1, trimmed_array2
 
 
-def plot_scatter(benchmark_name,
-                 nc_metric='nc1_cdnv',
-                 ood_metric='AUROC',
-                 ):
+def load_benchmark_data(benchmark_name,
+                        nc_metric='nc1_cdnv',
+                        ood_metric='AUROC',
+                        ):
     # Get run dirs
     main_dirs = benchmark2loaddirs[benchmark_name]
     main_dirs = [Path(p) for p in main_dirs]
@@ -115,6 +88,43 @@ def plot_scatter(benchmark_name,
     nc = data[:, 1]
     nearood = data[:, 2]
     farood = data[:, 3]
+
+    return run_ids, epochs, acc, nc, nearood, farood, save_dir
+
+
+def _plot(acc, nc, ood, run_ids, nc_metric, ood_metric, ood_label):
+    fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+
+    # c = [colors[i] for i in run_ids]
+    c = run_ids
+
+    axes.ravel()[0].scatter(acc, nc, c=c, marker='o')
+    axes.ravel()[0].set_xlabel(f'acc val')
+    axes.ravel()[0].set_ylabel(nc_metric)
+
+    axes.ravel()[1].scatter(acc, ood, c=c, marker='o')
+    axes.ravel()[1].set_xlabel(f'acc val')
+    axes.ravel()[1].set_ylabel(f'{ood_metric} {ood_label}')
+
+    axes.ravel()[2].scatter(nc, ood, c=c, marker='o')
+    axes.ravel()[2].set_xlabel(nc_metric)
+    axes.ravel()[2].set_ylabel(f'{ood_metric} {ood_label}')
+
+    plt.tight_layout()
+    return fig
+
+
+def _save(fig, save_path, filename):
+    fig.savefig(save_path / f'{filename}.png', bbox_inches='tight')
+    fig.savefig(save_path / f'{filename}.pdf', bbox_inches='tight')
+    plt.close()
+
+
+def plot_scatter(benchmark_name,
+                 nc_metric='nc1_cdnv',
+                 ood_metric='AUROC',
+                 ):
+    run_ids, epochs, acc, nc, nearood, farood, save_dir = load_benchmark_data(benchmark_name, nc_metric, ood_metric)
 
     # Epochs to color index
     _, color_id = np.unique(epochs, return_inverse=True)

@@ -118,38 +118,6 @@ def plot_acc_nc_ood(benchmark_name,
     plot_cut_all(acc, nc, nearood, 'nearood')
     plot_cut_all(acc, nc, farood, 'farood')
 
-    def plot_corr_mean(z, label):
-        acc = data_mean[:, 0]
-        nc = data_mean[:, 1]
-        ood = data_mean[:, z]
-
-        fig, axes = plt.subplots(1, 3, figsize=(15, 5))
-
-        c = [colors[i] for i in run_ids_mean]
-
-        axes.ravel()[0].scatter(acc, nc, c=c, marker='o')
-        axes.ravel()[0].set_xlabel(f'acc {acc_split}')
-        axes.ravel()[0].set_ylabel(nc_metric)
-
-        axes.ravel()[1].scatter(acc, ood, c=c, marker='o')
-        axes.ravel()[1].set_xlabel(f'acc {acc_split}')
-        axes.ravel()[1].set_ylabel(f'{ood_metric} {label}')
-
-        axes.ravel()[2].scatter(nc, ood, c=c, marker='o')
-        axes.ravel()[2].set_xlabel(nc_metric)
-        axes.ravel()[2].set_ylabel(f'{ood_metric} {label}')
-
-        plt.tight_layout()
-
-        save_path = path.res_plots / benchmark_name
-        save_path.mkdir(exist_ok=True, parents=True)
-        filename = f'corr_{label}.png'
-        plt.savefig(save_path / filename, bbox_inches='tight')
-        plt.close()
-
-    plot_corr_mean(2, 'nearood')
-    plot_corr_mean(3, 'farood')
-
     def plot_corr_method(acc, nc, ood, ood_label, run_ids):
         for k in acc.keys():
             fig, axes = plt.subplots(1, 3, figsize=(15, 5))
