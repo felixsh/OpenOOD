@@ -74,8 +74,16 @@ def load_acc(run_data_dir, filter_epochs=None):
     return acc
 
 
-def load_nc(run_data_dir):
+def load_nc(run_data_dir, split='val'):
     """Return nc metrics with corresponding epochs for run from hdf5 files."""
+
+    if split=='train':
+        h5_key = 'nc_train'
+    elif split=='train':
+        h5_key = 'nc_val'
+    else:
+        raise NotImplementedError
+
     nc = defaultdict(list)
     epochs = []
 
@@ -84,7 +92,7 @@ def load_nc(run_data_dir):
         epochs.append(epoch)
 
         with HDFStore(h5file, mode='r') as store:
-            df = store.get('nc')
+            df = store.get(h5_key)
             for metric, value in df.items():
                 nc[metric].append(value)
             
