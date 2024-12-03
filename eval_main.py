@@ -149,6 +149,7 @@ def recompute_all(ood_method_list=postprocessors):
     ckpt_list = [Path(re.sub('_train.npz$', '.pth', str(p))) for p in ckpt_list]
 
     for ckpt_path in ckpt_list:
+        print(ckpt_path)
         benchmark_name = get_benchmark_name(ckpt_path)
         save_dir = path.res_data / ckpt_path.parent.relative_to(path.ckpt_root)
         save_dir.mkdir(exist_ok=True, parents=True)
