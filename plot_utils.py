@@ -79,7 +79,7 @@ def load_nc(run_data_dir, split='val'):
 
     if split=='train':
         h5_key = 'nc_train'
-    elif split=='train':
+    elif split=='val':
         h5_key = 'nc_val'
     else:
         raise NotImplementedError
