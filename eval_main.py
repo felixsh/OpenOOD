@@ -165,4 +165,7 @@ if __name__ == '__main__':
     cfg = OmegaConf.from_cli()
     # cfg = OmegaConf.merge(main_cfg, cli_cfg)
 
-    eval_run(cfg.run, cfg.ood)
+    if cfg.recompute:
+        recompute_all(ood_method_list=[])
+    else:
+        eval_run(cfg.run, cfg.ood)
