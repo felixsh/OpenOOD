@@ -78,7 +78,16 @@ def existing_keys(save_dir, filename):
     
     if full_name.is_file():
         with HDFStore(full_name, mode='r') as store:
-            return list(store.keys())
+            key_list = list(store.keys())
+
+        # Remove old 'nc' key if present, only use new 'nc_train', 'nc_val' keys
+        try:
+            key_list.remove('nc')
+        except ValueError:
+            pass
+
+        return key_list
+
     else:
         return []
 
@@ -112,7 +121,7 @@ def eval_run(run_dir, ood_method_list=postprocessors):
 def eval_ckpt(benchmark_name, ckpt_path, save_dir, ood_method_list):
     file_name = get_epoch_name(ckpt_path)
 
-    done_keys = existing_keys(save_dir, file_name).remove('nc')
+    done_keys = existing_keys(save_dir, file_name)
     all_done = all([k in done_keys for k in ood_method_list + ['nc_train', 'nc_val']])
 
     if not all_done:
