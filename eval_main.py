@@ -112,14 +112,18 @@ def eval_ckpt(benchmark_name, ckpt_path, save_dir, ood_method_list):
     file_name = get_epoch_name(ckpt_path)
 
     done_keys = existing_keys(save_dir, file_name)
-    all_done = all([k in done_keys for k in ood_method_list + ['nc']])
+    all_done = all([k in done_keys for k in ood_method_list + ['nc_train', 'nc_val']])
 
     if not all_done:
         feature_cache = FeatureCache(benchmark_name, ckpt_path)
 
-        if not 'nc' in done_keys:
-            nc_metrics = eval_nc(feature_cache)
-            save_nc(nc_metrics, save_dir, file_name, 'nc')
+        if not 'nc_train' in done_keys:
+            nc_metrics = eval_nc(feature_cache, split='train')
+            save_nc(nc_metrics, save_dir, file_name, 'nc_train')
+        
+        if not 'nc_val' in done_keys:
+            nc_metrics = eval_nc(feature_cache, split='val')
+            save_nc(nc_metrics, save_dir, file_name, 'nc_val')
 
         for ood_method in ood_method_list:
             if ood_method in done_keys:

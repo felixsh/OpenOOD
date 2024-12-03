@@ -2,9 +2,9 @@ import nc_toolbox as nctb
 import pandas as pd
 
 
-def eval_nc(feature_cache):
+def eval_nc(feature_cache, split='train'):
 
-    split = 'train'
+    # Features
     H = feature_cache.get(split, 'features')
     L = feature_cache.get(split, 'labels')
     W = feature_cache.get(split, 'weights')
