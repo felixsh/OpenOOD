@@ -133,28 +133,6 @@ def eval_ckpt(benchmark_name, ckpt_path, save_dir, ood_method_list):
             save_ood(ood_metrics, save_dir, file_name, ood_method)
 
 
-def eval_noise(benchmark_name, run_id):
-    assert benchmark_name == 'cifar10_noise', 'Other not implemented'
-
-    base_dir = path.ckpt_root / benchmark_name
-    ckpt_dirs = [p for p in base_dir.glob('*') if p.is_dir()]
-
-    for ckpt_dir in ckpt_dirs:
-        ckpt_list = [p for p in ckpt_dir.glob('*') if p.suffix in ckpt_suffixes]
-        ckpt_path = natsorted(ckpt_list, key=str)[-1]
-
-        epoch_id = get_epoch_name(ckpt_path)
-        save_dir = path.res_data / benchmark_name / run_id
-        save_dir.mkdir(exist_ok=True, parents=True)
-        
-        nc_metrics = eval_nc(benchmark_name, ckpt_path)
-        save_nc(nc_metrics, save_dir, 'nc')
-
-        for postpro in postprocessors:
-            ood_metrics, _ = eval_ood(benchmark_name, ckpt_path, postpro)
-            save_ood(ood_metrics, save_dir, postpro)
-
-
 if __name__ == '__main__':
     # https://stackoverflow.com/q/64654838
     # mp.set_start_method('spawn', force=True)
@@ -163,8 +141,5 @@ if __name__ == '__main__':
     # main_cfg = OmegaConf.load('cfg/main.yaml')
     cfg = OmegaConf.from_cli()
     # cfg = OmegaConf.merge(main_cfg, cli_cfg)
-
-    if 'cifar10_noise' in cfg.run:
-        eval_noise(cfg.benchmark, cfg.run)
 
     eval_run(cfg.run, cfg.ood)
