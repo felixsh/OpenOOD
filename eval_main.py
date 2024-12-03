@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+import re
 from timeit import default_timer as timer
 from datetime import timedelta
 
@@ -111,7 +112,7 @@ def eval_run(run_dir, ood_method_list=postprocessors):
 def eval_ckpt(benchmark_name, ckpt_path, save_dir, ood_method_list):
     file_name = get_epoch_name(ckpt_path)
 
-    done_keys = existing_keys(save_dir, file_name)
+    done_keys = existing_keys(save_dir, file_name).remove('nc')
     all_done = all([k in done_keys for k in ood_method_list + ['nc_train', 'nc_val']])
 
     if not all_done:
@@ -131,6 +132,19 @@ def eval_ckpt(benchmark_name, ckpt_path, save_dir, ood_method_list):
 
             ood_metrics, _ = eval_ood(benchmark_name, ckpt_path, ood_method, feature_cache)
             save_ood(ood_metrics, save_dir, file_name, ood_method)
+
+
+def recompute_all(ood_method_list=postprocessors):
+    cache_list = natsorted(list(path.cache_root.glob('**/*_train.npz')), key=str)
+    ckpt_list = [path.ckpt_root / p.relative_to(path.cache_root) for p in cache_list]
+    ckpt_list = [Path(re.sub('_train.npz$', '.pth', str(p))) for p in ckpt_list]
+
+    for ckpt_path in ckpt_list:
+        benchmark_name = get_benchmark_name(ckpt_path)
+        save_dir = path.res_data / ckpt_path.parent.relative_to(path.ckpt_root)
+        save_dir.mkdir(exist_ok=True, parents=True)
+
+        eval_ckpt(benchmark_name, ckpt_path, save_dir, ood_method_list)
 
 
 if __name__ == '__main__':
