@@ -163,8 +163,9 @@ if __name__ == '__main__':
     mp.set_start_method('fork', force=True)
 
     # main_cfg = OmegaConf.load('cfg/main.yaml')
-    cfg = OmegaConf.from_cli()
-    # cfg = OmegaConf.merge(main_cfg, cli_cfg)
+    main_cfg = OmegaConf.create({'recompute': False})
+    cli_cfg = OmegaConf.from_cli()
+    cfg = OmegaConf.merge(main_cfg, cli_cfg)
 
     if cfg.recompute:
         recompute_all(ood_method_list=[])
