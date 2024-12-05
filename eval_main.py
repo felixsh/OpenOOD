@@ -80,6 +80,9 @@ def existing_keys(save_dir, filename):
         with HDFStore(full_name, mode='r') as store:
             key_list = list(store.keys())
 
+        # Remove '/' from beginning of str key
+        key_list = [k[1:] for k in key_list]
+
         # Remove old 'nc' key if present, only use new 'nc_train', 'nc_val' keys
         try:
             key_list.remove('nc')
