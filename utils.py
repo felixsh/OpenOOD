@@ -5,7 +5,8 @@ import sys
 import numpy as np
 from torch import load
 
-from openood.networks import ResNet18_32x32
+from openood.networks import ResNet18_32x32, ResNet18_224x224, ResNet50
+from nc_models import NCAlexNet, NCLessNet18, NCMobileNetV2, NCVGG16
 import path
 
 
@@ -67,9 +68,9 @@ def load_network(benchmark_name, ckpt_path):
 def get_batch_size(benchmark_name):
     # For 12GB VRAM
     if benchmark_name == 'cifar10':
-        return 2048
+        return 1024
     elif benchmark_name == 'cifar100':
-        return 2048
+        return 1024
     elif benchmark_name == 'imagenet200':
         return 256
     elif benchmark_name == 'imagenet':

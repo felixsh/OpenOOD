@@ -22,7 +22,7 @@ def eval_ood(benchmark_name, ckpt_path, postprocessor_name, feature_cache):
         postprocessor=None,                    # if you want to use your own postprocessor
         batch_size=batch_size,                 # for certain methods the results can be slightly affected by batch size
         shuffle=False,
-        num_workers=6,                         # could use more num_workers outside colab
+        num_workers=4,                         # could use more num_workers outside colab
         feature_cache=feature_cache)
 
     metrics, scores  = evaluator.eval_ood(fsood=False)
