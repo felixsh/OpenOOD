@@ -21,7 +21,7 @@ cleanup() {
 trap cleanup SIGINT SIGTERM\n
 '''
 
-template = "krenew -t -- sh -c 'CUDA_VISIBLE_DEVICES={device} python recompute.py ckpt={ckpt} method={method}' &\n"
+template = "krenew -- sh -c 'CUDA_VISIBLE_DEVICES={device} python recompute.py ckpt={ckpt} method={method}' &\n"
 
 delimiter = 'wait $(jobs -p)\n\n'
 
