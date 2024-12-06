@@ -1,7 +1,7 @@
 postprocessor:
   name: ncscore
-  APS_mode: False
+  APS_mode: True
   postprocessor_args:
     alpha: 0.01
   postprocessor_sweep:
-    alpha_list: [0.01]
+    alpha_list: [0.2, 0.1, 0.01, 0.001]

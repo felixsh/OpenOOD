@@ -1,8 +1,8 @@
 postprocessor:
   name: neco
-  APS_mode: False
+  APS_mode: True
   postprocessor_args:
     D: 20
     center: True
   postprocessor_sweep:
-    D_list: [20]
+    D_list: [8, 16, 256, 1024]

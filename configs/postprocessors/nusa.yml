@@ -1,7 +1,7 @@
 postprocessor:
   name: nusa
-  APS_mode: False
+  APS_mode: True
   postprocessor_args:
     d: 20
   postprocessor_sweep:
-    d_list: [20]
+    d_list: [8, 16, 256, 1024]
