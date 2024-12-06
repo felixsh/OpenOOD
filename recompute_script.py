@@ -2,11 +2,11 @@ from eval_main import get_previous_ckpts
 
 
 devices = [0, 1, 2]
-methods = ['vim', 'epa', 'neco']
+methods = ['knn', 'nusa', 'vim', 'ncscore', 'neco', 'epa']
 ckpts = get_previous_ckpts()
 
 
-combinations = [(str(c), m) for c in ckpts for m in methods][::-1]
+combinations = [(str(c), m) for m in methods for c in ckpts][::-1]
 
 
 start = '''
