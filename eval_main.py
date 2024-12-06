@@ -117,47 +117,61 @@ def eval_run(run_dir, ood_method_list=postprocessors):
 
     for ckpt_path in ckpt_list:
         start_time = timer()
-        eval_ckpt(benchmark_name, ckpt_path, save_dir, list(ood_method_list))
+        eval_ckpt_nc(benchmark_name, ckpt_path, save_dir)
+        eval_ckpt_ood(benchmark_name, ckpt_path, save_dir, list(ood_method_list))
         print(f'{'\033[91m'}Checkpoint took {timedelta(seconds=timer()-start_time)}{'\033[0m'}')
 
 
-def eval_ckpt(benchmark_name, ckpt_path, save_dir, ood_method_list):
+def eval_ckpt_nc(benchmark_name, ckpt_path, save_dir, recompute=False):
     file_name = get_epoch_name(ckpt_path)
 
     done_keys = existing_keys(save_dir, file_name)
-    all_done = all([k in done_keys for k in ood_method_list + ['nc_train', 'nc_val']])
+    all_done = all([k in done_keys for k in ['nc_train', 'nc_val']])
 
-    if not all_done:
+    if not all_done or recompute:
         feature_cache = FeatureCache(benchmark_name, ckpt_path)
 
-        if not 'nc_train' in done_keys:
+        if not 'nc_train' in done_keys or recompute:
             nc_metrics = eval_nc(feature_cache, split='train')
             save_nc(nc_metrics, save_dir, file_name, 'nc_train')
         
-        if not 'nc_val' in done_keys:
+        if not 'nc_val' in done_keys or recompute:
             nc_metrics = eval_nc(feature_cache, split='val')
             save_nc(nc_metrics, save_dir, file_name, 'nc_val')
 
+
+def eval_ckpt_ood(benchmark_name, ckpt_path, save_dir, ood_method_list, recompute=False):
+    file_name = get_epoch_name(ckpt_path)
+
+    done_keys = existing_keys(save_dir, file_name)
+    all_done = all([k in done_keys for k in ood_method_list])
+
+    if not all_done or recompute:
+        feature_cache = FeatureCache(benchmark_name, ckpt_path)
+
         for ood_method in ood_method_list:
-            if ood_method in done_keys:
+            if ood_method in done_keys and not recompute:
                 continue
 
             ood_metrics, _ = eval_ood(benchmark_name, ckpt_path, ood_method, feature_cache)
             save_ood(ood_metrics, save_dir, file_name, ood_method)
 
 
-def recompute_all(ood_method_list=postprocessors):
+def get_previous_ckpts():
     cache_list = natsorted(list(path.cache_root.glob('**/*_train.npz')), key=str)
     ckpt_list = [path.ckpt_root / p.relative_to(path.cache_root) for p in cache_list]
     ckpt_list = [Path(re.sub('_train.npz$', '.pth', str(p))) for p in ckpt_list]
+    return ckpt_list
 
-    for ckpt_path in ckpt_list:
+
+def recompute_all(ood_method_list=postprocessors):
+    for ckpt_path in get_previous_ckpts():
         print(ckpt_path)
         benchmark_name = get_benchmark_name(ckpt_path)
         save_dir = path.res_data / ckpt_path.parent.relative_to(path.ckpt_root)
         save_dir.mkdir(exist_ok=True, parents=True)
 
-        eval_ckpt(benchmark_name, ckpt_path, save_dir, ood_method_list)
+        eval_ckpt_ood(benchmark_name, ckpt_path, save_dir, ood_method_list, recompute=True)
 
 
 if __name__ == '__main__':
