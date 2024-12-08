@@ -1,16 +1,21 @@
-from eval_main import get_previous_ckpts
+from eval_main import get_previous_ckpts, get_run_ckpts
 
 
-devices = [0, 1, 2]
-methods = ['knn', 'nusa', 'vim', 'ncscore', 'neco', 'epa']
-ckpts = get_previous_ckpts()
+devices = [4, 5, 6, 7]
+
+# methods = ['knn', 'nusa', 'vim', 'ncscore', 'neco', 'epa']
+methods = ['msp', 'odin', 'mds', 'react', 'dice', 'knn', 'nusa', 'vim', 'ncscore', 'neco', 'epa']
+
+
+# ckpts = get_previous_ckpts()
+run_dir = '/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet/ResNet50/no_noise/150+_epochs/run_e150_2024_11_12-21_40_57'
+ckpts = get_run_ckpts(run_dir)
 
 
 combinations = [(str(c), m) for m in methods for c in ckpts][::-1]
 
 
-start = '''
-#!/bin/bash
+start = '''#!/bin/bash
 
 cleanup() {
   pkill -P $$

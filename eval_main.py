@@ -95,20 +95,19 @@ def existing_keys(save_dir, filename):
         return []
 
 
-def filter_ckpts(ckpt_list, filter_list=[1, 2, 5, 10, 20, 50, 100, 200, 500]):
+def filtering_ckpts(ckpt_list, filter_list=[1, 2, 5, 10, 20, 50, 100, 200, 500]):
     """Only use ckpts from epochs defined in filter list, plus final epoch"""
     # filter_list = [f-1 for f in filter_list]  # Shifted indices
     ckpt_list = natsorted(ckpt_list, key=str)
     ckpts_filtered = [p for p in ckpt_list if get_epoch_number(p) in filter_list]
     ckpts_filtered.append(ckpt_list[-1])
     ckpts_filtered = natsorted(list(set(ckpts_filtered)), key=str)
-    return ckpts_filtered        
+    return ckpts_filtered
 
 
 def eval_run(run_dir, ood_method_list=postprocessors):
     run_dir = Path(run_dir)
-    ckpt_list = [p for p in run_dir.glob('*') if p.suffix in ckpt_suffixes]
-    ckpt_list = filter_ckpts(ckpt_list)
+    ckpt_list = get_run_ckpts(run_dir)
 
     benchmark_name = get_benchmark_name(run_dir)
     print('BENCHMARK', benchmark_name)
@@ -155,6 +154,14 @@ def eval_ckpt_ood(benchmark_name, ckpt_path, save_dir, ood_method_list, recomput
 
             ood_metrics, _ = eval_ood(benchmark_name, ckpt_path, ood_method, feature_cache)
             save_ood(ood_metrics, save_dir, file_name, ood_method)
+
+
+def get_run_ckpts(run_dir, filtering=True):
+    run_dir = Path(run_dir)
+    ckpt_list = [p for p in run_dir.glob('*') if p.suffix in ckpt_suffixes]
+    if filtering:
+        ckpt_list = filtering_ckpts(ckpt_list)
+    return ckpt_list
 
 
 def get_previous_ckpts():
