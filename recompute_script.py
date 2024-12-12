@@ -1,4 +1,9 @@
+import os
+import stat
+
 from eval_main import get_previous_ckpts, get_run_ckpts
+
+filename = 'recompute.bash'
 
 
 devices = [4, 5, 6, 7]
@@ -31,7 +36,7 @@ template = "krenew -- sh -c 'CUDA_VISIBLE_DEVICES={device} python recompute.py c
 delimiter = 'wait $(jobs -p)\n\n'
 
 
-with open('recompute.bash', 'w') as f:
+with open(filename, 'w') as f:
     f.write(start)
 
     while combinations:
@@ -45,3 +50,7 @@ with open('recompute.bash', 'w') as f:
             f.write(template.format(device=d, ckpt=c, method=m))
         
         f.write(delimiter)
+
+# Make executeable
+st = os.stat(filename)
+os.chmod(filename, st.st_mode | stat.S_IEXEC)
