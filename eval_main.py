@@ -1,3 +1,4 @@
+from filelock import FileLock
 import json
 from pathlib import Path
 import re
@@ -36,28 +37,46 @@ postprocessors = [
 # ["openmax", "msp", "temp_scaling", "odin", "mds", "mds_ensemble", "rmds", "gram", "ebo", "gradnorm", "react", "mls", "klm", "vim", "knn", "dice", "rankfeat", "ash", "she"]
 
 
+def get_lockfile(path):
+    return FileLock(path.with_suffix(path.suffix + '.lock'))
+
+
 def save_ood(df, save_dir, filename, key):
+
     # Store in HDF5 format
-    with HDFStore(save_dir / f'{filename}.h5') as store:
-        store.put(key, df)
+    full_path = save_dir / f'{filename}.h5'
+    lock = get_lockfile(full_path)
+    with lock:
+        with HDFStore(full_path) as store:
+            store.put(key, df)
 
     # Print markdown table to file
-    with open(save_dir / f'{filename}.md', 'a') as f:
-        f.write(f'---\n{key}\n')
-        f.write(df.to_markdown())
-        f.write('\n')
+    full_path = save_dir / f'{filename}.md'
+    lock = get_lockfile(full_path)
+    with lock:
+        with open(full_path, 'a') as f:
+            f.write(f'---\n{key}\n')
+            f.write(df.to_markdown())
+            f.write('\n')
 
 
 def save_nc(df, save_dir, filename, key):
-    # Store in HDF5 format
-    with HDFStore(save_dir / f'{filename}.h5') as store:
-        store.put(key, df)
 
-    # Print values to file
-    with open(save_dir / f'{filename}.md', 'a') as f:
-        f.write(f'---\n{key}\n')
-        f.write(df.transpose().to_markdown())
-        f.write('\n')
+    # Store in HDF5 format
+    full_path = save_dir / f'{filename}.h5'
+    lock = get_lockfile(full_path)
+    with lock:
+        with HDFStore(full_path) as store:
+            store.put(key, df)
+
+    # Print markdown table to file
+    full_path = save_dir / f'{filename}.md'
+    lock = get_lockfile(full_path)
+    with lock:
+        with open(full_path, 'a') as f:
+            f.write(f'---\n{key}\n')
+            f.write(df.transpose().to_markdown())
+            f.write('\n')
 
 
 def save_scores(score_dict, save_dir, filename):
@@ -74,25 +93,27 @@ def save_scores(score_dict, save_dir, filename):
 
 
 def existing_keys(save_dir, filename):
-    full_name = save_dir / f'{filename}.h5'
+    full_path = save_dir / f'{filename}.h5'
+    lock = get_lockfile(full_path)
     
-    if full_name.is_file():
-        with HDFStore(full_name, mode='r') as store:
-            key_list = list(store.keys())
+    with lock:
+        if full_path.is_file():
+            with HDFStore(full_path, mode='r') as store:
+                key_list = list(store.keys())
 
-        # Remove '/' from beginning of str key
-        key_list = [k[1:] for k in key_list]
+            # Remove '/' from beginning of str key
+            key_list = [k[1:] for k in key_list]
 
-        # Remove old 'nc' key if present, only use new 'nc_train', 'nc_val' keys
-        try:
-            key_list.remove('nc')
-        except ValueError:
-            pass
+            # Remove old 'nc' key if present, only use new 'nc_train', 'nc_val' keys
+            try:
+                key_list.remove('nc')
+            except ValueError:
+                pass
 
-        return key_list
+            return key_list
 
-    else:
-        return []
+        else:
+            return []
 
 
 def filtering_ckpts(ckpt_list, filter_list=[1, 2, 5, 10, 20, 50, 100, 200, 500]):
