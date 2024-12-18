@@ -27,6 +27,7 @@ dependencies:
   - statsmodels
   - natsort
   - seaborn
+  - torchmetrics
   - pip
   - pip:
     - libmr
