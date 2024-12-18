@@ -1,3 +1,4 @@
+from filelock import FileLock
 from openood.evaluation_api import Evaluator
 import path
 from utils import load_network, get_batch_size
@@ -27,10 +28,13 @@ def eval_ood(benchmark_name, ckpt_path, postprocessor_name, feature_cache):
 
     metrics, scores  = evaluator.eval_ood(fsood=False)
 
+    filename = 'hyperparam.log'
+    lock = FileLock(filename)
     try:
         hyperparam = evaluator.postprocessor.get_hyperparam()
-        with open('hyperparam.log', 'a') as f:
-            f.write(f'{benchmark_name}, {postprocessor_name}, {hyperparam}, {str(ckpt_path)}\n')
+        with lock:
+            with open(filename, 'a') as f:
+                f.write(f'{benchmark_name}, {postprocessor_name}, {hyperparam}, {str(ckpt_path)}\n')
     except AttributeError:
         pass
 
