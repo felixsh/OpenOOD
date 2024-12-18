@@ -1,3 +1,4 @@
+import pandas as pd
 import torch
 from torch.utils.data import DataLoader
 from torchmetrics.classification import MulticlassAccuracy
@@ -30,10 +31,6 @@ class EvalAcc(object):
         }
         self.dataloader_dict = get_id_ood_dataloader(benchmark_name, data_root,
                                                     preprocessor, **loader_kwargs)
-
-        from pprint import pprint
-        pprint(self.dataloader_dict)
-        input()
         
         # Load model
         self.net = load_network(benchmark_name, ckpt_path)
@@ -73,9 +70,33 @@ class EvalAcc(object):
         return result
 
 
+def flatten_dict(nested_dict):
+    res = {}
+    if isinstance(nested_dict, dict):
+        for k in nested_dict:
+            flattened_dict = flatten_dict(nested_dict[k])
+            for key, val in flattened_dict.items():
+                key = list(key)
+                key.insert(0, k)
+                res[tuple(key)] = val
+    else:
+        res[()] = nested_dict
+    return res
+
+
+def nested_dict_to_df(values_dict):
+    flat_dict = flatten_dict(values_dict)
+    df = pd.DataFrame.from_dict(flat_dict, orient="index")
+    df.index = pd.MultiIndex.from_tuples(df.index)
+    df = df.unstack(level=-1)
+    df.columns = df.columns.map("{0[1]}".format)
+    return df
+
+
 def eval_acc(benchmark_name, ckpt_path):
     evaluator = EvalAcc(benchmark_name, ckpt_path)
-    return evaluator.walk()
+    res = evaluator.walk()
+    return nested_dict_to_df(res)
 
 
 if __name__ == '__main__':

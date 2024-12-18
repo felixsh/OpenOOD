@@ -10,6 +10,7 @@ from omegaconf import OmegaConf
 from pandas import HDFStore
 import torch.multiprocessing as mp
 
+from eval_acc import eval_acc
 from eval_nc import eval_nc
 from eval_ood import eval_ood
 from feature_cache import FeatureCache
@@ -61,6 +62,26 @@ def save_ood(df, save_dir, filename, key):
 
 
 def save_nc(df, save_dir, filename, key):
+
+    # Store in HDF5 format
+    full_path = save_dir / f'{filename}.h5'
+    lock = get_lockfile(full_path)
+    with lock:
+        with HDFStore(full_path) as store:
+            store.put(key, df)
+
+    # Print markdown table to file
+    full_path = save_dir / f'{filename}.md'
+    lock = get_lockfile(full_path)
+    with lock:
+        with open(full_path, 'a') as f:
+            f.write(f'---\n{key}\n')
+            f.write(df.transpose().to_markdown())
+            f.write('\n')
+
+
+def save_acc(df, save_dir, filename):
+    key = 'acc'
 
     # Store in HDF5 format
     full_path = save_dir / f'{filename}.h5'
@@ -175,6 +196,12 @@ def eval_ckpt_ood(benchmark_name, ckpt_path, save_dir, ood_method_list, recomput
 
             ood_metrics, _ = eval_ood(benchmark_name, ckpt_path, ood_method, feature_cache)
             save_ood(ood_metrics, save_dir, file_name, ood_method)
+
+
+def eval_ckpt_acc(benchmark_name, ckpt_path, save_dir):
+    file_name = get_epoch_name(ckpt_path)
+    acc_metrics = eval_acc(benchmark_name, ckpt_path)
+    save_acc(acc_metrics, save_dir, file_name)
 
 
 def get_run_ckpts(run_dir, filtering=True):
