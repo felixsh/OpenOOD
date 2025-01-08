@@ -172,3 +172,4 @@ local/
 res_data/
 res_plots/
 res_scores/
+*.lock

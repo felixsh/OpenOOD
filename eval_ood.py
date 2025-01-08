@@ -29,7 +29,7 @@ def eval_ood(benchmark_name, ckpt_path, postprocessor_name, feature_cache):
     metrics, scores  = evaluator.eval_ood(fsood=False)
 
     filename = 'hyperparam.log'
-    lock = FileLock(filename)
+    lock = FileLock(filename + '.lock')
     try:
         hyperparam = evaluator.postprocessor.get_hyperparam()
         with lock:
