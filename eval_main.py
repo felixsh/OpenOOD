@@ -216,7 +216,7 @@ def get_previous_ckpts():
     cache_list = natsorted(list(path.cache_root.glob('**/*_train.npz')), key=str)
     ckpt_list = [path.ckpt_root / p.relative_to(path.cache_root) for p in cache_list]
     ckpt_list = [Path(re.sub('_train.npz$', '.pth', str(p))) for p in ckpt_list]
-    return ckpt_list
+    return natsorted(ckpt_list, key=str)
 
 
 def recompute_all(ood_method_list=postprocessors):

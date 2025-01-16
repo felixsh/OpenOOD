@@ -4,42 +4,36 @@ import stat
 
 from eval_main import get_previous_ckpts, get_run_ckpts
 
-filename = 'recompute_VGG.bash'
-script = 'recompute.py'
+filename = 'recompute_acc.bash'
+script = 'recompute_acc.py'
 
-with_methods = True
+with_methods = False
 method_first = False
+reverse = False
 
 
-devices = [1, 2, 3]
+devices = [0, 1]
 
 nc_methods = ['nc_train', 'nc_eval']
 odd_methods = ['msp', 'odin', 'mds', 'react', 'dice', 'knn', 'nusa', 'vim', 'ncscore', 'neco', 'epa']
 methods = nc_methods + odd_methods
 
-# ckpts = get_previous_ckpts()
+ckpts = get_previous_ckpts()
 
 # run_dir = Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/ResNet18_32x32/no_noise/300+_epochs/run_e300_2024_11_14-15_03_29')
 # ckpts = get_run_ckpts(run_dir)
 
 # top_dir = Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/ResNet18_32x32/no_noise/300+_epochs/')
 # run_dirs = (d for d in top_dir.iterdir() if d.is_dir())
-run_dirs = (
-    Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCVGG16/no_noise/300+_epochs/run_e300_2024_11_14-05_11_58'),
-    Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCVGG16/no_noise/300+_epochs/run_e300_2024_11_14-06_08_56'),
-    Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCVGG16/no_noise/300+_epochs/run_e300_2024_11_14-06_10_14'),
-    Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCVGG16/no_noise/300+_epochs/run_e300_2024_11_14-06_11_25'),
-    Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCVGG16/no_noise/300+_epochs/run_e300_2024_11_14-06_13_04'),
-)
-ckpts = [c for r in run_dirs for c in get_run_ckpts(r)]
-
-
-if with_methods:
-    if method_first:
-        combinations = [(str(c), m) for m in methods for c in ckpts][::-1]
-    else:
-        combinations = [(str(c), m) for c in ckpts for m in methods][::-1]
-
+# run_dirs = (
+#     Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCVGG16/no_noise/300+_epochs/run_e300_2024_11_14-05_11_58'),
+#     Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCVGG16/no_noise/300+_epochs/run_e300_2024_11_14-06_08_56'),
+#     Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCVGG16/no_noise/300+_epochs/run_e300_2024_11_14-06_10_14'),
+#     Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCVGG16/no_noise/300+_epochs/run_e300_2024_11_14-06_11_25'),
+#     Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCVGG16/no_noise/300+_epochs/run_e300_2024_11_14-06_13_04'),
+# )
+# ckpts = [c for r in run_dirs for c in get_run_ckpts(r)]
+    
 
 start = '''#!/bin/bash
 
@@ -61,6 +55,14 @@ delimiter = 'wait $(jobs -p)\n\n'
 
 
 if with_methods:
+    if method_first:
+        combinations = [(str(c), m) for m in methods for c in ckpts]
+    else:
+        combinations = [(str(c), m) for c in ckpts for m in methods]
+
+    if reverse:
+        combinations = combinations[::-1]
+
     with open(filename, 'w') as f:
         f.write(start)
 
@@ -76,6 +78,9 @@ if with_methods:
             
             f.write(delimiter)
 else:
+    if reverse:
+        ckpts = ckpts[::-1]
+    
     with open(filename, 'w') as f:
         f.write(start)
 

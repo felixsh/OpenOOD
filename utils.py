@@ -74,7 +74,7 @@ def get_batch_size(benchmark_name):
     elif benchmark_name == 'imagenet200':
         return 256
     elif benchmark_name == 'imagenet':
-        return 256
+        return 128
     else:
         raise NotImplementedError
 
