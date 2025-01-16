@@ -18,7 +18,7 @@ class EvalAcc(object):
         # Parameters
         batch_size = get_batch_size(benchmark_name)
         shuffle = False
-        num_workers = 4
+        num_workers = 8
 
         # Prepare data
         data_root = str(path.data_root)
@@ -44,30 +44,33 @@ class EvalAcc(object):
         self.num_classes = example_out.shape[1]
 
     def compute(self, dataloader):
-        accuracy = MulticlassAccuracy(num_classes=self.num_classes)
+        accuracy = MulticlassAccuracy(num_classes=self.num_classes).cuda()
 
         with torch.no_grad():
             for batch in tqdm(dataloader):
                 inp = batch['data'].cuda().float()
                 out = self.net(inp, return_feature=False)
 
-                labels = batch['label']
-                preds = out.argmax(dim=1).cpu().numpy()
+                labels = batch['label'].cuda()
+                preds = out.argmax(dim=1)
                 accuracy.update(preds, labels)
         
         return accuracy.compute().item()
 
-    def walk(self, d: dict) -> dict:
-        """Recursively walks through a dictionary and evaluates DataLoader objects."""
+    def walk_(self, d: dict) -> dict:
+        """Recursively walks through a dictionary and evaluate DataLoader objects."""
         result = {}
         for key, value in d.items():
             if isinstance(value, DataLoader):
                 result[key] = self.compute(value)
             elif isinstance(value, dict):
-                result[key] = self.walk(value)
+                result[key] = self.walk_(value)
             else:
                 result[key] = None  # Placeholder for non-DataLoader items
         return result
+
+    def walk(self):
+        return self.walk_(self.dataloader_dict)
 
 
 def flatten_dict(nested_dict):
