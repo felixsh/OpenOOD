@@ -9,6 +9,20 @@ from pandas import HDFStore
 import path
 
 
+nc_metrics = (
+    'nc1_strong',
+    'nc1_weak_between',
+    'nc1_weak_within',
+    'nc1_cdnv',
+    'nc2_equinormness',
+    'nc2_equiangularity',
+    'gnc2_hyperspherical_uniformity',
+    'nc3_self_duality',
+    'unc3_uniform_duality',
+    'nc4_classifier_agreement',
+)
+
+
 benchmark2loaddirs = {
     'cifar10': (
         '/mrtstorage/users/hauser/openood_res/data/cifar10/ResNet18_32x32/no_noise/300+_epochs',
@@ -145,7 +159,10 @@ def load_ood(run_data_dir, ood_metric='AUROC'):
 
         with HDFStore(h5file, mode='r') as store:
             ood_keys = list(store.keys())
-            ood_keys.remove('/nc')
+            try:
+                ood_keys.remove('/nc')
+            except ValueError:
+                pass
             ood_keys.remove('/nc_train')
             ood_keys.remove('/nc_val')
             for k in ood_keys:
@@ -155,6 +172,55 @@ def load_ood(run_data_dir, ood_metric='AUROC'):
                 farood[key].append(df.at['farood', ood_metric])
         
     return numpify_dict(nearood), numpify_dict(farood), np.array(epochs)
+
+
+def load_nc_ood(run_data_dir, nc_split='val', ood_metric='AUROC', benchmark=None):
+    """Return ood metrics with corresponding epochs for run from hdf5 files."""
+    nearood = defaultdict(list)
+    farood = defaultdict(list)
+    epochs = []
+
+    if nc_split=='train':
+        nc_key = 'nc_train'
+    elif nc_split=='val':
+        nc_key = 'nc_val'
+    else:
+        raise NotImplementedError
+
+    if benchmark == 'imagenet':
+        nc_key = 'nc'
+
+    nc = defaultdict(list)
+
+    for h5file in natsorted(list(run_data_dir.glob('e*.h5')), key=str):
+        epoch = int(h5file.stem[1:])
+        epochs.append(epoch)
+
+        with HDFStore(h5file, mode='r') as store:
+
+            nc_df = store.get(nc_key)
+            for metric, value in nc_df.items():
+                nc[metric].append(value)
+
+            ood_keys = list(store.keys())
+            try:
+                ood_keys.remove('/nc')
+            except ValueError:
+                pass
+
+            try:
+                ood_keys.remove('/nc_train')
+                ood_keys.remove('/nc_val')
+            except ValueError:
+                pass
+
+            for k in ood_keys:
+                df = store.get(k)
+                key = k[1:]
+                nearood[key].append(df.at['nearood', ood_metric])
+                farood[key].append(df.at['farood', ood_metric])
+
+    return nc, numpify_dict(nearood), numpify_dict(farood), epochs
 
 
 def load_noise(run_data_dir):
