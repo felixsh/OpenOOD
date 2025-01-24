@@ -112,6 +112,8 @@ def load_ood(run_data_dir, ood_metric='AUROC'):
         with HDFStore(h5file, mode='r') as store:
             ood_keys = list(store.keys())
             ood_keys.remove('/nc')
+            ood_keys.remove('/nc_train')
+            ood_keys.remove('/nc_val')
             for k in ood_keys:
                 df = store.get(k)
                 key = k[1:]
