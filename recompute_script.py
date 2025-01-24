@@ -4,7 +4,7 @@ import stat
 
 from eval_main import get_previous_ckpts, get_run_ckpts
 
-filename = 'recompute.bash'
+filename = 'recompute2.bash'
 script = 'recompute.py'
 
 with_methods = True
@@ -23,8 +23,7 @@ methods = nc_methods + odd_methods
 # run_dir = Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/ResNet18_32x32/no_noise/300+_epochs/run_e300_2024_11_14-15_03_29')
 # ckpts = get_run_ckpts(run_dir)
 
-# top_dir = Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/ResNet18_32x32/no_noise/300+_epochs/')
-top_dir = Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/')
+top_dir = Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/')
 run_dirs = (d for d in top_dir.iterdir() if d.is_dir())
 # run_dirs = (
 #     Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCVGG16/no_noise/300+_epochs/run_e300_2024_11_14-05_11_58'),
@@ -33,8 +32,8 @@ run_dirs = (d for d in top_dir.iterdir() if d.is_dir())
 #     Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCVGG16/no_noise/300+_epochs/run_e300_2024_11_14-06_11_25'),
 #     Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCVGG16/no_noise/300+_epochs/run_e300_2024_11_14-06_13_04'),
 # )
-# ckpts = [c for r in run_dirs for c in get_run_ckpts(r)]
-ckpts = [get_run_ckpts(r, filtering=False)[-1] for r in run_dirs]
+ckpts = [c for r in run_dirs for c in get_run_ckpts(r)]
+# ckpts = [get_run_ckpts(r, filtering=False)[-1] for r in run_dirs]
 
 start = '''#!/bin/bash
 
