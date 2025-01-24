@@ -1,15 +1,16 @@
+from collections import defaultdict
 from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
 
 import path
-from plot_utils import benchmark2loaddirs
+from plot_utils import benchmark2loaddirs, nc_metrics
 from plot_utils import colors, metric_markers
-from plot_utils import load_acc, load_nc, load_ood
+from plot_utils import load_acc, load_nc_ood, numpify_dict
 
 
-def trim_arrays(dict1, dict2, array1, array2):
+def trim_arrays(dict1, dict2, dict3, array1):
     min_length = min(
         min(arr.shape[0] for arr in dict1.values()),
         min(arr.shape[0] for arr in dict2.values())
@@ -17,15 +18,14 @@ def trim_arrays(dict1, dict2, array1, array2):
     
     trimmed_dict1 = {key: arr[:min_length] for key, arr in dict1.items()}
     trimmed_dict2 = {key: arr[:min_length] for key, arr in dict2.items()}
+    trimmed_dict3 = {key: arr[:min_length] for key, arr in dict3.items()}
     
     trimmed_array1 = array1[:min_length]
-    trimmed_array2 = array2[:min_length]
     
-    return trimmed_dict1, trimmed_dict2, trimmed_array1, trimmed_array2
+    return trimmed_dict1, trimmed_dict2, trimmed_dict3, trimmed_array1
 
 
 def load_benchmark_data(benchmark_name,
-                        nc_metric='nc1_cdnv',
                         ood_metric='AUROC',
                         ):
     # Get run dirs
@@ -38,39 +38,40 @@ def load_benchmark_data(benchmark_name,
     # Collect data
     epochs = []
     run_ids = []
-    data = []
+    acc = []
+    nc = defaultdict(list)
+    nood = []
+    food = []
+    
 
     for run_id, run_dir in enumerate(run_dirs):
-        nc, _ = load_nc(run_dir)
-        nearood_dict, farood_dict, epochs_ = load_ood(run_dir, ood_metric=ood_metric)
-        acc = load_acc(run_dir, filter_epochs=epochs_)
-
-        nc = np.squeeze(nc[nc_metric])
-        acc = acc['val']['values']
+        nc_dict, nearood_dict, farood_dict, epochs_ = load_nc_ood(run_dir, nc_split='val', ood_metric=ood_metric, benchmark=benchmark_name)
+        acc_ = load_acc(run_dir, filter_epochs=epochs_)
+        acc_ = list(acc_['val']['values'])
 
         # Needed if not all benchmarks are computed
-        nearood_dict, farood_dict, nc, acc = trim_arrays(nearood_dict, farood_dict, nc, acc)
+        # nearood_dict, farood_dict, nc_dict, acc_ = trim_arrays(nearood_dict, farood_dict, nc_dict, acc_)
         
-        nearood = np.mean([v for v in nearood_dict.values()], axis=0)
-        farood = np.mean([v for v in farood_dict.values()], axis=0)
+        nearood = list(np.mean([v for v in nearood_dict.values()], axis=0))
+        farood = list(np.mean([v for v in farood_dict.values()], axis=0))
 
-        for ep, a, n, nood, food in zip(epochs_, acc, nc, nearood, farood):
-            data.append([a, n, nood, food])
-            epochs.append(ep)
-            run_ids.append(run_id)
-    
-    # [[acc, nc, nearood, farood]]
-    data = np.array(data)
+        epochs.extend(epochs_)
+        run_ids.extend([run_id for _ in range(len(epochs_))])
+        acc.extend(acc_)
+        nood.extend(nearood)
+        food.extend(farood)
+
+        for k, v in nc_dict.items():
+            nc[k].extend(v)
 
     run_ids = np.array(run_ids)
     epochs = np.array(epochs)
+    acc = np.array(acc)
+    nc = numpify_dict(nc)
+    nood = np.array(nood)
+    food = np.array(food)
 
-    acc = data[:, 0]
-    nc = data[:, 1]
-    nearood = data[:, 2]
-    farood = data[:, 3]
-
-    return run_ids, epochs, acc, nc, nearood, farood, save_dir
+    return run_ids, epochs, acc, nc, nood, food, save_dir
 
 
 def _plot(acc, nc, ood, run_ids, nc_metric, ood_metric, ood_label):
@@ -101,22 +102,43 @@ def _save(fig, save_path, filename):
     plt.close()
 
 
-def plot_scatter(benchmark_name,
-                 nc_metric='nc1_cdnv',
+def _mean(a1, a2):
+    x = np.vstack((a1, a2))
+    return x.mean(axis=0)
+
+
+def plot_scatter_all(benchmark_name,
                  ood_metric='AUROC',
                  ):
-    run_ids, epochs, acc, nc, nearood, farood, save_dir = load_benchmark_data(benchmark_name, nc_metric, ood_metric)
+    print(f'plotting scatter {benchmark_name} {ood_metric} ...')
+    run_ids, epochs, acc, nc, nearood, farood, save_dir = load_benchmark_data(benchmark_name, ood_metric)
 
     # Epochs to color index
     _, color_id = np.unique(epochs, return_inverse=True)
     color_id += 1
 
-    # Plot and save
-    fig = _plot(acc, nc, nearood, color_id, nc_metric, ood_metric, 'near')
-    _save(fig, save_dir, f'scatter_near_{nc_metric}_{ood_metric}')
-    fig = _plot(acc, nc, farood, color_id, nc_metric, ood_metric, 'far')
-    _save(fig, save_dir, f'scatter_far_{nc_metric}_{ood_metric}')
+    save_dir = path.res_plots / 'scatter' / benchmark_name
+    save_dir.mkdir(parents=True, exist_ok=True)
+
+    for nc_metric in nc_metrics:
+        print(nc_metric)
+        # Plot and save
+        fig = _plot(acc, nc[nc_metric], _mean(nearood, farood), color_id, nc_metric, ood_metric, 'mean')
+        _save(fig, save_dir, f'mean_{nc_metric}_{ood_metric}')
+        fig = _plot(acc, nc[nc_metric], nearood, color_id, nc_metric, ood_metric, 'near')
+        _save(fig, save_dir, f'scatter_near_{nc_metric}_{ood_metric}')
+        fig = _plot(acc, nc[nc_metric], farood, color_id, nc_metric, ood_metric, 'far')
+        _save(fig, save_dir, f'scatter_far_{nc_metric}_{ood_metric}')
 
 
 if __name__ == '__main__':
-    plot_scatter('cifar100')
+    for benchmark in [
+        'cifar10',
+        'cifar100',
+        'imagenet200',
+        'imagenet',
+        'alexnet',
+        'mobilenet',
+        'vgg',
+    ]:
+        plot_scatter_all(benchmark)
