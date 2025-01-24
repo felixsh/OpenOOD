@@ -7,7 +7,7 @@ import pandas as pd
 import seaborn as sns  
 
 import path
-from plot_scatter import benchmark2loaddirs
+from plot_utils import benchmark2loaddirs
 from plot_utils import load_acc, load_nc, load_ood
 
 

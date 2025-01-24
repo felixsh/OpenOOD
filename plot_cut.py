@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from statsmodels.nonparametric.kernel_density import KDEMultivariate
 
-from plot_scatter import load_benchmark_data
+from plot_utils import load_benchmark_data
 
 
 def _plot(acc, nc, ood, ood_label, resolution=100, cuts=3):

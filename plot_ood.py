@@ -5,28 +5,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 import path
+from plot_utils import benchmark2loaddirs
 from plot_utils import colors, metric_markers
 from plot_utils import load_acc, load_ood
-
-
-benchmark2loaddirs = {
-    'cifar10': (
-        '/mrtstorage/users/hauser/openood_res/data/cifar10/NCAlexNet/no_noise/300+_epochs',
-        '/mrtstorage/users/hauser/openood_res/data/cifar10/NCMobileNetV2/no_noise/300+_epochs',
-        '/mrtstorage/users/hauser/openood_res/data/cifar10/NCVGG16/no_noise/300+_epochs',
-        '/mrtstorage/users/hauser/openood_res/data/cifar10/ResNet18_32x32/no_noise/300+_epochs',
-    ),
-    'cifar100': (
-        '/mrtstorage/users/hauser/openood_res/data/cifar100/ResNet18_32x32/no_noise/1000+_epochs',
-    ),
-    'imagenet200': (
-        '/mrtstorage/users/hauser/openood_res/data/imagenet200/ResNet18_224x224/no_noise/150+_epochs',
-        '/mrtstorage/users/hauser/openood_res/data/imagenet200/ResNet18_224x224/no_noise/200+_epochs',
-        '/mrtstorage/users/hauser/openood_res/data/imagenet200/ResNet18_224x224/no_noise/300+_epochs',
-        '/mrtstorage/users/hauser/openood_res/data/imagenet200/ResNet18_224x224/no_noise/400+_epochs',
-    ),
-    'imagenet': None,
-}
 
 
 def _plot(save_path, filename, ood_keys, data, far, x_axis, acc_split, ood_metric):

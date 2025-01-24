@@ -9,6 +9,40 @@ from pandas import HDFStore
 import path
 
 
+benchmark2loaddirs = {
+    'cifar10': (
+        '/mrtstorage/users/hauser/openood_res/data/cifar10/ResNet18_32x32/no_noise/300+_epochs',
+    ),
+    'cifar100': (
+        '/mrtstorage/users/hauser/openood_res/data/cifar100/ResNet18_32x32/no_noise/1000+_epochs',
+    ),
+    'imagenet200': (
+        '/mrtstorage/users/hauser/openood_res/data/imagenet200/ResNet18_224x224/no_noise/150+_epochs',
+        '/mrtstorage/users/hauser/openood_res/data/imagenet200/ResNet18_224x224/no_noise/200+_epochs',
+        '/mrtstorage/users/hauser/openood_res/data/imagenet200/ResNet18_224x224/no_noise/400+_epochs',
+        '/mrtstorage/users/hauser/openood_res/data/imagenet200/ResNet18_224x224/no_noise/500+_epochs',
+    ),
+    'imagenet': (
+        '/mrtstorage/users/hauser/openood_res/data/imagenet/ResNet50/no_noise/150+_epochs',
+    ),
+    'noise': (
+        '/mrtstorage/users/hauser/openood_res/data/cifar10/NCResNet18_32x32/noise/300+_epochs',
+    ),
+    'alexnet': (
+        '/mrtstorage/users/hauser/openood_res/data/cifar10/NCAlexNet/no_noise/300+_epochs',
+    ),
+    'mobilenet': (
+        '/mrtstorage/users/hauser/openood_res/data/cifar10/NCMobileNetV2/no_noise/300+_epochs',
+    ),
+    'vgg': (
+        '/mrtstorage/users/hauser/openood_res/data/cifar10/NCVGG16/no_noise/300+_epochs',
+    ),
+    'lessnet': (
+        '/mrtstorage/users/hauser/openood_res/data/cifar100/NCLessNet18/no_noise/1000+_epochs',
+    ),
+}
+
+
 prop_cycle = plt.rcParams['axes.prop_cycle']
 colors = prop_cycle.by_key()['color']
 
