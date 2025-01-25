@@ -7,7 +7,7 @@ import numpy as np
 import path
 from plot_utils import benchmark2loaddirs, nc_metrics
 from plot_utils import colors, metric_markers
-from plot_utils import load_acc, load_nc_ood, numpify_dict
+from plot_utils import load_acc, load_nc_ood, numpify_dict, check_run_data
 
 
 def trim_arrays(dict1, dict2, dict3, array1):
@@ -23,6 +23,10 @@ def trim_arrays(dict1, dict2, dict3, array1):
     trimmed_array1 = array1[:min_length]
     
     return trimmed_dict1, trimmed_dict2, trimmed_dict3, trimmed_array1
+
+
+class IncompleteError(Exception):
+    pass
 
 
 def load_benchmark_data(benchmark_name,
@@ -42,7 +46,12 @@ def load_benchmark_data(benchmark_name,
     nc = defaultdict(list)
     nood = []
     food = []
+
+    for run_dir in run_dirs:
+        check_run_data(run_dir, benchmark_name)
     
+    print('COMPLETE =================================================')
+    input()
 
     for run_id, run_dir in enumerate(run_dirs):
         nc_dict, nearood_dict, farood_dict, epochs_ = load_nc_ood(run_dir, nc_split='val', ood_metric=ood_metric, benchmark=benchmark_name)
@@ -51,6 +60,18 @@ def load_benchmark_data(benchmark_name,
 
         # Needed if not all benchmarks are computed
         # nearood_dict, farood_dict, nc_dict, acc_ = trim_arrays(nearood_dict, farood_dict, nc_dict, acc_)
+
+        near_lengths = [len(v) for v in nearood_dict.values()]
+        far_lengths = [len(v) for v in farood_dict.values()]
+
+        # Check for completeness
+        if (not all([l0 == l1 for l0, l1 in zip(near_lengths, far_lengths)]) or 
+            not all([l0 == near_lengths[0] for l0 in near_lengths]) or
+            not all([l0 == far_lengths[0] for l0 in far_lengths])
+        ):
+            print('near', near_lengths)
+            print('far',far_lengths)
+            raise IncompleteError(run_dir)
         
         nearood = list(np.mean([v for v in nearood_dict.values()], axis=0))
         farood = list(np.mean([v for v in farood_dict.values()], axis=0))
@@ -132,13 +153,10 @@ def plot_scatter_all(benchmark_name,
 
 
 if __name__ == '__main__':
-    for benchmark in [
-        'cifar10',
-        'cifar100',
-        'imagenet200',
-        'imagenet',
-        'alexnet',
-        'mobilenet',
-        'vgg',
-    ]:
-        plot_scatter_all(benchmark)
+    plot_scatter_all('cifar10')
+    # plot_scatter_all('cifar100')
+    # plot_scatter_all('imagenet200')
+    # plot_scatter_all('imagenet')
+    # plot_scatter_all('alexnet')
+    # plot_scatter_all('mobilenet')
+    # plot_scatter_all('vgg')

@@ -22,6 +22,19 @@ nc_metrics = (
     'nc4_classifier_agreement',
 )
 
+ood_metrics = (
+    '/dice',
+    '/epa',
+    '/knn',
+    '/mds',
+    '/msp',
+    '/ncscore',
+    '/neco',
+    '/nusa',
+    '/odin',
+    '/react',
+    '/vim',
+)
 
 benchmark2loaddirs = {
     'cifar10': (
@@ -217,6 +230,9 @@ def load_nc_ood(run_data_dir, nc_split='val', ood_metric='AUROC', benchmark=None
             except ValueError:
                 pass
 
+            # Check if all keys are present
+            assert set(ood_metrics) <= set(ood_keys), f'Missing keys {set(ood_metrics) - set(ood_keys)} in file {h5file}'
+
             for k in ood_keys:
                 df = store.get(k)
                 key = k[1:]
@@ -224,6 +240,37 @@ def load_nc_ood(run_data_dir, nc_split='val', ood_metric='AUROC', benchmark=None
                 farood[key].append(df.at['farood', ood_metric])
 
     return nc, numpify_dict(nearood), numpify_dict(farood), epochs
+
+
+def check_run_data(run_data_dir, benchmark=None):
+    """Check data of run for completeness."""
+    for h5file in natsorted(list(run_data_dir.glob('e*.h5')), key=str):
+        with HDFStore(h5file, mode='r') as store:
+            keys = list(store.keys())
+
+            if benchmark == 'imagenet':
+                if not '/nc' in keys:
+                    print(f'Missing /nc in benchmark {benchmark} in file {h5file}')
+            else:
+                if not '/nc_train' in keys:
+                    print(f'Missing /nc_train in benchmark {benchmark} in file {h5file}')
+                if not '/nc_val' in keys:
+                    print(f'Missing /nc_val in benchmark {benchmark} in file {h5file}')
+
+            try:
+                keys.remove('/nc')
+            except ValueError:
+                pass
+
+            try:
+                keys.remove('/nc_train')
+                keys.remove('/nc_val')
+            except ValueError:
+                pass
+
+            # Check if all keys are present
+            if not set(ood_metrics) <= set(keys):
+                print(f'Missing keys {set(ood_metrics) - set(keys)} in file {h5file}')
 
 
 def load_noise(run_data_dir):
