@@ -13,7 +13,7 @@ def recompute(ckpt_path, method, recompute=False):
     save_dir = path.res_data / ckpt_path.parent.relative_to(path.ckpt_root)
     save_dir.mkdir(exist_ok=True, parents=True)
 
-    if method in ['nc_train', 'nc_eval']:
+    if method == 'nc':
         eval_ckpt_nc(benchmark_name, ckpt_path, save_dir, recompute=recompute)
     else:
         eval_ckpt_ood(benchmark_name, ckpt_path, save_dir, [method], recompute=recompute)

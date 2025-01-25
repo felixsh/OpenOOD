@@ -14,9 +14,9 @@ reverse = False
 
 devices = [1, 2, 3, 4]
 
-nc_methods = ['nc_train', 'nc_eval']
+nc_method = ['nc']
 odd_methods = ['msp', 'odin', 'mds', 'react', 'dice', 'knn', 'nusa', 'vim', 'ncscore', 'neco', 'epa']
-methods = nc_methods + odd_methods
+methods = nc_method + odd_methods
 
 # ckpts = get_previous_ckpts()
 
