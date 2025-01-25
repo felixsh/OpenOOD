@@ -122,15 +122,18 @@ def load_acc(run_data_dir, filter_epochs=None):
     return acc
 
 
-def load_nc(run_data_dir, split='val'):
+def load_nc(run_data_dir, nc_split='val', benchmark=None):
     """Return nc metrics with corresponding epochs for run from hdf5 files."""
 
-    if split=='train':
-        h5_key = 'nc_train'
-    elif split=='val':
-        h5_key = 'nc_val'
+    if nc_split=='train':
+        nc_key = '/nc_train'
+    elif nc_split=='val':
+        nc_key = '/nc_val'
     else:
         raise NotImplementedError
+
+    if benchmark == 'imagenet':
+        nc_key = '/nc'
 
     nc = defaultdict(list)
     epochs = []
@@ -140,7 +143,7 @@ def load_nc(run_data_dir, split='val'):
         epochs.append(epoch)
 
         with HDFStore(h5file, mode='r') as store:
-            df = store.get(h5_key)
+            df = store.get(nc_key)
             for metric, value in df.items():
                 nc[metric].append(value)
             
@@ -181,14 +184,14 @@ def load_nc_ood(run_data_dir, nc_split='val', ood_metric='AUROC', benchmark=None
     epochs = []
 
     if nc_split=='train':
-        nc_key = 'nc_train'
+        nc_key = '/nc_train'
     elif nc_split=='val':
-        nc_key = 'nc_val'
+        nc_key = '/nc_val'
     else:
         raise NotImplementedError
 
     if benchmark == 'imagenet':
-        nc_key = 'nc'
+        nc_key = '/nc'
 
     nc = defaultdict(list)
 
