@@ -7,6 +7,7 @@ import numpy as np
 from pandas import HDFStore
 
 import path
+from utils import get_benchmark_name
 
 
 nc_metrics = (
@@ -190,7 +191,7 @@ def load_ood(run_data_dir, ood_metric='AUROC'):
     return numpify_dict(nearood), numpify_dict(farood), np.array(epochs)
 
 
-def load_nc_ood(run_data_dir, nc_split='val', ood_metric='AUROC', benchmark=None):
+def load_nc_ood(run_data_dir, nc_split='val', ood_metric='AUROC'):
     """Return ood metrics with corresponding epochs for run from hdf5 files."""
     nearood = defaultdict(list)
     farood = defaultdict(list)
@@ -202,9 +203,6 @@ def load_nc_ood(run_data_dir, nc_split='val', ood_metric='AUROC', benchmark=None
         nc_key = '/nc_val'
     else:
         raise NotImplementedError
-
-    if benchmark == 'imagenet':
-        nc_key = '/nc'
 
     nc = defaultdict(list)
 
@@ -242,20 +240,17 @@ def load_nc_ood(run_data_dir, nc_split='val', ood_metric='AUROC', benchmark=None
     return nc, numpify_dict(nearood), numpify_dict(farood), epochs
 
 
-def check_run_data(run_data_dir, benchmark=None):
+def check_run_data(run_data_dir):
     """Check data of run for completeness."""
     for h5file in natsorted(list(run_data_dir.glob('e*.h5')), key=str):
+        benchmark = get_benchmark_name(h5file)
         with HDFStore(h5file, mode='r') as store:
             keys = list(store.keys())
 
-            if benchmark == 'imagenet':
-                if not '/nc' in keys:
-                    print(f'Missing /nc in benchmark {benchmark} in file {h5file}')
-            else:
-                if not '/nc_train' in keys:
-                    print(f'Missing /nc_train in benchmark {benchmark} in file {h5file}')
-                if not '/nc_val' in keys:
-                    print(f'Missing /nc_val in benchmark {benchmark} in file {h5file}')
+            if not '/nc_train' in keys:
+                print(f'Missing /nc_train in benchmark {benchmark} in file {h5file}')
+            if not '/nc_val' in keys:
+                print(f'Missing /nc_val in benchmark {benchmark} in file {h5file}')
 
             try:
                 keys.remove('/nc')

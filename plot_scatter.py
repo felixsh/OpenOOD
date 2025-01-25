@@ -47,14 +47,11 @@ def load_benchmark_data(benchmark_name,
     nood = []
     food = []
 
-    for run_dir in run_dirs:
-        check_run_data(run_dir, benchmark_name)
-    
-    print('COMPLETE =================================================')
-    input()
+    # for run_dir in run_dirs:
+    #     check_run_data(run_dir)
 
     for run_id, run_dir in enumerate(run_dirs):
-        nc_dict, nearood_dict, farood_dict, epochs_ = load_nc_ood(run_dir, nc_split='val', ood_metric=ood_metric, benchmark=benchmark_name)
+        nc_dict, nearood_dict, farood_dict, epochs_ = load_nc_ood(run_dir, nc_split='val', ood_metric=ood_metric)
         acc_ = load_acc(run_dir, filter_epochs=epochs_)
         acc_ = list(acc_['val']['values'])
 
@@ -153,10 +150,10 @@ def plot_scatter_all(benchmark_name,
 
 
 if __name__ == '__main__':
-    plot_scatter_all('cifar10')
-    # plot_scatter_all('cifar100')
-    # plot_scatter_all('imagenet200')
+    # plot_scatter_all('cifar10')
+    plot_scatter_all('cifar100')
+    plot_scatter_all('imagenet200')
     # plot_scatter_all('imagenet')
-    # plot_scatter_all('alexnet')
-    # plot_scatter_all('mobilenet')
-    # plot_scatter_all('vgg')
+    plot_scatter_all('alexnet')
+    plot_scatter_all('mobilenet')
+    plot_scatter_all('vgg')
