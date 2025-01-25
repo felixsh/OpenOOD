@@ -1,5 +1,6 @@
-from collections import defaultdict
 import json
+from collections import defaultdict
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 from natsort import natsorted
@@ -368,3 +369,60 @@ def load_acc_nc_ood(benchmark_name,
                     run_id_dict[key].append(run_number)
 
     return acc_dict, nc_dict, nearood_dict, farood_dict, run_id_dict
+
+
+
+class IncompleteError(Exception):
+    pass
+
+
+def load_benchmark_data(benchmark_name,
+                        nc_split='val',
+                        ood_metric='AUROC',
+                        ):
+    # Get run dirs
+    main_dirs = benchmark2loaddirs[benchmark_name]
+    main_dirs = [Path(p) for p in main_dirs]
+    run_dirs = natsorted([subdir for p in main_dirs if p.is_dir() for subdir in p.iterdir() if subdir.is_dir()], key=str)
+    print('number of runs', len(run_dirs))
+
+    save_dir = path.res_plots / main_dirs[0].relative_to(path.res_data).parents[-2]
+    save_dir.mkdir(parents=True, exist_ok=True)
+
+    # Collect data
+    epochs = []
+    run_ids = []
+    acc = []
+    nc = defaultdict(list)
+    nood = defaultdict(list)
+    food = defaultdict(list)
+
+    # for run_dir in run_dirs:
+    #     check_run_data(run_dir)
+
+    for run_id, run_dir in enumerate(run_dirs):
+        nc_dict, nearood_dict, farood_dict, epochs_ = load_nc_ood(run_dir, nc_split=nc_split, ood_metric=ood_metric, benchmark=benchmark_name)
+        acc_ = load_acc(run_dir, filter_epochs=epochs_, benchmark=benchmark_name)
+        acc_ = list(acc_['val']['values'])
+
+        epochs.extend(epochs_)
+        run_ids.extend([run_id for _ in range(len(epochs_))])
+        acc.extend(acc_)
+
+        for k, v in nc_dict.items():
+            nc[k].extend(v)
+        
+        for k, v in nearood_dict.items():
+            nood[k].extend(v)
+        
+        for k, v in farood_dict.items():
+            food[k].extend(v)
+
+    run_ids = np.array(run_ids)
+    epochs = np.array(epochs)
+    acc = np.array(acc)
+    nc = numpify_dict(nc)
+    nood = numpify_dict(nood)
+    food = numpify_dict(food)
+
+    return run_ids, epochs, acc, nc, nood, food, save_dir
