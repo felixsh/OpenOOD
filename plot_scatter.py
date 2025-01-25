@@ -2,6 +2,7 @@ from collections import defaultdict
 from pathlib import Path
 
 import matplotlib.pyplot as plt
+from natsort import natsorted
 import numpy as np
 
 import path
@@ -35,7 +36,9 @@ def load_benchmark_data(benchmark_name,
     # Get run dirs
     main_dirs = benchmark2loaddirs[benchmark_name]
     main_dirs = [Path(p) for p in main_dirs]
-    run_dirs = [subdir for p in main_dirs if p.is_dir() for subdir in p.iterdir() if subdir.is_dir()]
+    run_dirs = natsorted([subdir for p in main_dirs if p.is_dir() for subdir in p.iterdir() if subdir.is_dir()], key=str)
+    print('number of runs', len(run_dirs))
+
     save_dir = path.res_plots / main_dirs[0].relative_to(path.res_data).parents[-2]
     save_dir.mkdir(parents=True, exist_ok=True)
 
@@ -51,8 +54,8 @@ def load_benchmark_data(benchmark_name,
     #     check_run_data(run_dir)
 
     for run_id, run_dir in enumerate(run_dirs):
-        nc_dict, nearood_dict, farood_dict, epochs_ = load_nc_ood(run_dir, nc_split='val', ood_metric=ood_metric)
-        acc_ = load_acc(run_dir, filter_epochs=epochs_)
+        nc_dict, nearood_dict, farood_dict, epochs_ = load_nc_ood(run_dir, nc_split='val', ood_metric=ood_metric, benchmark=benchmark_name)
+        acc_ = load_acc(run_dir, filter_epochs=epochs_, benchmark=benchmark_name)
         acc_ = list(acc_['val']['values'])
 
         # Needed if not all benchmarks are computed
@@ -93,6 +96,8 @@ def load_benchmark_data(benchmark_name,
 
 
 def _plot(acc, nc, ood, run_ids, nc_metric, ood_metric, ood_label):
+    assert len(acc) == len(nc) == len(ood), f'{len(acc)} {len(nc)} {len(ood)}'
+
     fig, axes = plt.subplots(1, 3, figsize=(15, 5))
 
     # c = [colors[i] for i in run_ids]
@@ -152,8 +157,8 @@ def plot_scatter_all(benchmark_name,
 if __name__ == '__main__':
     # plot_scatter_all('cifar10')
     plot_scatter_all('cifar100')
-    plot_scatter_all('imagenet200')
+    # plot_scatter_all('imagenet200')
     # plot_scatter_all('imagenet')
-    plot_scatter_all('alexnet')
-    plot_scatter_all('mobilenet')
-    plot_scatter_all('vgg')
+    # plot_scatter_all('alexnet')
+    # plot_scatter_all('mobilenet')
+    # plot_scatter_all('vgg')

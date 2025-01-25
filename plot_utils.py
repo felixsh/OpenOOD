@@ -112,7 +112,7 @@ def numpify_dict(dict_of_lists):
     return dict_of_arrays
 
 
-def load_acc(run_data_dir, filter_epochs=None):
+def load_acc(run_data_dir, filter_epochs=None, benchmark=None):
     """Return accuracy values with corresponding epochs for run from data.json."""
 
     run_ckpt_dir = path.ckpt_root / run_data_dir.relative_to(path.res_data)
@@ -122,7 +122,9 @@ def load_acc(run_data_dir, filter_epochs=None):
     acc = {}
     for split, acc_dict in data['metrics']['Accuracy'].items():
         acc[split] = numpify_dict(acc_dict)
-        acc[split]['epochs'] += 1
+
+        if benchmark != 'cifar100':
+            acc[split]['epochs'] += 1
 
         if filter_epochs is not None:
             filter_epochs = np.array(filter_epochs)
@@ -191,7 +193,7 @@ def load_ood(run_data_dir, ood_metric='AUROC'):
     return numpify_dict(nearood), numpify_dict(farood), np.array(epochs)
 
 
-def load_nc_ood(run_data_dir, nc_split='val', ood_metric='AUROC'):
+def load_nc_ood(run_data_dir, nc_split='val', ood_metric='AUROC', benchmark=None):
     """Return ood metrics with corresponding epochs for run from hdf5 files."""
     nearood = defaultdict(list)
     farood = defaultdict(list)
@@ -206,7 +208,12 @@ def load_nc_ood(run_data_dir, nc_split='val', ood_metric='AUROC'):
 
     nc = defaultdict(list)
 
-    for h5file in natsorted(list(run_data_dir.glob('e*.h5')), key=str):
+    if benchmark == 'cifar100':
+        h5file_list = natsorted(list(run_data_dir.glob('e*.h5')), key=str)[:-1]
+    else:
+        h5file_list = natsorted(list(run_data_dir.glob('e*.h5')), key=str)
+
+    for h5file in h5file_list:
         epoch = int(h5file.stem[1:])
         epochs.append(epoch)
 
