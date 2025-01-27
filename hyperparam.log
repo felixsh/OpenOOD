@@ -125,3 +125,572 @@ cifar10, knn, 20, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cif
 cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCVGG16/no_noise/300+_epochs/run_e300_2024_11_14-06_11_25/NCVGG16_e300_i0.pth
 cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCVGG16/no_noise/300+_epochs/run_e300_2024_11_14-06_11_25/NCVGG16_e300_i0.pth
 cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCVGG16/no_noise/300+_epochs/run_e300_2024_11_14-06_11_25/NCVGG16_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/ResNet18_32x32/no_noise/300+_epochs/run_e300_2024_11_14-15_04_07/ResNet18_32x32_e2_i0.pth
+cifar10, odin, [1000, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/ResNet18_32x32/no_noise/300+_epochs/run_e300_2024_11_14-15_04_07/ResNet18_32x32_e2_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_31_34/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_31_34/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_31_34/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_31_34/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_31_34/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_31_34/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_31_34/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_31_34/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [100, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_31_34/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_31_00/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_31_00/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_31_00/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_31_00/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_31_00/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_31_00/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_31_00/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 20, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_31_00/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_31_00/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_28_56/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_28_56/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_28_56/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_28_56/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_28_56/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_28_56/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_28_56/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_28_56/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_28_56/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_26_59/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_26_59/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_26_59/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_26_59/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_26_59/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_26_59/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_26_59/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_26_59/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_26_59/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_26_50/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_26_50/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_26_50/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_26_50/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_26_50/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_26_50/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_26_50/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_26_50/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [100, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_26_50/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_00_28/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_00_28/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_00_28/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_00_28/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_00_28/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_00_28/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_00_28/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 20, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_00_28/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-06_00_28/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_59_13/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_59_13/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_59_13/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_59_13/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_59_13/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_59_13/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_59_13/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 20, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_59_13/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_59_13/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_41_40/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_41_40/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_41_40/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_41_40/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_41_40/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_41_40/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_41_40/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_41_40/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_41_09/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_41_09/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_41_09/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_41_09/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_41_09/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_41_09/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_41_09/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_41_09/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_41_09/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_38_55/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_38_55/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_38_55/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_38_55/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 95, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_38_55/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_38_55/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 20, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_38_55/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_38_55/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_36_34/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_36_34/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_36_34/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_36_34/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 95, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_36_34/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_36_34/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 20, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_36_34/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_36_34/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_35_28/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_35_28/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_35_28/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_35_28/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_35_28/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_35_28/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_35_28/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 20, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_35_28/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_35_28/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_10_02/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_10_02/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_10_02/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_10_02/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_10_02/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_10_02/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_10_02/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 20, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_10_02/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [100, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_10_02/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_09_52/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_09_52/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_09_52/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_09_52/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_09_52/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_09_52/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_09_52/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 20, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_09_52/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_09_52/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_51_42/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_51_42/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_51_42/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_51_42/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_51_42/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_51_42/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_51_42/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_51_42/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_51_42/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_51_05/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_51_05/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_51_05/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_51_05/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_51_05/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_51_05/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_51_05/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_51_05/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_51_05/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_48_02/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_48_02/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_48_02/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_48_02/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_48_02/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_48_02/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_48_02/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 50, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_48_02/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [100, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_48_02/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_46_30/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_46_30/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_46_30/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_46_30/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_46_30/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_46_30/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_46_30/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 20, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_46_30/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_46_30/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_45_32/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_45_32/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_45_32/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_45_32/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_45_32/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_45_32/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_45_32/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_45_32/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [100, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_45_32/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_17_17/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_17_17/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_17_17/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_17_17/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_17_17/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_17_17/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_17_17/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_17_17/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_17_17/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_17_16/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_17_16/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_17_16/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_17_16/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_17_16/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_17_16/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_17_16/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_17_16/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_17_16/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_00_44/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_00_44/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_00_44/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_00_44/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_00_44/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_00_44/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_00_44/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_00_44/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_00_44/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_00_32/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_00_32/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_00_32/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_00_32/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_00_32/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_00_32/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_00_32/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_00_32/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-04_00_32/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_57_23/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_57_23/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_57_23/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_57_23/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_57_23/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_57_23/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_57_23/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 20, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_57_23/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_57_23/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_56_56/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_56_56/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_56_56/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_56_56/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_56_56/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_56_56/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_56_56/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 50, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_56_56/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_56_56/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_56_12/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_56_12/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_56_12/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_56_12/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_56_12/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_56_12/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_56_12/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_56_12/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_56_12/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_08_46/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_08_46/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_08_46/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_08_46/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_08_46/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_08_46/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_08_46/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 20, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_08_46/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_08_46/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_08_09/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_08_09/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_08_09/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_08_09/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_08_09/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_08_09/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_08_09/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_08_09/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [10, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_08_09/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_07_39/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_07_39/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_07_39/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_07_39/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_07_39/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_07_39/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_07_39/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 100, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_07_39/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_07_39/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_07_09/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_07_09/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_07_09/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_07_09/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_07_09/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_07_09/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_07_09/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_07_09/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [100, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_07_09/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_06_37/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_06_37/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_06_37/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_06_37/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_06_37/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_06_37/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_06_37/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 50, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_06_37/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_06_37/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_06_16/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_06_16/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_06_16/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_06_16/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_06_16/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_06_16/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_06_16/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_06_16/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_06_16/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_53/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_53/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_53/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_53/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_53/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_53/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_53/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_53/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [10, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_53/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_27/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_27/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_27/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_27/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_27/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_27/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_27/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_27/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [10, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_27/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_00/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_00/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_00/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_00/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_00/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_00/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 95, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_00/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_00/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_05_00/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_04_51/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_04_51/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_04_51/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_04_51/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_04_51/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_04_51/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_04_51/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 20, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_04_51/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_04_51/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_50/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_50/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_50/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_50/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_50/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_50/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_50/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_50/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_22/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_22/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_22/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_22/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_22/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_22/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_22/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 20, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_22/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [100, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_22/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_04/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_04/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_04/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_04/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_04/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_04/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_04/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_04/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [100, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_04/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_01_40/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_01_40/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_01_40/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_01_40/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_01_40/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_01_40/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_01_40/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 50, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_01_40/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_01_40/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_01_12/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_01_12/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_01_12/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_01_12/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_01_12/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_01_12/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_01_12/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 100, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_01_12/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [100, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_01_12/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_00_48/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_00_48/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_00_48/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_00_48/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_00_48/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_00_48/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_00_48/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 20, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_00_48/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [100, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_00_48/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_06_38/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_06_38/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_06_38/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_06_38/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_06_38/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_06_38/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_06_38/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_06_38/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_06_38/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_06_18/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_06_18/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_06_18/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_06_18/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_06_18/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_06_18/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_06_18/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_06_18/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_06_18/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_05_08/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_05_08/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_05_08/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_05_08/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_05_08/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_05_08/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_05_08/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_05_08/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_05_08/NCResNet18_32x32_e300_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_02_59/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_02_59/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_02_59/NCResNet18_32x32_e300_i0.pth
+cifar10, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_02_59/NCResNet18_32x32_e300_i0.pth
+cifar10, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_02_59/NCResNet18_32x32_e300_i0.pth
+cifar10, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_02_59/NCResNet18_32x32_e300_i0.pth
+cifar10, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_02_59/NCResNet18_32x32_e300_i0.pth
+cifar10, knn, 20, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_02_59/NCResNet18_32x32_e300_i0.pth
+cifar10, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_e300_2024_11_15-00_02_59/NCResNet18_32x32_e300_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e1000_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e1000_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e1000_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e1000_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e1000_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e1000_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e500_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e500_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e500_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e500_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e500_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e500_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e500_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e200_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e200_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e200_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e200_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e200_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e200_i0.pth
+cifar100, knn, 20, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e200_i0.pth
+cifar100, odin, [10, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e200_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e1000_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e1000_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e500_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e100_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e100_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e100_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e100_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e100_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e100_i0.pth
+cifar100, knn, 50, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e100_i0.pth
+cifar100, odin, [10, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e100_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e50_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e50_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e50_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e50_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e50_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e50_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e50_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e50_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e20_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e20_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e20_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e20_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e20_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e20_i0.pth
+cifar100, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e20_i0.pth
+cifar100, odin, [10, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e20_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e10_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e10_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e10_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e10_i0.pth
+cifar100, react, 95, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e10_i0.pth
+cifar100, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e10_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e10_i0.pth
+cifar100, ncscore, 0.1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e5_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e5_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e5_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e5_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e5_i0.pth
+cifar100, react, 95, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e5_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e5_i0.pth
+cifar100, odin, [10, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e5_i0.pth
+cifar100, ncscore, 0.01, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e2_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e2_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e2_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e2_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e2_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e2_i0.pth
+cifar100, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e2_i0.pth
+cifar100, odin, [1000, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e2_i0.pth
+cifar100, ncscore, 0.1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e1_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e1_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e1_i0.pth
+cifar100, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e1_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e1_i0.pth
+cifar100, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e1_i0.pth
+cifar100, odin, [1000, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_02_53/NCLessNet18_e1_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e1000_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e1000_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e1000_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e1000_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e1000_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e1000_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e1000_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e1000_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e500_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e500_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e500_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e500_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e500_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e500_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e500_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e500_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e200_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e200_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e200_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e200_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e200_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e200_i0.pth
+cifar100, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e200_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e200_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e100_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e100_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e100_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e100_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e100_i0.pth
+cifar100, odin, [100, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e100_i0.pth
+cifar100, ncscore, 0.01, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e50_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e50_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e50_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e50_i0.pth
+cifar100, react, 95, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e50_i0.pth
+cifar100, knn, 20, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e50_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e50_i0.pth
+cifar100, ncscore, 0.01, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e20_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e20_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e20_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e20_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e20_i0.pth
+cifar100, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e20_i0.pth
+cifar100, knn, 100, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e20_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e20_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e10_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e10_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e10_i0.pth
+cifar100, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e10_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e10_i0.pth
+cifar100, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e10_i0.pth
+cifar100, odin, [1, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e10_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e5_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e5_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e5_i0.pth
+cifar100, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e5_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e5_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e5_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e5_i0.pth
+cifar100, ncscore, 0.2, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e2_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e2_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e2_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e2_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e2_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e2_i0.pth
+cifar100, knn, 50, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e2_i0.pth
+cifar100, odin, [1, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e2_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e1_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e1_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e1_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e1_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e1_i0.pth
+cifar100, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e1_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e1_i0.pth
+cifar100, odin, [1, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/run_e1000_2024_11_15-01_16_44/NCLessNet18_e1_i0.pth
+cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_41_40/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_38_55/NCResNet18_32x32_e300_i0.pth
+cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_36_34/NCResNet18_32x32_e300_i0.pth
+cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_50/NCResNet18_32x32_e300_i0.pth
