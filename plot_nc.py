@@ -1,60 +1,62 @@
 from pathlib import Path
 
 import matplotlib.pyplot as plt
+import numpy as np
 
 import path
 from plot_utils import colors, markers
-from plot_utils import load_acc, load_nc
+from plot_utils import load_benchmark_data
 
 
-def _plot_line(ax, x, y, label, marker, color=None):
-    if color is None:
-        ax.plot(x, y, label=label, marker=marker, markersize=5)
-    else:
-        ax.plot(x, y, label=label, marker=marker, markersize=5, color=color)
-
-
-def _save_plot(fig, run_data_dir, filename):
-    save_path = path.res_plots / run_data_dir.relative_to(path.res_data)
-    save_path.mkdir(exist_ok=True, parents=True)
-
+def _save_plot(fig, save_path, filename):
     fig.savefig(save_path / f'{filename}.png')
     fig.savefig(save_path / f'{filename}.pdf')
     plt.close()
 
 
-def _plot_grid(nc, acc, x, x_label):
+def _plot_grid(nc_mean, nc_std, acc_mean, acc_std, x, x_label, with_errorbars=False):
+
+    def _plot_line(ax, x, y, label, marker, color=None, error=None):
+        if color is None:
+            if with_errorbars and error is not None:
+                ax.errorbar(x, y, yerr=error ,label=label, marker=marker, markersize=5)
+            else:
+                ax.plot(x, y, label=label, marker=marker, markersize=5)
+        else:
+            if with_errorbars and error is not None:
+                ax.errorbar(x, y, yerr=error ,label=label, marker=marker, markersize=5, color=color)
+            else:
+                ax.plot(x, y, label=label, marker=marker, markersize=5, color=color)
+
     fig, axes = plt.subplots(2, 2, figsize=(10, 8))
 
     # Subplot 00
-    _plot_line(axes[0, 0], x, nc['nc1_weak_between'], 'nc1_weak_between', markers[1])
-    _plot_line(axes[0, 0], x, nc['nc1_weak_within'], 'nc1_weak_within', markers[2])
+    _plot_line(axes[0, 0], x, nc_mean['nc1_weak_between'], 'nc1_weak_between', markers[1], error=nc_std['nc1_weak_between'])
+    _plot_line(axes[0, 0], x, nc_mean['nc1_weak_within'], 'nc1_weak_within', markers[2], error=nc_std['nc1_weak_within'])
     axes[0, 0].set_ylabel('nc1_weak')
     ax001 = axes[0, 0].twinx()
-    _plot_line(ax001, x, nc['nc1_cdnv'], 'nc1_cdnv', markers[3], color=colors[2])
+    _plot_line(ax001, x, nc_mean['nc1_cdnv'], 'nc1_cdnv', markers[3], color=colors[2], error=nc_std['nc1_cdnv'])
     ax001.set_ylabel('nc1_cdnv')
     #plot_line(ax001, x, nc['nc1_strong'], 'nc1_strong', markers[0], color=colors[3])
 
     # Subplot 01
-    _plot_line(axes[0, 1], x, nc['nc2_equinormness'], 'nc2_equinormness', markers[0])
+    _plot_line(axes[0, 1], x, nc_mean['nc2_equinormness'], 'nc2_equinormness', markers[0], error=nc_std['nc2_equinormness'])
     axes[0, 1].set_ylabel('nc2_equinormness')
     ax011 = axes[0, 1].twinx()
-    _plot_line(ax011, x, nc['nc2_equiangularity'], 'nc2_equiangularity', markers[1], color=colors[1])
+    _plot_line(ax011, x, nc_mean['nc2_equiangularity'], 'nc2_equiangularity', markers[1], color=colors[1], error=nc_std['nc2_equiangularity'])
     ax011.set_ylabel('nc2_equiangularity')
     # plot_line(axes[0, 1], x, nc['gnc2_hyperspherical_uniformity'], 'gnc2_hyperspherical_uniformity', markers[2])
 
     # Subplot 10
-    _plot_line(axes[1, 0], x, nc['nc3_self_duality'], 'nc3_self_duality', markers[0])
+    _plot_line(axes[1, 0], x, nc_mean['nc3_self_duality'], 'nc3_self_duality', markers[0], error=nc_std['nc3_self_duality'])
     ax101 = axes[1, 0].twinx()
-    _plot_line(ax101, x, nc['unc3_uniform_duality'], 'unc3_uniform_duality', markers[1], color=colors[1])
+    _plot_line(ax101, x, nc_mean['unc3_uniform_duality'], 'unc3_uniform_duality', markers[1], color=colors[1], error=nc_std['unc3_uniform_duality'])
     ax101.set_ylabel('unc3')
     axes[1, 0].set_ylabel('nc3')
 
     # Subplot 11
-    _plot_line(axes[1, 1], x, nc['nc4_classifier_agreement'], 'nc4_classifier_agreement', markers[0])
-    if x_label == 'epoch':
-        for k in acc.keys():
-            _plot_line(axes[1, 1], acc[k]['epochs'], acc[k]['values'], f'acc {k}', 'None')
+    _plot_line(axes[1, 1], x, nc_mean['nc4_classifier_agreement'], 'nc4_classifier_agreement', markers[0], error=nc_std['nc4_classifier_agreement'])
+    _plot_line(axes[1, 1], x, acc_mean, 'acc', 'None', error=acc_std)
     axes[1, 1].set_ylabel('agreement/accuracy')
 
     # Legend subplot 00
@@ -81,37 +83,64 @@ def _plot_grid(nc, acc, x, x_label):
     return fig
 
 
-def plot_nc(run_data_dir):
-    nc, epoch = load_nc(run_data_dir)
-    acc = load_acc(run_data_dir)
-    acc_filt = load_acc(run_data_dir, filter_epochs=epoch)
-
-    # Limit to 500 for cifar100
-    # epoch = epoch[:-1]
-    # nc = {k: v[:-1] for k, v in nc.items()}
-
-    fig = _plot_grid(nc, acc, epoch, 'epoch')
-    _save_plot(fig, run_data_dir, 'nc_epoch')
-
-    if 'train' in acc_filt:
-        fig = _plot_grid(nc, acc, acc_filt['train']['values'], 'acc_train')
-        _save_plot(fig, run_data_dir, 'nc_acc_train')
-
-    if 'val' in acc_filt:
-        fig = _plot_grid(nc, acc, acc_filt['val']['values'], 'acc_val')
-        _save_plot(fig, run_data_dir, 'nc_acc_val')
+def tolerant_mean(arrs):
+    """https://stackoverflow.com/a/59281468"""
+    lens = [len(i) for i in arrs]
+    arr = np.ma.empty((np.max(lens), len(arrs)))
+    arr.mask = True
+    for idx, l in enumerate(arrs):
+        arr[:len(l), idx] = np.squeeze(l)
+    mu = arr.mean(axis=-1)
+    std = arr.std(axis=-1)
+    return mu, std
 
 
-def plot_nc_walk():
-    # main_dir = Path('/mrtstorage/users/hauser/openood_res/data/cifar10/ResNet18_32x32/no_noise/300+_epochs')
-    main_dir = Path('/mrtstorage/users/hauser/openood_res/data/cifar100/ResNet18_32x32/no_noise/1000+_epochs')
-    run_dirs = [p for p in main_dir.iterdir() if p.is_dir()]
-    for p in run_dirs:
-        plot_nc(p)
+def plot_nc(benchmark_name):
+    _, epochs, acc, nc, _, _, _ = load_benchmark_data(benchmark_name)
+
+    if benchmark_name == 'imagenet':
+        with_errorbars = False
+        nc_mean = nc
+        nc_std = nc
+        acc_mean = acc
+        acc_std = acc
+    
+    else:
+        # Split into runs
+        idx = np.where(epochs == 1)[0][1:]
+        epochs = np.split(epochs, indices_or_sections=idx)
+        acc = np.split(acc, indices_or_sections=idx)
+
+        for k, v in nc.items():
+            nc[k] = np.split(v, indices_or_sections=idx)
+
+        # Stats
+        acc_mean, acc_std = tolerant_mean(acc)
+
+        nc_mean = {}
+        nc_std = {}
+        for k, v in nc.items():
+            nc_mean[k], nc_std[k] = tolerant_mean(v)
+        
+        epochs, _ = tolerant_mean(epochs)
+
+        with_errorbars = True
+    
+    save_dir = path.res_plots / 'nc'
+    save_dir.mkdir(exist_ok=True, parents=True)
+
+    fig = _plot_grid(nc_mean, nc_std, acc_mean, acc_std, epochs, 'epoch', with_errorbars=with_errorbars)
+    _save_plot(fig, save_dir, f'nc_{benchmark_name}_epoch')
+
+    fig = _plot_grid(nc_mean, nc_std, acc_mean, acc_std, acc_mean, 'acc_val', with_errorbars=with_errorbars)
+    _save_plot(fig, save_dir, f'nc_{benchmark_name}_acc')
 
 
 if __name__ == '__main__':
-    # run_dir = Path('/mrtstorage/users/hauser/openood_res/data/cifar10/ResNet18_32x32/no_noise/300+_epochs/run_e300_2024_11_11-15_23_07')
-    # plot_nc(run_dir)
-
-    plot_nc_walk()
+    # plot_nc('cifar10')
+    # plot_nc('cifar100')
+    # plot_nc('imagenet200')
+    # plot_nc('imagenet')
+    plot_nc('alexnet')
+    plot_nc('vgg')
+    plot_nc('mobilenet')
