@@ -131,7 +131,7 @@ def load_acc(run_data_dir, filter_epochs=None, benchmark=None):
     for split, acc_dict in data['metrics']['Accuracy'].items():
         acc[split] = numpify_dict(acc_dict)
 
-        if benchmark != 'cifar100':
+        if benchmark == 'imagenet':
             acc[split]['epochs'] += 1
 
         if filter_epochs is not None:
