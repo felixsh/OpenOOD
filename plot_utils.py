@@ -113,6 +113,13 @@ def numpify_dict(dict_of_lists):
     return dict_of_arrays
 
 
+def mean_ood_values(nearood_dict, farood_dict):
+    nood_values = np.mean([v for v in nearood_dict.values()], axis=0)
+    food_values = np.mean([v for v in farood_dict.values()], axis=0)
+    x = np.vstack((nood_values, food_values))
+    return x.mean(axis=0)
+
+
 def load_acc(run_data_dir, filter_epochs=None, benchmark=None):
     """Return accuracy values with corresponding epochs for run from data.json."""
 
@@ -251,14 +258,13 @@ def load_nc_ood(run_data_dir, nc_split='val', ood_metric='AUROC', benchmark=None
 def check_run_data(run_data_dir):
     """Check data of run for completeness."""
     for h5file in natsorted(list(run_data_dir.glob('e*.h5')), key=str):
-        benchmark = get_benchmark_name(h5file)
         with HDFStore(h5file, mode='r') as store:
             keys = list(store.keys())
 
             if not '/nc_train' in keys:
-                print(f'Missing /nc_train in benchmark {benchmark} in file {h5file}')
+                print(f'Missing /nc_train in file {h5file}')
             if not '/nc_val' in keys:
-                print(f'Missing /nc_val in benchmark {benchmark} in file {h5file}')
+                print(f'Missing /nc_val in file {h5file}')
 
             try:
                 keys.remove('/nc')
@@ -426,3 +432,52 @@ def load_benchmark_data(benchmark_name,
     food = numpify_dict(food)
 
     return run_ids, epochs, acc, nc, nood, food, save_dir
+
+
+def load_noise_data(nc_split='val',
+                    ood_metric='AUROC',
+                    ):
+    # Get run dirs
+    main_dirs = benchmark2loaddirs['noise']
+    main_dirs = [Path(p) for p in main_dirs]
+    run_dirs = natsorted([subdir for p in main_dirs if p.is_dir() for subdir in p.iterdir() if subdir.is_dir()], key=str)
+    print('number of runs', len(run_dirs))
+
+    save_dir = path.res_plots / main_dirs[0].relative_to(path.res_data).parents[-2]
+    save_dir.mkdir(parents=True, exist_ok=True)
+
+    # Collect data
+    noise_lvl = np.array([load_noise(r) for r in run_dirs])
+    epochs = []
+    acc = []
+    nc = defaultdict(list)
+    nood = defaultdict(list)
+    food = defaultdict(list)
+
+    for run_dir in run_dirs:
+        check_run_data(run_dir)
+
+    for run_dir in run_dirs:
+        nc_dict, nearood_dict, farood_dict, epochs_ = load_nc_ood(run_dir, nc_split=nc_split, ood_metric=ood_metric, benchmark='noise')
+        acc_ = load_acc(run_dir, filter_epochs=epochs_, benchmark='noise')
+        acc_ = list(acc_['val']['values'])
+
+        epochs.append(epochs_[-1])
+        acc.append(acc_[-1])
+
+        for k, v in nc_dict.items():
+            nc[k].append(v[-1])
+        
+        for k, v in nearood_dict.items():
+            nood[k].append(v[-1])
+        
+        for k, v in farood_dict.items():
+            food[k].append(v[-1])
+
+    epochs = np.array(epochs)
+    acc = np.array(acc)
+    nc = numpify_dict(nc)
+    nood = numpify_dict(nood)
+    food = numpify_dict(food)
+
+    return noise_lvl, epochs, acc, nc, nood, food, save_dir

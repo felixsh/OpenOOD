@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 import path
-from plot_utils import nc_metrics, load_benchmark_data
+from plot_utils import nc_metrics, load_benchmark_data, mean_ood_values
 
 
 def _plot(acc, nc, ood, color_id, nc_metric, ood_metric, ood_label):
@@ -32,18 +32,12 @@ def _save(fig, save_path, filename):
     plt.close()
 
 
-def _mean(a1, a2):
-    x = np.vstack((a1, a2))
-    return x.mean(axis=0)
-
-
 def plot_scatter_all(benchmark_name, nc_split='val', ood_metric='AUROC'):
     print(f'plotting scatter {benchmark_name} {ood_metric} ...')
     _, epochs, acc, nc_dict, nood_dict, food_dict, save_dir = load_benchmark_data(benchmark_name, nc_split, ood_metric)
 
     # Mean over ood methods
-    nood_values = list(np.mean([v for v in nood_dict.values()], axis=0))
-    food_values = list(np.mean([v for v in food_dict.values()], axis=0))
+    ood_values = mean_ood_values(nood_dict, food_dict)
 
     # Epochs to color index
     _, color_id = np.unique(epochs, return_inverse=True)
@@ -56,7 +50,7 @@ def plot_scatter_all(benchmark_name, nc_split='val', ood_metric='AUROC'):
         print(nc_metric)
         nc_values = nc_dict[nc_metric]
         # Plot and save
-        fig = _plot(acc, nc_values, _mean(nood_values, food_values), color_id, nc_metric, ood_metric, 'mean')
+        fig = _plot(acc, nc_values, ood_values, color_id, nc_metric, ood_metric, 'mean')
         _save(fig, save_dir, f'scatter_mean_{nc_metric}_{ood_metric}')
         # fig = _plot(acc, nc_values, nood_values, color_id, nc_metric, ood_metric, 'near')
         # _save(fig, save_dir, f'scatter_near_{nc_metric}_{ood_metric}')
@@ -69,9 +63,7 @@ def plot_scatter_tableau(benchmark_name, nc_split='val', ood_metric='AUROC'):
     _, epochs, acc, nc_dict, nood_dict, food_dict, save_dir = load_benchmark_data(benchmark_name, nc_split, ood_metric)
 
     # Mean over ood methods
-    nood_values = list(np.mean([v for v in nood_dict.values()], axis=0))
-    food_values = list(np.mean([v for v in food_dict.values()], axis=0))
-    ood_values = _mean(nood_values, food_values)
+    ood_values = mean_ood_values(nood_dict, food_dict)
 
     # Epochs to color index
     _, color_id = np.unique(epochs, return_inverse=True)
