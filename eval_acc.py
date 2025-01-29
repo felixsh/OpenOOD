@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pandas as pd
 import torch
 from torch.utils.data import DataLoader
@@ -7,7 +9,7 @@ from tqdm import tqdm
 from openood.evaluation_api.datasets import data_setup, get_id_ood_dataloader
 from openood.evaluation_api.preprocessor import get_default_preprocessor
 import path
-from utils import load_network, get_batch_size
+from utils import load_network, get_batch_size, get_benchmark_name
 
 
 class EvalAcc(object):
@@ -71,6 +73,11 @@ class EvalAcc(object):
 
     def walk(self):
         return self.walk_(self.dataloader_dict)
+    
+    def eval_train(self):
+        acc_val = self.compute(self.dataloader_dict['id']['train'])
+        res = {'id': {'train': acc_val}}
+        return res
 
 
 def flatten_dict(nested_dict):
@@ -96,12 +103,15 @@ def nested_dict_to_df(values_dict):
     return df
 
 
-def eval_acc(benchmark_name, ckpt_path):
-    evaluator = EvalAcc(benchmark_name, ckpt_path)
-    res = evaluator.walk()
+def eval_acc(ckpt_path):
+    benchmark_name = get_benchmark_name(ckpt_path)
+    evaluator = EvalAcc(benchmark_name, Path(ckpt_path))
+    res = evaluator.eval_train()
     return nested_dict_to_df(res)
 
 
 if __name__ == '__main__':
-     benchmark_name = 'imagenet'
-     eval_acc(benchmark_name, '')
+    benchmark = 'cifar10'
+    test_ckpt = '/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_22/NCResNet18_32x32_e100_i0.pth'
+    res = eval_acc(benchmark, test_ckpt)
+    print(res)

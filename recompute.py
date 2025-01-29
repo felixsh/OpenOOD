@@ -21,4 +21,4 @@ def recompute(ckpt_path, method, recompute=False):
 
 if __name__ == '__main__':
     cfg = OmegaConf.from_cli()
-    recompute(cfg.ckpt, cfg.method)
+    recompute(cfg.ckpt, cfg.method, recompute=True)

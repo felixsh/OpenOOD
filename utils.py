@@ -1,3 +1,4 @@
+from filelock import FileLock
 import json
 import re
 import sys
@@ -119,6 +120,10 @@ def convert_lists_to_numpy(data):
 def get_benchmark_name(full_path):
     rel_path = full_path.relative_to(path.ckpt_root)
     return str(rel_path.parents[-2])
+
+
+def get_lockfile(path):
+    return FileLock(path.with_suffix(path.suffix + '.lock'))
 
 
 if __name__ == '__main__':

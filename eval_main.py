@@ -1,4 +1,3 @@
-from filelock import FileLock
 import json
 from pathlib import Path
 import re
@@ -15,7 +14,7 @@ from eval_nc import eval_nc
 from eval_ood import eval_ood
 from feature_cache import FeatureCache
 import path
-from utils import get_epoch_number, get_epoch_name, convert_numpy_to_lists, get_benchmark_name
+from utils import get_epoch_number, get_epoch_name, convert_numpy_to_lists, get_benchmark_name, get_lockfile
 
 
 ckpt_suffixes = ['.ckpt', '.pth']
@@ -36,10 +35,6 @@ postprocessors = [
 
 # postprocessor options:
 # ["openmax", "msp", "temp_scaling", "odin", "mds", "mds_ensemble", "rmds", "gram", "ebo", "gradnorm", "react", "mls", "klm", "vim", "knn", "dice", "rankfeat", "ash", "she"]
-
-
-def get_lockfile(path):
-    return FileLock(path.with_suffix(path.suffix + '.lock'))
 
 
 def save_ood(df, save_dir, filename, key):
@@ -171,9 +166,9 @@ def eval_ckpt_nc(benchmark_name, ckpt_path, save_dir, recompute=False):
     if not all_done or recompute:
         feature_cache = FeatureCache(benchmark_name, ckpt_path)
 
-        if not 'nc_train' in done_keys or recompute:
-            nc_metrics = eval_nc(feature_cache, split='train')
-            save_nc(nc_metrics, save_dir, file_name, 'nc_train')
+        # if not 'nc_train' in done_keys or recompute:
+        #     nc_metrics = eval_nc(feature_cache, split='train')
+        #     save_nc(nc_metrics, save_dir, file_name, 'nc_train')
         
         if not 'nc_val' in done_keys or recompute:
             nc_metrics = eval_nc(feature_cache, split='val')
@@ -197,9 +192,11 @@ def eval_ckpt_ood(benchmark_name, ckpt_path, save_dir, ood_method_list, recomput
             save_ood(ood_metrics, save_dir, file_name, ood_method)
 
 
-def eval_ckpt_acc(benchmark_name, ckpt_path, save_dir):
+def eval_ckpt_acc(ckpt_path):
     file_name = get_epoch_name(ckpt_path)
-    acc_metrics = eval_acc(benchmark_name, ckpt_path)
+    acc_metrics = eval_acc(ckpt_path)
+    save_dir = path.res_data / ckpt_path.parent.relative_to(path.ckpt_root)
+    save_dir.mkdir(exist_ok=True, parents=True)
     save_acc(acc_metrics, save_dir, file_name)
 
 

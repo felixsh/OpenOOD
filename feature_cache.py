@@ -5,7 +5,7 @@ from tqdm import tqdm
 from openood.evaluation_api.datasets import data_setup, get_id_ood_dataloader
 from openood.evaluation_api.preprocessor import get_default_preprocessor
 import path
-from utils import load_network, get_batch_size
+from utils import load_network, get_batch_size, get_lockfile
 
 
 class FeatureCache():
@@ -21,7 +21,7 @@ class FeatureCache():
         self.val_path = full_path.with_name(f'{full_path.stem}_val.npz')
 
         self.data = {}
-        self.data['train'] = self._load_or_compute(self.train_path, split='train')
+        #self.data['train'] = self._load_or_compute(self.train_path, split='train')
         self.data['val'] = self._load_or_compute(self.val_path, split='val')
     
     def get(self, split, key, return_torch=False):
@@ -37,24 +37,31 @@ class FeatureCache():
 
     def _load_or_compute(self, data_path, split='train'):
         try:
-            if self.recompute:
-                raise FileNotFoundError
+            # if self.recompute:
+            #     raise FileNotFoundError
 
             return np.load(data_path)
+
         except FileNotFoundError:
-            logits, features, labels, predictions, weights, bias = self._compute(self.ckpt_path, split=split)
+            log_file = 'cache_not_found.log'
+            lock = get_lockfile(log_file)
+            with lock:
+                with open(log_file, 'w') as f:
+                    f.write(f'{data_path}\n')
             
-            data_path.parent.mkdir(exist_ok=True, parents=True)
-            np.savez_compressed(
-                data_path,
-                logits=logits,
-                features=features,
-                labels=labels,
-                predictions=predictions,
-                weights=weights,
-                bias=bias
-            )
-            return np.load(data_path)
+            # logits, features, labels, predictions, weights, bias = self._compute(self.ckpt_path, split=split)
+            # 
+            # data_path.parent.mkdir(exist_ok=True, parents=True)
+            # np.savez_compressed(
+            #     data_path,
+            #     logits=logits,
+            #     features=features,
+            #     labels=labels,
+            #     predictions=predictions,
+            #     weights=weights,
+            #     bias=bias
+            # )
+            # return np.load(data_path)
 
     def _compute(self, ckpt_path, split='train'):
 
