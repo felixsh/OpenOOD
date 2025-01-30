@@ -3,39 +3,86 @@ import pandas as pd
 import seaborn as sns
 
 import path
-from plot_utils import load_noise_data, mean_ood_values, nc_metrics
+from plot_utils import load_noise_data, mean_ood_2dict, mean_ood_1dict
+from plot_utils import nc_metrics_cov, nc_metrics_mean
 
 
-def plot_noise(nc_split='val', ood_metric='AUROC'):
-    noise_lvl, _, acc, nc_dict, nood_dict, food_dict, _ = load_noise_data(nc_split, ood_metric)
+def plot_noise(nc_split='val', ood_metric='AUROC', reduction='mean'):
+    noise_lvl, _, acc_val, acc_train, nc_dict, nood_dict, food_dict, _ = load_noise_data(nc_split, ood_metric)
+
+    if reduction == 'mean':
+        nc_metrics = nc_metrics_mean
+    elif reduction == 'cov':
+        nc_metrics = nc_metrics_cov
+    else:
+        raise NotImplementedError
 
     data = {
         'noise level': noise_lvl,
-        'accuracy': acc,
-        f'{ood_metric}': mean_ood_values(nood_dict, food_dict),
+        'accuracy val': acc_val,
+        'accuracy train': acc_train,
+        ood_metric: mean_ood_2dict(nood_dict, food_dict),
     }
     data |= nc_dict
     data = {k: v.ravel() for k, v in data.items()}
     df = pd.DataFrame(data)
 
-    _, axes = plt.subplots(3, 4, figsize=(12, 9))
+    palette = sns.color_palette()
+
+    _, axes = plt.subplots(3, 4, figsize=(15, 9))
     ax = axes.ravel()
 
-    sns.scatterplot(ax=ax[0], data=df, x='noise level', y='accuracy')
-    sns.scatterplot(ax=ax[1], data=df, x='noise level', y=ood_metric)
-    for a, nc_metric in zip(ax[2:], nc_metrics):
-        sns.scatterplot(ax=a, data=df, x='noise level', y=nc_metric)
+    sns.scatterplot(ax=ax[0], data=df, x='noise level', y='accuracy val', color=palette[2])
+    sns.scatterplot(ax=ax[1], data=df, x='noise level', y='accuracy train', color=palette[2])
+    sns.scatterplot(ax=ax[2], data=df, x='noise level', y=ood_metric, color=palette[1])
+    for a, nc_metric in zip(ax[3:], nc_metrics):
+        sns.scatterplot(ax=a, data=df, x='noise level', y=nc_metric, color=palette[0])
 
     plt.tight_layout()
 
     save_dir = path.res_plots / 'noise'
     save_dir.mkdir(parents=True, exist_ok=True)
 
-    filename = f'noise_{nc_split}_{ood_metric}'
+    filename = f'noise_{nc_split}_{ood_metric}_{reduction}'
     plt.savefig(save_dir / f'{filename}.png', bbox_inches='tight')
     plt.savefig(save_dir / f'{filename}.pdf', bbox_inches='tight')
     plt.close()
 
 
+def plot_noise_acc_ood(ood_metric='AUROC'):
+    noise_lvl, _, acc_val, acc_train, _, nood_dict, food_dict, _ = load_noise_data(ood_metric=ood_metric)
+        
+    nearood = mean_ood_1dict(nood_dict)
+    farood = mean_ood_1dict(food_dict)
+
+    _, axes = plt.subplots(1, 2, figsize=(12, 6))
+    ax = axes.ravel()
+
+    ax[0].scatter(noise_lvl, acc_train, label='train')
+    ax[0].scatter(noise_lvl, acc_val, label='val')
+    ax[1].scatter(noise_lvl, farood, label='farood')
+    ax[1].scatter(noise_lvl, nearood, label='nearood')
+
+    ax[0].set_xlabel('noise level')
+    ax[0].set_ylabel('accuracy')
+    ax[0].legend()
+    ax[1].set_xlabel('noise level')
+    ax[1].set_ylabel(ood_metric)
+    ax[1].legend()
+
+    plt.tight_layout()
+
+    save_dir = path.res_plots / 'noise'
+    save_dir.mkdir(parents=True, exist_ok=True)
+
+    filename = f'noise_acc_{ood_metric}'
+    plt.savefig(save_dir / f'{filename}.png', bbox_inches='tight')
+    plt.savefig(save_dir / f'{filename}.pdf', bbox_inches='tight')
+    plt.close()
+
+
+
 if __name__ == '__main__':
-    plot_noise()
+    plot_noise(reduction='cov')
+    plot_noise(reduction='mean')
+    plot_noise_acc_ood()

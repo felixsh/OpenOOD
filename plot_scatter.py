@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 import path
-from plot_utils import nc_metrics, load_benchmark_data, mean_ood_values
+from plot_utils import nc_metrics, load_benchmark_data, mean_ood_2dict
 
 
 def _plot(acc, nc, ood, color_id, nc_metric, ood_metric, ood_label):
@@ -37,7 +37,7 @@ def plot_scatter_all(benchmark_name, nc_split='val', ood_metric='AUROC'):
     _, epochs, acc, nc_dict, nood_dict, food_dict, save_dir = load_benchmark_data(benchmark_name, nc_split, ood_metric)
 
     # Mean over ood methods
-    ood_values = mean_ood_values(nood_dict, food_dict)
+    ood_values = mean_ood_2dict(nood_dict, food_dict)
 
     # Epochs to color index
     _, color_id = np.unique(epochs, return_inverse=True)
@@ -63,7 +63,7 @@ def plot_scatter_tableau(benchmark_name, nc_split='val', ood_metric='AUROC'):
     _, epochs, acc, nc_dict, nood_dict, food_dict, save_dir = load_benchmark_data(benchmark_name, nc_split, ood_metric)
 
     # Mean over ood methods
-    ood_values = mean_ood_values(nood_dict, food_dict)
+    ood_values = mean_ood_2dict(nood_dict, food_dict)
 
     # Epochs to color index
     _, color_id = np.unique(epochs, return_inverse=True)
