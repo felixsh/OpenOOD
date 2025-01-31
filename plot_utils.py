@@ -8,7 +8,6 @@ import numpy as np
 from pandas import HDFStore
 
 import path
-from utils import get_benchmark_name
 
 
 nc_metrics_cov = (
@@ -37,7 +36,7 @@ nc_metrics_mean = (
     'nc4_classifier_agreement',
 )
 
-ood_metrics = (
+ood_methods = (
     '/dice',
     '/epa',
     '/knn',
@@ -304,7 +303,7 @@ def load_nc_ood(run_data_dir, nc_split='val', ood_metric='AUROC', benchmark=None
                 pass
 
             # Check if all keys are present
-            assert set(ood_metrics) <= set(ood_keys), f'Missing keys {set(ood_metrics) - set(ood_keys)} in file {h5file}'
+            assert set(ood_methods) <= set(ood_keys), f'Missing keys {set(ood_methods) - set(ood_keys)} in file {h5file}'
 
             for k in ood_keys:
                 df = store.get(k)
@@ -338,8 +337,8 @@ def check_run_data(run_data_dir):
                 pass
 
             # Check if all keys are present
-            if not set(ood_metrics) <= set(keys):
-                print(f'Missing keys {set(ood_metrics) - set(keys)} in file {h5file}')
+            if not set(ood_methods) <= set(keys):
+                print(f'Missing keys {set(ood_methods) - set(keys)} in file {h5file}')
 
 
 def load_acc_train(run_data_dir, benchmark=None):
