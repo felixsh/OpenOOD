@@ -182,8 +182,8 @@ def load_acc(run_data_dir, filter_epochs=None, benchmark=None):
     for split, acc_dict in data['metrics']['Accuracy'].items():
         acc[split] = numpify_dict(acc_dict)
 
-        if benchmark in ('imagenet', 'noise'):
-            acc[split]['epochs'] += 1
+        # if benchmark in ('imagenet', 'noise', 'cifar10', 'imagenet200'):
+        acc[split]['epochs'] += 1
 
         if filter_epochs is not None:
             filter_epochs = np.array(filter_epochs)
@@ -477,7 +477,8 @@ def load_benchmark_data(benchmark_name,
     # Collect data
     epochs = []
     run_ids = []
-    acc = []
+    acc_val = []
+    acc_train = []
     nc = defaultdict(list)
     nood = defaultdict(list)
     food = defaultdict(list)
@@ -487,12 +488,12 @@ def load_benchmark_data(benchmark_name,
 
     for run_id, run_dir in enumerate(run_dirs):
         nc_dict, nearood_dict, farood_dict, epochs_ = load_nc_ood(run_dir, nc_split=nc_split, ood_metric=ood_metric, benchmark=benchmark_name)
-        acc_ = load_acc(run_dir, filter_epochs=epochs_, benchmark=benchmark_name)
-        acc_ = list(acc_['val']['values'])
+        acc_val_ = load_acc(run_dir, filter_epochs=epochs_, benchmark=benchmark_name)
+        acc_val_ = list(acc_val_['val']['values'])
 
         epochs.extend(epochs_)
         run_ids.extend([run_id for _ in range(len(epochs_))])
-        acc.extend(acc_)
+        acc_val.extend(acc_val_)
 
         for k, v in nc_dict.items():
             nc[k].extend(v)
@@ -503,14 +504,18 @@ def load_benchmark_data(benchmark_name,
         for k, v in farood_dict.items():
             food[k].extend(v)
 
+        acc_train_ = load_acc_train(run_dir, benchmark=benchmark_name)
+        acc_train.extend(acc_train_)
+
     run_ids = np.array(run_ids)
     epochs = np.array(epochs)
-    acc = np.array(acc)
+    acc_val = np.array(acc_val)
+    acc_train = np.array(acc_train)
     nc = numpify_dict(nc)
     nood = numpify_dict(nood)
     food = numpify_dict(food)
 
-    return run_ids, epochs, acc, nc, nood, food, save_dir
+    return run_ids, epochs, acc_val, acc_train, nc, nood, food, save_dir
 
 
 def load_noise_data(nc_split='val',
