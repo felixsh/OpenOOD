@@ -26,18 +26,18 @@ def plot_noise(nc_split='val', ood_metric='AUROC', reduction='mean'):
     data |= nc_dict
     data = {k: v.ravel() for k, v in data.items()}
 
-    data['unc3_uniform_duality'] = data.pop('unc3_uniform_duality_mean')
+    # data['unc3_uniform_duality'] = data.pop('unc3_uniform_duality_mean')
 
     df = pd.DataFrame(data)
 
     palette = sns.color_palette()
 
-    _, axes = plt.subplots(1, 4, figsize=(9, 2))
+    _, axes = plt.subplots(3, 4, figsize=(12, 8))
     ax = axes.ravel()
 
-    for a in ax:
+    # for a in ax:
     #     a.set(xscale='log')
-        a.ticklabel_format(axis='y', style='scientific', scilimits=(0, 0))
+    #     a.ticklabel_format(axis='y', style='scientific', scilimits=(0, 0))
 
     sns.scatterplot(ax=ax[0], data=df, x='noise level', y='accuracy val', color=palette[2])
     sns.scatterplot(ax=ax[1], data=df, x='noise level', y='accuracy train', color=palette[2])
@@ -133,7 +133,7 @@ def plot_noise_acc_ood(ood_metric='AUROC'):
 
 
 if __name__ == '__main__':
-    # plot_noise(reduction='cov')
-    # plot_noise(reduction='mean')
+    plot_noise(reduction='cov')
+    plot_noise(reduction='mean')
     # plot_noise_acc_ood()
-    plot_noise_single()
+    # plot_noise_single()
