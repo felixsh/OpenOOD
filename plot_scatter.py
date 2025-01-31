@@ -66,26 +66,27 @@ def plot_scatter_all(benchmark_name, nc_split='val', ood_metric='AUROC', reducti
         # _save(fig, save_dir, f'scatter_far_{nc_metric}_{ood_metric}')
 
 
-def _scatter(ax, x, y, c, label=None):
+def _scatter(ax, x, y, c, label=None, remove_outlier=True):
     x = np.squeeze(x)
     y = np.squeeze(y)
 
-    leave_out = 10
-    idx = np.argsort(x)
-    direction = 1 if x[0] < x[-1] else -1
+    if remove_outlier:
+        leave_out = 10
+        idx = np.argsort(x)
+        direction = 1 if x[0] < x[-1] else -1
 
-    idx = idx[::direction][leave_out:]
-    x = x[idx]
-    y = y[idx]
-    if not isinstance(c, str):
-        c = c[idx]
-
-    # Lighter colors more on top
-    if not isinstance(c, str):
-        idx = np.argsort(c)
+        idx = idx[::direction][leave_out:]
         x = x[idx]
         y = y[idx]
-        c = c[idx]
+        if not isinstance(c, str):
+            c = c[idx]
+
+        # Lighter colors more on top
+        if not isinstance(c, str):
+            idx = np.argsort(c)
+            x = x[idx]
+            y = y[idx]
+            c = c[idx]
 
     ax.scatter(x, y, c=c, marker='o', label=label, alpha=0.5)
 
