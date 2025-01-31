@@ -25,18 +25,31 @@ def plot_noise(nc_split='val', ood_metric='AUROC', reduction='mean'):
     }
     data |= nc_dict
     data = {k: v.ravel() for k, v in data.items()}
+
+    data['unc3_uniform_duality'] = data.pop('unc3_uniform_duality_mean')
+
     df = pd.DataFrame(data)
 
     palette = sns.color_palette()
 
-    _, axes = plt.subplots(3, 4, figsize=(15, 9))
+    _, axes = plt.subplots(1, 4, figsize=(9, 2))
     ax = axes.ravel()
 
+    for a in ax:
+    #     a.set(xscale='log')
+        a.ticklabel_format(axis='y', style='scientific', scilimits=(0, 0))
+
+    # sns.scatterplot(ax=ax[0], data=df, x='noise level', y='accuracy val', color=palette[2])
+    # sns.scatterplot(ax=ax[1], data=df, x='noise level', y='accuracy train', color=palette[2])
+    # sns.scatterplot(ax=ax[2], data=df, x='noise level', y=ood_metric, color=palette[1])
+    # for a, nc_metric in zip(ax[3:], nc_metrics):
+    #     sns.scatterplot(ax=a, data=df, x='noise level', y=nc_metric, color=palette[0])
+
     sns.scatterplot(ax=ax[0], data=df, x='noise level', y='accuracy val', color=palette[2])
-    sns.scatterplot(ax=ax[1], data=df, x='noise level', y='accuracy train', color=palette[2])
-    sns.scatterplot(ax=ax[2], data=df, x='noise level', y=ood_metric, color=palette[1])
-    for a, nc_metric in zip(ax[3:], nc_metrics):
-        sns.scatterplot(ax=a, data=df, x='noise level', y=nc_metric, color=palette[0])
+    # sns.scatterplot(ax=ax[1], data=df, x='noise level', y='accuracy train', color=palette[2])
+    sns.scatterplot(ax=ax[1], data=df, x='noise level', y=ood_metric, color=palette[1])
+    sns.scatterplot(ax=ax[2], data=df, x='noise level', y='nc1_weak_between', color=palette[0])
+    sns.scatterplot(ax=ax[3], data=df, x='noise level', y='unc3_uniform_duality', color=palette[0])
 
     plt.tight_layout()
 
@@ -83,6 +96,6 @@ def plot_noise_acc_ood(ood_metric='AUROC'):
 
 
 if __name__ == '__main__':
-    plot_noise(reduction='cov')
+    # plot_noise(reduction='cov')
     plot_noise(reduction='mean')
-    plot_noise_acc_ood()
+    # plot_noise_acc_ood()
