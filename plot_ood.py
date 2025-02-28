@@ -5,9 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 import path
-from plot_utils import benchmark2loaddirs
-from plot_utils import colors, metric_markers
-from plot_utils import load_acc, load_ood
+from plot_utils import benchmark2loaddirs, colors, load_acc, load_ood, metric_markers
 
 
 def _plot(save_path, filename, ood_keys, data, x_axis, acc_split, ood_metric):
@@ -19,7 +17,9 @@ def _plot(save_path, filename, ood_keys, data, x_axis, acc_split, ood_metric):
         for ood_key in ood_keys:
             y_values = avg_ood[ood_key]
 
-            zipped =  zip(epochs, y_values) if x_axis == "epoch" else zip(avg_acc, y_values)
+            zipped = (
+                zip(epochs, y_values) if x_axis == 'epoch' else zip(avg_acc, y_values)
+            )
 
             # Remove NaNs from data
             valid_data = [(x, y) for x, y in zipped if not np.isnan(y)]
@@ -27,13 +27,15 @@ def _plot(save_path, filename, ood_keys, data, x_axis, acc_split, ood_metric):
                 continue
             x_values, y_values = zip(*valid_data)
             ax.plot(x_values, y_values, '-', alpha=0.3, color=color)
-            ax.plot(x_values, y_values, metric_markers[ood_key], color=color, label=ood_key)
-    
+            ax.plot(
+                x_values, y_values, metric_markers[ood_key], color=color, label=ood_key
+            )
+
     _, axes = plt.subplots(1, 2, figsize=(15, 5))
     sub_plot(axes[0], avg_near_ood, colors[0])
     sub_plot(axes[1], avg_far_ood, colors[1])
 
-    if x_axis == "epoch":
+    if x_axis == 'epoch':
         plt.xlabel('epoch')
         plt.gca().set_xscale('log')
     else:
@@ -50,18 +52,27 @@ def _plot(save_path, filename, ood_keys, data, x_axis, acc_split, ood_metric):
     plt.close()
 
 
-def plot_acc_ood_avg(benchmark_name,
-                     acc_split='val',  # 'train' or 'val'
-                     ood_metric='AUROC',
-                     ):
+def plot_acc_ood_avg(
+    benchmark_name,
+    acc_split='val',  # 'train' or 'val'
+    ood_metric='AUROC',
+):
     # Get run dirs
     main_dirs = benchmark2loaddirs[benchmark_name]
     main_dirs = [Path(p) for p in main_dirs]
-    run_dirs = [subdir for p in main_dirs if p.is_dir() for subdir in p.iterdir() if subdir.is_dir()]
+    run_dirs = [
+        subdir
+        for p in main_dirs
+        if p.is_dir()
+        for subdir in p.iterdir()
+        if subdir.is_dir()
+    ]
 
     # Collect data
     acc_dict = defaultdict(list)
-    nearood_dict = defaultdict(lambda: defaultdict(list))  # ood_key -> epoch -> list of values
+    nearood_dict = defaultdict(
+        lambda: defaultdict(list)
+    )  # ood_key -> epoch -> list of values
     farood_dict = defaultdict(lambda: defaultdict(list))
 
     for run_dir in run_dirs:
@@ -82,11 +93,17 @@ def plot_acc_ood_avg(benchmark_name,
 
     ood_keys = nearood_dict.keys()
     avg_near_ood = {
-        k: [np.mean(nearood_dict[k][epoch]) if epoch in nearood_dict[k] else np.nan for epoch in epochs]
+        k: [
+            np.mean(nearood_dict[k][epoch]) if epoch in nearood_dict[k] else np.nan
+            for epoch in epochs
+        ]
         for k in ood_keys
     }
     avg_far_ood = {
-        k: [np.mean(farood_dict[k][epoch]) if epoch in farood_dict[k] else np.nan for epoch in epochs]
+        k: [
+            np.mean(farood_dict[k][epoch]) if epoch in farood_dict[k] else np.nan
+            for epoch in epochs
+        ]
         for k in ood_keys
     }
     data = (epochs, avg_acc, avg_near_ood, avg_far_ood)
@@ -94,8 +111,24 @@ def plot_acc_ood_avg(benchmark_name,
     save_dir = path.res_plots / 'ood'
     save_dir.mkdir(parents=True, exist_ok=True)
 
-    _plot(save_dir, f'ood_{benchmark_name}_acc', ood_keys, data, None, acc_split, ood_metric)
-    _plot(save_dir, f'ood_{benchmark_name}_epoch', ood_keys, data, 'epoch', acc_split, ood_metric)
+    _plot(
+        save_dir,
+        f'ood_{benchmark_name}_acc',
+        ood_keys,
+        data,
+        None,
+        acc_split,
+        ood_metric,
+    )
+    _plot(
+        save_dir,
+        f'ood_{benchmark_name}_epoch',
+        ood_keys,
+        data,
+        'epoch',
+        acc_split,
+        ood_metric,
+    )
 
 
 if __name__ == '__main__':

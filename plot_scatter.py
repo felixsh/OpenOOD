@@ -2,8 +2,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 import path
-from plot_utils import load_benchmark_data, mean_ood_2dict
-from plot_utils import nc_metrics_cov, nc_metrics_mean, ood_methods
+from plot_utils import (
+    load_benchmark_data,
+    mean_ood_2dict,
+    nc_metrics_cov,
+    nc_metrics_mean,
+    ood_methods,
+)
 
 
 def _plot(acc, nc, ood, color_id, nc_metric, ood_metric, ood_label):
@@ -12,11 +17,11 @@ def _plot(acc, nc, ood, color_id, nc_metric, ood_metric, ood_label):
     fig, axes = plt.subplots(1, 3, figsize=(15, 5))
 
     axes.ravel()[0].scatter(acc, nc, c=color_id, marker='o')
-    axes.ravel()[0].set_xlabel(f'acc val')
+    axes.ravel()[0].set_xlabel('acc val')
     axes.ravel()[0].set_ylabel(nc_metric)
 
     axes.ravel()[1].scatter(acc, ood, c=color_id, marker='o')
-    axes.ravel()[1].set_xlabel(f'acc val')
+    axes.ravel()[1].set_xlabel('acc val')
     axes.ravel()[1].set_ylabel(f'{ood_metric} {ood_label}')
 
     axes.ravel()[2].scatter(nc, ood, c=color_id, marker='o')
@@ -33,9 +38,13 @@ def _save(fig, save_path, filename):
     plt.close()
 
 
-def plot_scatter_all(benchmark_name, nc_split='val', ood_metric='AUROC', reduction='mean'):
+def plot_scatter_all(
+    benchmark_name, nc_split='val', ood_metric='AUROC', reduction='mean'
+):
     print(f'plotting scatter {benchmark_name} {ood_metric} ...')
-    _, epochs, acc, nc_dict, nood_dict, food_dict, save_dir = load_benchmark_data(benchmark_name, nc_split, ood_metric)
+    _, epochs, acc, nc_dict, nood_dict, food_dict, save_dir = load_benchmark_data(
+        benchmark_name, nc_split, ood_metric
+    )
 
     # Mean over ood methods
     ood_values = mean_ood_2dict(nood_dict, food_dict)
@@ -91,9 +100,13 @@ def _scatter(ax, x, y, c, label=None, remove_outlier=True):
     ax.scatter(x, y, c=c, marker='o', label=label, alpha=0.5)
 
 
-def plot_scatter_tableau(benchmark_name, nc_split='val', ood_metric='AUROC', reduction='mean'):
+def plot_scatter_tableau(
+    benchmark_name, nc_split='val', ood_metric='AUROC', reduction='mean'
+):
     print(f'plotting scatter {benchmark_name} nc_{nc_split} ...')
-    _, epochs, acc_val, acc_train, nc_dict, nood_dict, food_dict, save_dir = load_benchmark_data(benchmark_name, nc_split, ood_metric)
+    _, epochs, acc_val, acc_train, nc_dict, nood_dict, food_dict, save_dir = (
+        load_benchmark_data(benchmark_name, nc_split, ood_metric)
+    )
 
     # Mean over ood methods
     ood_values = mean_ood_2dict(nood_dict, food_dict)
@@ -119,8 +132,10 @@ def plot_scatter_tableau(benchmark_name, nc_split='val', ood_metric='AUROC', red
     fig, axes = plt.subplots(3, 4, figsize=(12, 8))
     ax = axes.ravel()
 
-    assert len(acc_train) == len(acc_val) == len(ood_values), f'{len(acc_train)} {len(acc_val)} {len(ood_values)}'
- 
+    assert len(acc_train) == len(acc_val) == len(ood_values), (
+        f'{len(acc_train)} {len(acc_val)} {len(ood_values)}'
+    )
+
     _scatter(ax[0], acc_val, ood_values, c=color_id)
     ax[0].set_xlabel('accuracy val')
     ax[0].set_ylabel(ood_metric)
@@ -131,7 +146,7 @@ def plot_scatter_tableau(benchmark_name, nc_split='val', ood_metric='AUROC', red
         _scatter(a, nc_dict[key], ood_values, c=color_id)
         a.set_xlabel(key)
         a.set_ylabel(ood_metric)
-    
+
     ax[-1].axis('off')
 
     plt.tight_layout()
@@ -139,9 +154,13 @@ def plot_scatter_tableau(benchmark_name, nc_split='val', ood_metric='AUROC', red
     _save(fig, save_dir, f'scatter_tableau_{benchmark_name}_{reduction}')
 
 
-def plot_scatter_tableau_single(benchmark_name, nc_split='val', ood_metric='AUROC', reduction='mean'):
+def plot_scatter_tableau_single(
+    benchmark_name, nc_split='val', ood_metric='AUROC', reduction='mean'
+):
     print(f'plotting scatter {benchmark_name} nc_{nc_split} ...')
-    _, epochs, acc_val, acc_train, nc_dict, nood_dict, food_dict, save_dir = load_benchmark_data(benchmark_name, nc_split, ood_metric)
+    _, epochs, acc_val, acc_train, nc_dict, nood_dict, food_dict, save_dir = (
+        load_benchmark_data(benchmark_name, nc_split, ood_metric)
+    )
 
     if reduction == 'mean':
         nc_metrics = nc_metrics_mean
@@ -185,7 +204,11 @@ def plot_scatter_tableau_single(benchmark_name, nc_split='val', ood_metric='AURO
 
         plt.tight_layout()
 
-        _save(fig, save_dir, f'scatter_tableau_single_{benchmark_name}_{reduction}_{ood_method}')
+        _save(
+            fig,
+            save_dir,
+            f'scatter_tableau_single_{benchmark_name}_{reduction}_{ood_method}',
+        )
 
 
 if __name__ == '__main__':

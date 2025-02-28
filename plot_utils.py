@@ -3,12 +3,11 @@ from collections import defaultdict
 from pathlib import Path
 
 import matplotlib.pyplot as plt
-from natsort import natsorted
 import numpy as np
+from natsort import natsorted
 from pandas import HDFStore
 
 import path
-
 
 nc_metrics_cov = (
     # 'nc1_strong',
@@ -140,17 +139,17 @@ markers = [
 ]
 
 metric_markers = {
-    "dice" : 'o',
-    "epa" : 's',
-    "knn" : 'D',
-    "mds" : '^',
-    "msp" : 'v',
-    "ncscore" : 'p',
-    "neco" : '*',
-    "nusa" : 'h',
-    "odin" : 'X',
-    "react" : '+', 
-    "vim" : 'x',
+    'dice': 'o',
+    'epa': 's',
+    'knn': 'D',
+    'mds': '^',
+    'msp': 'v',
+    'ncscore': 'p',
+    'neco': '*',
+    'nusa': 'h',
+    'odin': 'X',
+    'react': '+',
+    'vim': 'x',
 }
 
 
@@ -199,9 +198,9 @@ def load_acc(run_data_dir, filter_epochs=None, benchmark=None):
 def load_nc(run_data_dir, nc_split='val', benchmark=None):
     """Return nc metrics with corresponding epochs for run from hdf5 files."""
 
-    if nc_split=='train':
+    if nc_split == 'train':
         nc_key = '/nc_train'
-    elif nc_split=='val':
+    elif nc_split == 'val':
         nc_key = '/nc_val'
     else:
         raise NotImplementedError
@@ -220,7 +219,7 @@ def load_nc(run_data_dir, nc_split='val', benchmark=None):
             df = store.get(nc_key)
             for metric, value in df.items():
                 nc[metric].append(value)
-            
+
     return numpify_dict(nc), np.array(epochs)
 
 
@@ -247,7 +246,7 @@ def load_ood(run_data_dir, ood_metric='AUROC'):
                 key = k[1:]
                 nearood[key].append(df.at['nearood', ood_metric])
                 farood[key].append(df.at['farood', ood_metric])
-        
+
     return numpify_dict(nearood), numpify_dict(farood), np.array(epochs)
 
 
@@ -257,9 +256,9 @@ def load_nc_ood(run_data_dir, nc_split='val', ood_metric='AUROC', benchmark=None
     farood = defaultdict(list)
     epochs = []
 
-    if nc_split=='train':
+    if nc_split == 'train':
         nc_key = '/nc_train'
-    elif nc_split=='val':
+    elif nc_split == 'val':
         nc_key = '/nc_val'
     else:
         raise NotImplementedError
@@ -270,7 +269,7 @@ def load_nc_ood(run_data_dir, nc_split='val', ood_metric='AUROC', benchmark=None
         h5file_list = natsorted(list(run_data_dir.glob('e*.h5')), key=str)[:-1]
     else:
         h5file_list = natsorted(list(run_data_dir.glob('e*.h5')), key=str)
-    
+
     if benchmark == 'noise':
         h5file_list = [h5file_list[-1]]
 
@@ -279,7 +278,6 @@ def load_nc_ood(run_data_dir, nc_split='val', ood_metric='AUROC', benchmark=None
         epochs.append(epoch)
 
         with HDFStore(h5file, mode='r') as store:
-
             nc_df = store.get(nc_key)
             for metric, value in nc_df.items():
                 if metric != 'nc1_strong':
@@ -303,7 +301,9 @@ def load_nc_ood(run_data_dir, nc_split='val', ood_metric='AUROC', benchmark=None
                 pass
 
             # Check if all keys are present
-            assert set(ood_methods) <= set(ood_keys), f'Missing keys {set(ood_methods) - set(ood_keys)} in file {h5file}'
+            assert set(ood_methods) <= set(ood_keys), (
+                f'Missing keys {set(ood_methods) - set(ood_keys)} in file {h5file}'
+            )
 
             for k in ood_keys:
                 df = store.get(k)
@@ -320,9 +320,9 @@ def check_run_data(run_data_dir):
         with HDFStore(h5file, mode='r') as store:
             keys = list(store.keys())
 
-            if not '/nc_train' in keys:
+            if '/nc_train' not in keys:
                 print(f'Missing /nc_train in file {h5file}')
-            if not '/nc_val' in keys:
+            if '/nc_val' not in keys:
                 print(f'Missing /nc_val in file {h5file}')
 
             try:
@@ -353,7 +353,6 @@ def load_acc_train(run_data_dir, benchmark=None):
 
     for h5file in h5file_list:
         with HDFStore(h5file, mode='r') as store:
-
             df = store.get('/acc')
             acc_train.append(df.at['id', 'train'])
 
@@ -368,11 +367,9 @@ def load_noise(run_data_dir):
     return data['metadata']['noise']
 
 
-def load_acc_nc_ood_mean(benchmark_name,
-                   acc_split='val',
-                   nc_metric='nc1_cdnv',
-                   ood_metric='AUROC'):
-
+def load_acc_nc_ood_mean(
+    benchmark_name, acc_split='val', nc_metric='nc1_cdnv', ood_metric='AUROC'
+):
     benchmark_dir = path.res_data / benchmark_name
     data = []
     run_ids = []
@@ -413,11 +410,9 @@ def load_acc_nc_ood_mean(benchmark_name,
     return np.array(data), np.array(run_ids)
 
 
-def load_acc_nc_ood(benchmark_name,
-                   acc_split='val',
-                   nc_metric='nc1_cdnv',
-                   ood_metric='AUROC'):
-
+def load_acc_nc_ood(
+    benchmark_name, acc_split='val', nc_metric='nc1_cdnv', ood_metric='AUROC'
+):
     benchmark_dir = path.res_data / benchmark_name
     acc_dict = defaultdict(list)
     nc_dict = defaultdict(list)
@@ -455,19 +450,28 @@ def load_acc_nc_ood(benchmark_name,
     return acc_dict, nc_dict, nearood_dict, farood_dict, run_id_dict
 
 
-
 class IncompleteError(Exception):
     pass
 
 
-def load_benchmark_data(benchmark_name,
-                        nc_split='val',
-                        ood_metric='AUROC',
-                        ):
+def load_benchmark_data(
+    benchmark_name,
+    nc_split='val',
+    ood_metric='AUROC',
+):
     # Get run dirs
     main_dirs = benchmark2loaddirs[benchmark_name]
     main_dirs = [Path(p) for p in main_dirs]
-    run_dirs = natsorted([subdir for p in main_dirs if p.is_dir() for subdir in p.iterdir() if subdir.is_dir()], key=str)
+    run_dirs = natsorted(
+        [
+            subdir
+            for p in main_dirs
+            if p.is_dir()
+            for subdir in p.iterdir()
+            if subdir.is_dir()
+        ],
+        key=str,
+    )
     print('number of runs', len(run_dirs))
 
     save_dir = path.res_plots / main_dirs[0].relative_to(path.res_data).parents[-2]
@@ -486,7 +490,9 @@ def load_benchmark_data(benchmark_name,
     #     check_run_data(run_dir)
 
     for run_id, run_dir in enumerate(run_dirs):
-        nc_dict, nearood_dict, farood_dict, epochs_ = load_nc_ood(run_dir, nc_split=nc_split, ood_metric=ood_metric, benchmark=benchmark_name)
+        nc_dict, nearood_dict, farood_dict, epochs_ = load_nc_ood(
+            run_dir, nc_split=nc_split, ood_metric=ood_metric, benchmark=benchmark_name
+        )
         acc_val_ = load_acc(run_dir, filter_epochs=epochs_, benchmark=benchmark_name)
         acc_val_ = list(acc_val_['val']['values'])
 
@@ -496,10 +502,10 @@ def load_benchmark_data(benchmark_name,
 
         for k, v in nc_dict.items():
             nc[k].extend(v)
-        
+
         for k, v in nearood_dict.items():
             nood[k].extend(v)
-        
+
         for k, v in farood_dict.items():
             food[k].extend(v)
 
@@ -517,13 +523,23 @@ def load_benchmark_data(benchmark_name,
     return run_ids, epochs, acc_val, acc_train, nc, nood, food, save_dir
 
 
-def load_noise_data(nc_split='val',
-                    ood_metric='AUROC',
-                    ):
+def load_noise_data(
+    nc_split='val',
+    ood_metric='AUROC',
+):
     # Get run dirs
     main_dirs = benchmark2loaddirs['noise']
     main_dirs = [Path(p) for p in main_dirs]
-    run_dirs = natsorted([subdir for p in main_dirs if p.is_dir() for subdir in p.iterdir() if subdir.is_dir()], key=str)
+    run_dirs = natsorted(
+        [
+            subdir
+            for p in main_dirs
+            if p.is_dir()
+            for subdir in p.iterdir()
+            if subdir.is_dir()
+        ],
+        key=str,
+    )
     print('number of runs', len(run_dirs))
 
     save_dir = path.res_plots / main_dirs[0].relative_to(path.res_data).parents[-2]
@@ -542,7 +558,9 @@ def load_noise_data(nc_split='val',
     #     check_run_data(run_dir)
 
     for run_dir in run_dirs:
-        nc_dict, nearood_dict, farood_dict, epochs_ = load_nc_ood(run_dir, nc_split=nc_split, ood_metric=ood_metric, benchmark='noise')
+        nc_dict, nearood_dict, farood_dict, epochs_ = load_nc_ood(
+            run_dir, nc_split=nc_split, ood_metric=ood_metric, benchmark='noise'
+        )
         acc_ = load_acc(run_dir, filter_epochs=epochs_, benchmark='noise')
         acc_ = list(acc_['val']['values'])
 
@@ -551,10 +569,10 @@ def load_noise_data(nc_split='val',
 
         for k, v in nc_dict.items():
             nc[k].append(v[-1])
-        
+
         for k, v in nearood_dict.items():
             nood[k].append(v[-1])
-        
+
         for k, v in farood_dict.items():
             food[k].append(v[-1])
 

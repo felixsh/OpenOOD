@@ -25,7 +25,6 @@ def main(config):
 
 
 if __name__ == '__main__':
-
     config = setup_config()
     # generate output directory and save the full config file
     # setup_logger(config)
@@ -39,5 +38,5 @@ if __name__ == '__main__':
         num_machines=config.num_machines,
         machine_rank=config.machine_rank,
         dist_url='auto',
-        args=(config, ),
+        args=(config,),
     )
