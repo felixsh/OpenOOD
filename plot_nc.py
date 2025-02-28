@@ -11,7 +11,17 @@ def _save_plot(fig, save_path, filename):
     plt.close()
 
 
-def _plot_grid(nc_mean, nc_std, acc_mean, acc_std, x, x_label, with_errorbars=False):
+def _plot_grid(
+    nc_mean,
+    nc_std,
+    acc_val_mean,
+    acc_val_std,
+    acc_train_mean,
+    acc_train_std,
+    x,
+    x_label,
+    with_errorbars=False,
+):
     def _plot_line(ax, x, y, label, marker, color=None, error=None):
         if color is None:
             if with_errorbars and error is not None:
@@ -111,6 +121,8 @@ def _plot_grid(nc_mean, nc_std, acc_mean, acc_std, x, x_label, with_errorbars=Fa
     axes[1, 0].set_ylabel('nc3')
 
     # Subplot 11
+    _plot_line(axes[1, 1], x, acc_train_mean, 'acc_train', 'None', error=acc_train_std)
+    _plot_line(axes[1, 1], x, acc_val_mean, 'acc_val', 'None', error=acc_val_std)
     _plot_line(
         axes[1, 1],
         x,
@@ -119,7 +131,6 @@ def _plot_grid(nc_mean, nc_std, acc_mean, acc_std, x, x_label, with_errorbars=Fa
         markers[0],
         error=nc_std['nc4_classifier_agreement'],
     )
-    _plot_line(axes[1, 1], x, acc_mean, 'acc', 'None', error=acc_std)
     axes[1, 1].set_ylabel('agreement/accuracy')
 
     # Legend subplot 00
@@ -165,20 +176,23 @@ def plot_nc(benchmark_name):
         with_errorbars = False
         nc_mean = nc
         nc_std = nc
-        acc_mean = acc_val
-        acc_std = acc_val
+        acc_val_mean = acc_val
+        acc_val_std = acc_val
+        acc_train_mean = acc_train
+        acc_train_std = acc_train
 
     else:
         # Split into runs
         idx = np.where(epochs == 1)[0][1:]
         epochs = np.split(epochs, indices_or_sections=idx)
-        acc = np.split(acc_val, indices_or_sections=idx)
+
+        acc_val_splits = np.split(acc_val, indices_or_sections=idx)
+        acc_val_mean, acc_val_std = tolerant_mean(acc_val_splits)
+        acc_train_splits = np.split(acc_train, indices_or_sections=idx)
+        acc_train_mean, acc_train_std = tolerant_mean(acc_train_splits)
 
         for k, v in nc.items():
             nc[k] = np.split(v, indices_or_sections=idx)
-
-        # Stats
-        acc_mean, acc_std = tolerant_mean(acc)
 
         nc_mean = {}
         nc_std = {}
@@ -195,8 +209,10 @@ def plot_nc(benchmark_name):
     fig = _plot_grid(
         nc_mean,
         nc_std,
-        acc_mean,
-        acc_std,
+        acc_val_mean,
+        acc_val_std,
+        acc_train_mean,
+        acc_train_std,
         epochs,
         'epoch',
         with_errorbars=with_errorbars,
@@ -206,9 +222,11 @@ def plot_nc(benchmark_name):
     fig = _plot_grid(
         nc_mean,
         nc_std,
-        acc_mean,
-        acc_std,
-        acc_mean,
+        acc_val_mean,
+        acc_val_std,
+        acc_train_mean,
+        acc_train_std,
+        acc_val_mean,
         'acc_val',
         with_errorbars=with_errorbars,
     )
