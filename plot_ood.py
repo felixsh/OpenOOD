@@ -1,24 +1,28 @@
-from collections import defaultdict
-from pathlib import Path
-
 import matplotlib.pyplot as plt
 import numpy as np
 
 import path
-from plot_utils import benchmark2loaddirs, colors, load_acc, load_ood, metric_markers
+from plot_nc import tolerant_mean
+from plot_utils import (
+    colors,
+    load_benchmark_data,
+    metric_markers,
+)
 
 
-def _plot(save_path, filename, ood_keys, data, x_axis, acc_split, ood_metric):
-    epochs, avg_acc, avg_near_ood, avg_far_ood = data
+def _plot(
+    benchmark_name, save_path, filename, ood_keys, data, x_axis, acc_split, ood_metric
+):
+    epochs, acc_mean, nood_mean, nood_std, food_mean, food_std = data
 
     # Plotting
-    # plt.title(f'{benchmark_name} {"far" if far else "near"}')
+
     def sub_plot(ax, avg_ood, color):
         for ood_key in ood_keys:
             y_values = avg_ood[ood_key]
 
             zipped = (
-                zip(epochs, y_values) if x_axis == 'epoch' else zip(avg_acc, y_values)
+                zip(epochs, y_values) if x_axis == 'epoch' else zip(acc_mean, y_values)
             )
 
             # Remove NaNs from data
@@ -32,15 +36,22 @@ def _plot(save_path, filename, ood_keys, data, x_axis, acc_split, ood_metric):
             )
 
     _, axes = plt.subplots(1, 2, figsize=(15, 5))
-    sub_plot(axes[0], avg_near_ood, colors[0])
-    sub_plot(axes[1], avg_far_ood, colors[1])
+    sub_plot(axes[0], nood_mean, colors[0])
+    sub_plot(axes[1], food_mean, colors[1])
 
     if x_axis == 'epoch':
-        plt.xlabel('epoch')
-        plt.gca().set_xscale('log')
+        axes[0].set_xlabel('epoch')
+        axes[0].set_xscale('log')
+        axes[1].set_xlabel('epoch')
+        axes[1].set_xscale('log')
     else:
-        plt.xlabel(f'acc {acc_split}')
-    plt.ylabel(ood_metric)
+        axes[0].set_xlabel(f'acc {acc_split}')
+        axes[1].set_xlabel(f'acc {acc_split}')
+
+    axes[0].set_ylabel(ood_metric)
+    axes[1].set_ylabel(ood_metric)
+
+    plt.suptitle(f'{benchmark_name} {"epoch" if x_axis == "epoch" else "accuracy"}')
 
     # Create legend without duplicates
     handles, labels = plt.gca().get_legend_handles_labels()
@@ -52,78 +63,64 @@ def _plot(save_path, filename, ood_keys, data, x_axis, acc_split, ood_metric):
     plt.close()
 
 
-def plot_acc_ood_avg(
+def plot_ood(
     benchmark_name,
-    acc_split='val',  # 'train' or 'val'
+    nc_split='val',
+    acc_split='val',
     ood_metric='AUROC',
 ):
-    # Get run dirs
-    main_dirs = benchmark2loaddirs[benchmark_name]
-    main_dirs = [Path(p) for p in main_dirs]
-    run_dirs = [
-        subdir
-        for p in main_dirs
-        if p.is_dir()
-        for subdir in p.iterdir()
-        if subdir.is_dir()
-    ]
+    _, epochs, acc_val, _, _, nood, food, _ = load_benchmark_data(
+        benchmark_name, nc_split=nc_split, ood_metric=ood_metric
+    )
 
-    # Collect data
-    acc_dict = defaultdict(list)
-    nearood_dict = defaultdict(
-        lambda: defaultdict(list)
-    )  # ood_key -> epoch -> list of values
-    farood_dict = defaultdict(lambda: defaultdict(list))
+    # Split into runs
+    idx = np.where(epochs == 1)[0][1:]
 
-    for run_dir in run_dirs:
-        nearood, farood, epochs = load_ood(run_dir, ood_metric=ood_metric)
+    epochs = np.split(epochs, indices_or_sections=idx)
+    epochs, _ = tolerant_mean(epochs)
 
-        for k in nearood.keys():
-            for e, n, f in zip(epochs, nearood[k], farood[k]):
-                nearood_dict[k][e].append(n)
-                farood_dict[k][e].append(f)
+    for k, v in nood.items():
+        nood[k] = np.split(v, indices_or_sections=idx)
 
-        acc = load_acc(run_dir, filter_epochs=epochs)
-        for e, a in zip(epochs, acc[acc_split]['values']):
-            acc_dict[e].append(a)
+    for k, v in food.items():
+        food[k] = np.split(v, indices_or_sections=idx)
 
-    # Compute statistics
-    epochs = list(acc_dict.keys())
-    avg_acc = [np.mean(acc_dict[e]) for e in epochs]
+    if benchmark_name == 'imagenet':
+        acc_mean = acc_val
+    else:
+        acc = np.split(acc_val, indices_or_sections=idx)
+        acc_mean, _ = tolerant_mean(acc)
 
-    ood_keys = nearood_dict.keys()
-    avg_near_ood = {
-        k: [
-            np.mean(nearood_dict[k][epoch]) if epoch in nearood_dict[k] else np.nan
-            for epoch in epochs
-        ]
-        for k in ood_keys
-    }
-    avg_far_ood = {
-        k: [
-            np.mean(farood_dict[k][epoch]) if epoch in farood_dict[k] else np.nan
-            for epoch in epochs
-        ]
-        for k in ood_keys
-    }
-    data = (epochs, avg_acc, avg_near_ood, avg_far_ood)
+    nood_mean = {}
+    nood_std = {}
+    for k, v in nood.items():
+        nood_mean[k], nood_std[k] = tolerant_mean(v)
+
+    food_mean = {}
+    food_std = {}
+    for k, v in food.items():
+        food_mean[k], food_std[k] = tolerant_mean(v)
 
     save_dir = path.res_plots / 'ood'
     save_dir.mkdir(parents=True, exist_ok=True)
 
+    data = (epochs, acc_mean, nood_mean, nood_std, food_mean, food_std)
+
     _plot(
+        benchmark_name,
         save_dir,
         f'ood_{benchmark_name}_acc',
-        ood_keys,
+        nood.keys(),
         data,
         None,
         acc_split,
         ood_metric,
     )
     _plot(
+        benchmark_name,
         save_dir,
         f'ood_{benchmark_name}_epoch',
-        ood_keys,
+        nood.keys(),
         data,
         'epoch',
         acc_split,
@@ -132,11 +129,11 @@ def plot_acc_ood_avg(
 
 
 if __name__ == '__main__':
-    plot_acc_ood_avg('cifar10')
-    plot_acc_ood_avg('cifar100')
-    plot_acc_ood_avg('imagenet200')
-    plot_acc_ood_avg('imagenet')
-    plot_acc_ood_avg('noise')
-    plot_acc_ood_avg('alexnet')
-    plot_acc_ood_avg('vgg')
-    plot_acc_ood_avg('mobilenet')
+    plot_ood('cifar10')
+    plot_ood('cifar100')
+    plot_ood('imagenet200')
+    plot_ood('imagenet')
+    plot_ood('noise')
+    plot_ood('alexnet')
+    plot_ood('vgg')
+    plot_ood('mobilenet')
