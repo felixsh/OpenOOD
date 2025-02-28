@@ -56,36 +56,36 @@ def _plot_grid(nc_mean, nc_std, acc_mean, acc_std, x, x_label, with_errorbars=Fa
     _plot_line(
         ax001,
         x,
-        nc_mean['nc1_cdnv'],
-        'nc1_cdnv',
+        nc_mean['nc1_cdnv_mean'],
+        'nc1_cdnv_mean',
         markers[3],
         color=colors[2],
-        error=nc_std['nc1_cdnv'],
+        error=nc_std['nc1_cdnv_mean'],
     )
-    ax001.set_ylabel('nc1_cdnv')
+    ax001.set_ylabel('nc1_cdnv_mean')
     # plot_line(ax001, x, nc['nc1_strong'], 'nc1_strong', markers[0], color=colors[3])
 
     # Subplot 01
     _plot_line(
         axes[0, 1],
         x,
-        nc_mean['nc2_equinormness'],
-        'nc2_equinormness',
+        nc_mean['nc2_equinormness_mean'],
+        'nc2_equinormness_mean',
         markers[0],
-        error=nc_std['nc2_equinormness'],
+        error=nc_std['nc2_equinormness_mean'],
     )
-    axes[0, 1].set_ylabel('nc2_equinormness')
+    axes[0, 1].set_ylabel('nc2_equinormness_mean')
     ax011 = axes[0, 1].twinx()
     _plot_line(
         ax011,
         x,
-        nc_mean['nc2_equiangularity'],
-        'nc2_equiangularity',
+        nc_mean['nc2_equiangularity_mean'],
+        'nc2_equiangularity_mean',
         markers[1],
         color=colors[1],
-        error=nc_std['nc2_equiangularity'],
+        error=nc_std['nc2_equiangularity_mean'],
     )
-    ax011.set_ylabel('nc2_equiangularity')
+    ax011.set_ylabel('nc2_equiangularity_mean')
     # plot_line(axes[0, 1], x, nc['gnc2_hyperspherical_uniformity'], 'gnc2_hyperspherical_uniformity', markers[2])
 
     # Subplot 10
@@ -101,13 +101,13 @@ def _plot_grid(nc_mean, nc_std, acc_mean, acc_std, x, x_label, with_errorbars=Fa
     _plot_line(
         ax101,
         x,
-        nc_mean['unc3_uniform_duality'],
-        'unc3_uniform_duality',
+        nc_mean['unc3_uniform_duality_mean'],
+        'unc3_uniform_duality_mean',
         markers[1],
         color=colors[1],
-        error=nc_std['unc3_uniform_duality'],
+        error=nc_std['unc3_uniform_duality_mean'],
     )
-    ax101.set_ylabel('unc3')
+    ax101.set_ylabel('unc3_mean')
     axes[1, 0].set_ylabel('nc3')
 
     # Subplot 11
@@ -159,20 +159,20 @@ def tolerant_mean(arrs):
 
 
 def plot_nc(benchmark_name):
-    _, epochs, acc, nc, _, _, _ = load_benchmark_data(benchmark_name)
+    _, epochs, acc_val, acc_train, nc, _, _, _ = load_benchmark_data(benchmark_name)
 
     if benchmark_name == 'imagenet':
         with_errorbars = False
         nc_mean = nc
         nc_std = nc
-        acc_mean = acc
-        acc_std = acc
+        acc_mean = acc_val
+        acc_std = acc_val
 
     else:
         # Split into runs
         idx = np.where(epochs == 1)[0][1:]
         epochs = np.split(epochs, indices_or_sections=idx)
-        acc = np.split(acc, indices_or_sections=idx)
+        acc = np.split(acc_val, indices_or_sections=idx)
 
         for k, v in nc.items():
             nc[k] = np.split(v, indices_or_sections=idx)
@@ -216,10 +216,10 @@ def plot_nc(benchmark_name):
 
 
 if __name__ == '__main__':
-    # plot_nc('cifar10')
-    # plot_nc('cifar100')
-    # plot_nc('imagenet200')
-    # plot_nc('imagenet')
+    plot_nc('cifar10')
+    plot_nc('cifar100')
+    plot_nc('imagenet200')
+    plot_nc('imagenet')
     plot_nc('alexnet')
     plot_nc('vgg')
     plot_nc('mobilenet')
