@@ -59,6 +59,10 @@ def plot_acc(benchmark_name):
     for ep, acc in zip(epochs_val, acc_val):
         plt.plot(ep, acc, '-', alpha=alpha, color='tab:orange', label='val')
 
+    plt.title(f'{benchmark_name}, n={len(run_dirs)}')
+    plt.xlabel('epoch')
+    plt.ylabel('accuracy')
+
     # Only one label per line bundle
     handles, labels = plt.gca().get_legend_handles_labels()
     labels = {k: v for k, v in zip(labels, handles)}
