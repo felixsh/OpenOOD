@@ -1,4 +1,5 @@
 import json
+import re
 from collections import defaultdict
 from pathlib import Path
 
@@ -180,8 +181,11 @@ def load_acc(run_data_dir, filter_epochs=None, benchmark=None):
     for split, acc_dict in data['metrics']['Accuracy'].items():
         acc[split] = numpify_dict(acc_dict)
 
-        # if benchmark in ('imagenet', 'noise', 'cifar10', 'imagenet200'):
-        acc[split]['epochs'] += 1
+        if benchmark == 'cifar100':
+            acc[split]['epochs'] = acc[split]['epochs'][1:]
+            acc[split]['values'] = acc[split]['values'][1:]
+        else:
+            acc[split]['epochs'] += 1
 
         if filter_epochs is not None:
             filter_epochs = np.array(filter_epochs)
@@ -341,7 +345,7 @@ def check_run_data(run_data_dir):
                 print(f'Missing keys {set(ood_methods) - set(keys)} in file {h5file}')
 
 
-def load_acc_train(run_data_dir, benchmark=None):
+def load_acc_train(run_data_dir, benchmark=None, return_epochs=False):
     """Return ood metrics with corresponding epochs for run from hdf5 files."""
 
     if benchmark == 'cifar100':
@@ -350,13 +354,18 @@ def load_acc_train(run_data_dir, benchmark=None):
         h5file_list = natsorted(list(run_data_dir.glob('e*.h5')), key=str)
 
     acc_train = []
+    epochs = []
 
     for h5file in h5file_list:
         with HDFStore(h5file, mode='r') as store:
             df = store.get('/acc')
             acc_train.append(df.at['id', 'train'])
+            epochs.append(int(re.search(r'e(\d+)', str(h5file.name)).group(1)))
 
-    return np.array(acc_train)
+    if return_epochs:
+        return np.array(acc_train), np.array(epochs)
+    else:
+        return np.array(acc_train)
 
 
 def load_noise(run_data_dir):
