@@ -11,7 +11,16 @@ from plot_utils import (
 
 
 def _plot(
-    benchmark_name, save_path, filename, ood_keys, data, x_axis, acc_split, ood_metric
+    benchmark_name,
+    save_path,
+    filename,
+    ood_keys,
+    data,
+    x_axis,
+    acc_split,
+    ood_metric,
+    acc_val=None,
+    acc_train=None,
 ):
     epochs, acc_mean, nood_mean, nood_std, food_mean, food_std = data
 
@@ -40,6 +49,20 @@ def _plot(
     sub_plot(axes[1], food_mean, colors[1])
 
     if x_axis == 'epoch':
+        if acc_train is not None and acc_val is not None:
+            ax0_twin = axes[0].twinx()
+            ax1_twin = axes[1].twinx()
+            ax0_twin.set_ylabel('accuracies')
+            ax1_twin.set_ylabel('accuracies')
+
+        if acc_train is not None:
+            ax0_twin.plot(epochs, acc_train, '-', color=colors[2], label='acc train')
+            ax1_twin.plot(epochs, acc_train, '-', color=colors[2], label='acc train')
+
+        if acc_val is not None:
+            ax0_twin.plot(epochs, acc_val, '-', color=colors[3], label='acc val')
+            ax1_twin.plot(epochs, acc_val, '-', color=colors[3], label='acc val')
+
         axes[0].set_xlabel('epoch')
         axes[0].set_xscale('log')
         axes[1].set_xlabel('epoch')
@@ -58,6 +81,7 @@ def _plot(
     by_label = dict(zip(labels, handles))
     plt.legend(by_label.values(), by_label.keys(), loc=2)
 
+    filename = filename.replace('@', 'at')
     plt.savefig(save_path / f'{filename}.png', bbox_inches='tight')
     plt.savefig(save_path / f'{filename}.pdf', bbox_inches='tight')
     plt.close()
@@ -69,7 +93,7 @@ def plot_ood(
     acc_split='val',
     ood_metric='AUROC',
 ):
-    _, epochs, acc_val, _, _, nood, food, _ = load_benchmark_data(
+    _, epochs, acc_val, acc_train, _, nood, food, _ = load_benchmark_data(
         benchmark_name, nc_split=nc_split, ood_metric=ood_metric
     )
 
@@ -86,10 +110,18 @@ def plot_ood(
         food[k] = np.split(v, indices_or_sections=idx)
 
     if benchmark_name == 'imagenet':
-        acc_mean = acc_val
+        acc_val_mean = acc_val
+        acc_train_mean = acc_train
     else:
-        acc = np.split(acc_val, indices_or_sections=idx)
-        acc_mean, _ = tolerant_mean(acc)
+        acc_val_split = np.split(acc_val, indices_or_sections=idx)
+        acc_val_mean, _ = tolerant_mean(acc_val_split)
+        acc_train_split = np.split(acc_train, indices_or_sections=idx)
+        acc_train_mean, _ = tolerant_mean(acc_train_split)
+
+    if acc_split == 'val':
+        acc_mean = acc_val_mean
+    elif acc_split == 'train':
+        acc_mean = acc_train_mean
 
     nood_mean = {}
     nood_std = {}
@@ -109,31 +141,38 @@ def plot_ood(
     _plot(
         benchmark_name,
         save_dir,
-        f'ood_{benchmark_name}_acc',
+        f'ood_{benchmark_name}_{ood_metric}_acc',
         nood.keys(),
         data,
         None,
         acc_split,
         ood_metric,
+        acc_train=acc_train_mean,
+        acc_val=acc_val_mean,
     )
     _plot(
         benchmark_name,
         save_dir,
-        f'ood_{benchmark_name}_epoch',
+        f'ood_{benchmark_name}_{ood_metric}_epoch',
         nood.keys(),
         data,
         'epoch',
         acc_split,
         ood_metric,
+        acc_train=acc_train_mean,
+        acc_val=acc_val_mean,
     )
 
 
 if __name__ == '__main__':
-    plot_ood('cifar10')
-    plot_ood('cifar100')
-    plot_ood('imagenet200')
-    plot_ood('imagenet')
-    plot_ood('noise')
-    plot_ood('alexnet')
-    plot_ood('vgg')
-    plot_ood('mobilenet')
+    # ood_metric = 'AUROC'
+    ood_metric = 'FPR@95'
+
+    plot_ood('cifar10', ood_metric=ood_metric)
+    plot_ood('cifar100', ood_metric=ood_metric)
+    plot_ood('imagenet200', ood_metric=ood_metric)
+    plot_ood('imagenet', ood_metric=ood_metric)
+    # plot_ood('noise', ood_metric=ood_metric)
+    plot_ood('alexnet', ood_metric=ood_metric)
+    plot_ood('vgg', ood_metric=ood_metric)
+    plot_ood('mobilenet', ood_metric=ood_metric)
