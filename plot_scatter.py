@@ -75,7 +75,7 @@ def plot_scatter_all(
         # _save(fig, save_dir, f'scatter_far_{nc_metric}_{ood_metric}')
 
 
-def _scatter(ax, x, y, c, label=None, remove_outlier=True):
+def _scatter(ax, x, y, c, label=None, remove_outlier=True, run_ids=None):
     x = np.squeeze(x)
     y = np.squeeze(y)
 
@@ -87,26 +87,37 @@ def _scatter(ax, x, y, c, label=None, remove_outlier=True):
         idx = idx[::direction][leave_out:]
         x = x[idx]
         y = y[idx]
+
+        if run_ids is not None:
+            run_ids = run_ids[idx]
+
         if not isinstance(c, str):
             c = c[idx]
 
-        # Lighter colors more on top
-        if not isinstance(c, str):
+            # Lighter colors more on top
             idx = np.argsort(c)
             x = x[idx]
             y = y[idx]
             c = c[idx]
+            run_ids = run_ids[idx]
 
-    ax.scatter(x, y, c=c, marker='o', label=label, alpha=0.5)
+    if run_ids is None:
+        ax.scatter(x, y, c=c, marker='o', label=label, alpha=0.5)
+    else:
+        unq_run_ids = np.unique(run_ids)
+        for r in sorted(unq_run_ids):
+            mask = run_ids == r
+            ax.plot(x[mask], y[mask], '-', label=label, alpha=0.3)
 
 
 def plot_scatter_tableau(
     benchmark_name, nc_split='val', ood_metric='AUROC', reduction='mean'
 ):
     print(f'plotting scatter {benchmark_name} nc_{nc_split} ...')
-    _, epochs, acc_val, acc_train, nc_dict, nood_dict, food_dict, save_dir = (
+    run_ids, epochs, acc_val, acc_train, nc_dict, nood_dict, food_dict, save_dir = (
         load_benchmark_data(benchmark_name, nc_split, ood_metric)
     )
+    # run_ids = None
 
     # Mean over ood methods
     ood_values = mean_ood_2dict(nood_dict, food_dict)
@@ -136,14 +147,14 @@ def plot_scatter_tableau(
         f'{len(acc_train)} {len(acc_val)} {len(ood_values)}'
     )
 
-    _scatter(ax[0], acc_val, ood_values, c=color_id)
+    _scatter(ax[0], acc_val, ood_values, c=color_id, run_ids=run_ids)
     ax[0].set_xlabel('accuracy val')
     ax[0].set_ylabel(ood_metric)
-    _scatter(ax[1], acc_train, ood_values, c=color_id)
+    _scatter(ax[1], acc_train, ood_values, c=color_id, run_ids=run_ids)
     ax[1].set_xlabel('accuracy train')
     ax[1].set_ylabel(ood_metric)
     for a, key in zip(ax[2:], nc_metrics):
-        _scatter(a, nc_dict[key], ood_values, c=color_id)
+        _scatter(a, nc_dict[key], ood_values, c=color_id, run_ids=run_ids)
         a.set_xlabel(key)
         a.set_ylabel(ood_metric)
 
@@ -220,13 +231,13 @@ if __name__ == '__main__':
     # plot_scatter_all('mobilenet')
     # plot_scatter_all('vgg')
 
-    # plot_scatter_tableau('cifar10', reduction='mean')
-    # plot_scatter_tableau('cifar100', reduction='mean')
-    # plot_scatter_tableau('imagenet200', reduction='mean')
-    # plot_scatter_tableau('imagenet', reduction='mean')
-    # plot_scatter_tableau('alexnet', reduction='mean')
-    # plot_scatter_tableau('mobilenet', reduction='mean')
-    # plot_scatter_tableau('vgg', reduction='mean')
+    plot_scatter_tableau('cifar10', reduction='mean')
+    plot_scatter_tableau('cifar100', reduction='mean')
+    plot_scatter_tableau('imagenet200', reduction='mean')
+    plot_scatter_tableau('imagenet', reduction='mean')
+    plot_scatter_tableau('alexnet', reduction='mean')
+    plot_scatter_tableau('mobilenet', reduction='mean')
+    plot_scatter_tableau('vgg', reduction='mean')
 
     # plot_scatter_tableau('cifar10', reduction='cov')
     # plot_scatter_tableau('cifar100', reduction='cov')
@@ -236,5 +247,5 @@ if __name__ == '__main__':
     # plot_scatter_tableau('mobilenet', reduction='cov')
     # plot_scatter_tableau('vgg', reduction='cov')
 
-    plot_scatter_tableau_single('cifar10', reduction='mean')
-    plot_scatter_tableau_single('imagenet200', reduction='mean')
+    # plot_scatter_tableau_single('cifar10', reduction='mean')
+    # plot_scatter_tableau_single('imagenet200', reduction='mean')
