@@ -1,15 +1,15 @@
+import nc_toolbox as nctb
 import numpy as np
 import torch
 from tqdm import tqdm
 
+import path
 from openood.evaluation_api.datasets import data_setup, get_id_ood_dataloader
 from openood.evaluation_api.preprocessor import get_default_preprocessor
-import path
-from utils import load_network, get_batch_size, get_lockfile
+from utils import get_batch_size, get_lockfile, load_network
 
 
-class FeatureCache():
-
+class FeatureCache:
     def __init__(self, benchmark_name, ckpt_path, recompute=False):
         self.benchmark_name = benchmark_name
         self.cache_path = path.cache_root
@@ -21,9 +21,9 @@ class FeatureCache():
         self.val_path = full_path.with_name(f'{full_path.stem}_val.npz')
 
         self.data = {}
-        #self.data['train'] = self._load_or_compute(self.train_path, split='train')
+        # self.data['train'] = self._load_or_compute(self.train_path, split='train')
         self.data['val'] = self._load_or_compute(self.val_path, split='val')
-    
+
     def get(self, split, key, return_torch=False):
         assert split in ('train', 'val')
         assert key in ('logits', 'features', 'labels', 'predictions', 'weights', 'bias')
@@ -48,9 +48,9 @@ class FeatureCache():
             with lock:
                 with open(log_file, 'w') as f:
                     f.write(f'{data_path}\n')
-            
+
             # logits, features, labels, predictions, weights, bias = self._compute(self.ckpt_path, split=split)
-            # 
+            #
             # data_path.parent.mkdir(exist_ok=True, parents=True)
             # np.savez_compressed(
             #     data_path,
@@ -64,7 +64,6 @@ class FeatureCache():
             # return np.load(data_path)
 
     def _compute(self, ckpt_path, split='train'):
-
         # Parameters
         batch_size = get_batch_size(self.benchmark_name)
         shuffle = False
@@ -80,10 +79,11 @@ class FeatureCache():
         loader_kwargs = {
             'batch_size': batch_size,
             'shuffle': shuffle,
-            'num_workers': num_workers
+            'num_workers': num_workers,
         }
-        dataloader_dict = get_id_ood_dataloader(self.benchmark_name, data_root,
-                                                    preprocessor, **loader_kwargs)
+        dataloader_dict = get_id_ood_dataloader(
+            self.benchmark_name, data_root, preprocessor, **loader_kwargs
+        )
         dataloader = dataloader_dict['id'][split]
 
         # Get features, labels, logits, predictions
@@ -114,8 +114,39 @@ class FeatureCache():
                 labels[idx : idx + bs] = batch['label']
                 predictions[idx : idx + bs] = out.argmax(dim=1).cpu().numpy()
                 idx += bs
-        
+
         weights, bias = net.get_fc()  # (c x d), (c,)
 
         return outputs, features, labels, predictions, weights, bias
-        
+
+    def mean_feature_norm(self, centered=False):
+        H = self.data['val']['features']
+        if centered:
+            mu_g = nctb.global_embedding_mean(H)
+            H = H - mu_g
+        H_norm = np.linalg.norm(H, axis=1)
+        return float(H_norm.mean())
+
+    def mean_cluster_size(self):
+        H = self.data['val']['features']
+        L = self.data['val']['labels']
+        mu_c = nctb.class_embedding_means(H, L)
+        H_centered = nctb.center_embeddings(H, L, mu_c)
+        H_norm = np.linalg.norm(H_centered, axis=1)
+        return float(H_norm.mean())
+
+    def mean_cluster_dist(self):
+        H = self.data['val']['features']
+        L = self.data['val']['labels']
+        mu_c = nctb.class_embedding_means(H, L)
+        C = mu_c.shape[0]
+        idx0, idx1 = np.triu_indices(C, k=1)
+        diff = mu_c[idx0] - mu_c[idx1]
+        diff_norm = np.linalg.norm(diff, axis=1)
+        assert diff.shape[1] == mu_c.shape[1]
+        return float(diff_norm.mean())
+
+    def mu_g_norm(self):
+        H = self.data['val']['features']
+        mu_g = nctb.global_embedding_mean(H)
+        return float(np.linalg.norm(mu_g, ord=2))

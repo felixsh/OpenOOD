@@ -1,21 +1,26 @@
 import json
-from pathlib import Path
 import re
-from timeit import default_timer as timer
 from datetime import timedelta
+from pathlib import Path
+from timeit import default_timer as timer
 
+import torch.multiprocessing as mp
 from natsort import natsorted
 from omegaconf import OmegaConf
 from pandas import HDFStore
-import torch.multiprocessing as mp
 
+import path
 from eval_acc import eval_acc
 from eval_nc import eval_nc
 from eval_ood import eval_ood
 from feature_cache import FeatureCache
-import path
-from utils import get_epoch_number, get_epoch_name, convert_numpy_to_lists, get_benchmark_name, get_lockfile
-
+from utils import (
+    convert_numpy_to_lists,
+    get_benchmark_name,
+    get_epoch_name,
+    get_epoch_number,
+    get_lockfile,
+)
 
 ckpt_suffixes = ['.ckpt', '.pth']
 
@@ -30,7 +35,7 @@ postprocessors = [
     'vim',
     'ncscore',
     'neco',
-    'epa'
+    'epa',
 ]
 
 # postprocessor options:
@@ -38,7 +43,6 @@ postprocessors = [
 
 
 def save_ood(df, save_dir, filename, key):
-
     # Store in HDF5 format
     full_path = save_dir / f'{filename}.h5'
     lock = get_lockfile(full_path)
@@ -57,7 +61,6 @@ def save_ood(df, save_dir, filename, key):
 
 
 def save_nc(df, save_dir, filename, key):
-
     # Store in HDF5 format
     full_path = save_dir / f'{filename}.h5'
     lock = get_lockfile(full_path)
@@ -111,7 +114,7 @@ def save_scores(score_dict, save_dir, filename):
 def existing_keys(save_dir, filename):
     full_path = save_dir / f'{filename}.h5'
     lock = get_lockfile(full_path)
-    
+
     with lock:
         if full_path.is_file():
             with HDFStore(full_path, mode='r') as store:
@@ -154,7 +157,9 @@ def eval_run(run_dir, ood_method_list=postprocessors):
         start_time = timer()
         eval_ckpt_nc(benchmark_name, ckpt_path, save_dir)
         eval_ckpt_ood(benchmark_name, ckpt_path, save_dir, list(ood_method_list))
-        print(f'{'\033[91m'}Checkpoint took {timedelta(seconds=timer()-start_time)}{'\033[0m'}')
+        print(
+            f'{"\033[91m"}Checkpoint took {timedelta(seconds=timer() - start_time)}{"\033[0m"}'
+        )
 
 
 def eval_ckpt_nc(benchmark_name, ckpt_path, save_dir, recompute=False):
@@ -169,13 +174,15 @@ def eval_ckpt_nc(benchmark_name, ckpt_path, save_dir, recompute=False):
         # if not 'nc_train' in done_keys or recompute:
         #     nc_metrics = eval_nc(feature_cache, split='train')
         #     save_nc(nc_metrics, save_dir, file_name, 'nc_train')
-        
-        if not 'nc_val' in done_keys or recompute:
+
+        if 'nc_val' not in done_keys or recompute:
             nc_metrics = eval_nc(feature_cache, split='val')
             save_nc(nc_metrics, save_dir, file_name, 'nc_val')
 
 
-def eval_ckpt_ood(benchmark_name, ckpt_path, save_dir, ood_method_list, recompute=False):
+def eval_ckpt_ood(
+    benchmark_name, ckpt_path, save_dir, ood_method_list, recompute=False
+):
     file_name = get_epoch_name(ckpt_path)
 
     done_keys = existing_keys(save_dir, file_name)
@@ -188,7 +195,9 @@ def eval_ckpt_ood(benchmark_name, ckpt_path, save_dir, ood_method_list, recomput
             if ood_method in done_keys and not recompute:
                 continue
 
-            ood_metrics, _ = eval_ood(benchmark_name, ckpt_path, ood_method, feature_cache)
+            ood_metrics, _ = eval_ood(
+                benchmark_name, ckpt_path, ood_method, feature_cache
+            )
             save_ood(ood_metrics, save_dir, file_name, ood_method)
 
 
@@ -223,7 +232,9 @@ def recompute_all(ood_method_list=postprocessors):
         save_dir = path.res_data / ckpt_path.parent.relative_to(path.ckpt_root)
         save_dir.mkdir(exist_ok=True, parents=True)
 
-        eval_ckpt_ood(benchmark_name, ckpt_path, save_dir, ood_method_list, recompute=True)
+        eval_ckpt_ood(
+            benchmark_name, ckpt_path, save_dir, ood_method_list, recompute=True
+        )
 
 
 if __name__ == '__main__':

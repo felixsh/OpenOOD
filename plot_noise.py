@@ -1,9 +1,16 @@
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
+from natsort import natsorted
 
 import path
+from eval_main import FeatureCache, get_run_ckpts
 from plot_utils import (
+    benchmark2ckptdirs,
+    benchmark2loaddirs,
+    load_noise,
     load_noise_data,
     mean_ood_1dict,
     mean_ood_2dict,
@@ -155,8 +162,90 @@ def plot_noise_acc_ood(ood_metric='AUROC'):
     plt.close()
 
 
+def plot_noise_feature_norm():
+    main_dirs_load = benchmark2loaddirs['noise']
+    main_dirs_load = [Path(p) for p in main_dirs_load]
+    run_dirs_load = natsorted(
+        [
+            subdir
+            for p in main_dirs_load
+            if p.is_dir()
+            for subdir in p.iterdir()
+            if subdir.is_dir()
+        ],
+        key=str,
+    )
+    main_dirs_ckpt = benchmark2ckptdirs['noise']
+    main_dirs_ckpt = [Path(p) for p in main_dirs_ckpt]
+    run_dirs_ckpt = natsorted(
+        [
+            subdir
+            for p in main_dirs_ckpt
+            if p.is_dir()
+            for subdir in p.iterdir()
+            if subdir.is_dir()
+        ],
+        key=str,
+    )
+    print('number of runs', len(run_dirs_load), len(run_dirs_ckpt))
+    assert len(run_dirs_load) == len(run_dirs_ckpt)
+
+    res = []
+    for r_load, r_ckpt in zip(run_dirs_load, run_dirs_ckpt):
+        noise_lvl = load_noise(r_load)
+
+        ckpt_path = get_run_ckpts(r_ckpt)[-1]
+        feature_cache = FeatureCache('noise', ckpt_path)
+
+        mean_feature_norm = feature_cache.mean_feature_norm()
+        mean_feature_norm_g = feature_cache.mean_feature_norm(centered=True)
+        mean_cluster_size = feature_cache.mean_cluster_size()
+        mean_cluster_dist = feature_cache.mean_cluster_dist()
+        mu_g_norm = feature_cache.mu_g_norm()
+
+        res.append(
+            [
+                noise_lvl,
+                mean_feature_norm,
+                mean_feature_norm_g,
+                mean_cluster_size,
+                mean_cluster_dist,
+                mu_g_norm,
+            ]
+        )
+
+    (
+        noise_lvl,
+        mean_feature_norm,
+        mean_feature_norm_g,
+        mean_cluster_size,
+        mean_cluster_dist,
+        mu_g_norm,
+    ) = zip(*res)
+
+    plt.plot(noise_lvl, mean_feature_norm, 'o', label='feat')
+    plt.plot(noise_lvl, mean_cluster_size, 'o', label='cluster size')
+    plt.plot(noise_lvl, mean_feature_norm_g, 'o', label='feat center')
+    plt.plot(noise_lvl, mean_cluster_dist, 'o', label='cluster dist')
+    plt.plot(noise_lvl, mu_g_norm, 'o', label='mu_g')
+    plt.xlabel('noise level')
+    plt.ylabel('mean norm')
+    plt.legend()
+
+    plt.tight_layout()
+
+    save_dir = path.res_plots / 'noise'
+    save_dir.mkdir(parents=True, exist_ok=True)
+
+    filename = 'noise_feature_norm'
+    plt.savefig(save_dir / f'{filename}.png', bbox_inches='tight')
+    plt.savefig(save_dir / f'{filename}.pdf', bbox_inches='tight')
+    plt.close()
+
+
 if __name__ == '__main__':
-    plot_noise(reduction='cov')
-    plot_noise(reduction='mean')
+    # plot_noise(reduction='cov')
+    # plot_noise(reduction='mean')
     # plot_noise_acc_ood()
     # plot_noise_single()
+    plot_noise_feature_norm()
