@@ -6,7 +6,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 from natsort import natsorted
-from pandas import HDFStore
+from pandas import DataFrame, HDFStore
 
 import path
 
@@ -596,3 +596,37 @@ def load_noise_data(
     food = numpify_dict(food)
 
     return noise_lvl, epochs, acc_val, acc_train, nc, nood, food, save_dir
+
+
+def extract_dataframe(benchmark_name):
+    run_ids, epochs, acc_val, acc_train, nc, nood_auroc, food_auroc, save_dir = (
+        load_benchmark_data(benchmark_name, ood_metric='AUROC')
+    )
+    data = {
+        'run_ids': run_ids,
+        'epochs': epochs,
+        'acc_val': acc_val,
+        'acc_train': acc_train,
+    }
+
+    data |= nc
+
+    for k in nood_auroc.keys():
+        data[f'{k}_near'] = nood_auroc[k]
+        data[f'{k}_far'] = food_auroc[k]
+
+    data = {k: v.squeeze() for k, v in data.items()}
+    df = DataFrame(data)
+
+    file_name = f'{benchmark_name}_data.csv'
+    df.to_csv(path.res_data / file_name, encoding='utf-8', index=False, header=True)
+
+
+if __name__ == '__main__':
+    extract_dataframe('cifar10')
+    extract_dataframe('cifar100')
+    extract_dataframe('imagenet200')
+    extract_dataframe('imagenet')
+    extract_dataframe('alexnet')
+    extract_dataframe('mobilenet')
+    extract_dataframe('vgg')
