@@ -56,6 +56,7 @@ benchmark2loaddirs = {
     ),
     'cifar100': (
         '/mrtstorage/users/hauser/openood_res/data/cifar100/ResNet18_32x32/no_noise/1000+_epochs',
+        # '/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/',
     ),
     'imagenet200': (
         '/mrtstorage/users/hauser/openood_res/data/imagenet200/ResNet18_224x224/no_noise/150+_epochs',
@@ -622,11 +623,65 @@ def extract_dataframe(benchmark_name):
     df.to_csv(path.res_data / file_name, encoding='utf-8', index=False, header=True)
 
 
+def check_benchmark_data(benchmark_name, key, nc_key=None):
+    # Get run dirs
+    main_dirs = benchmark2loaddirs[benchmark_name]
+    main_dirs = [Path(p) for p in main_dirs]
+    run_dirs = natsorted(
+        [
+            subdir
+            for p in main_dirs
+            if p.is_dir()
+            for subdir in p.iterdir()
+            if subdir.is_dir()
+        ],
+        key=str,
+    )
+
+    total = 0
+    count = 0
+    count_nc = 0
+
+    for run_dir in run_dirs:
+        if benchmark_name == 'cifar100':
+            h5file_list = natsorted(list(run_dir.glob('e*.h5')), key=str)[:-1]
+        else:
+            h5file_list = natsorted(list(run_dir.glob('e*.h5')), key=str)
+
+        for h5file in h5file_list:
+            total += 1
+            with HDFStore(h5file, mode='r') as store:
+                if key in store:
+                    count += 1
+
+                    if nc_key is not None:
+                        nc_df = store.get(f'/{key}')
+                        try:
+                            _ = nc_df.iloc[0][nc_key]
+                            count_nc += 1
+                        except KeyError:
+                            continue
+
+    print(f'{benchmark_name}:\t"{key}" in {count}/{total} hdf5 files')
+    if nc_key is not None:
+        print(f'\t\t"{nc_key}" in {count_nc}/{total}')
+
+
 if __name__ == '__main__':
-    extract_dataframe('cifar10')
-    extract_dataframe('cifar100')
-    extract_dataframe('imagenet200')
-    extract_dataframe('imagenet')
-    extract_dataframe('alexnet')
-    extract_dataframe('mobilenet')
-    extract_dataframe('vgg')
+    key = 'nc_train'
+    nc_key = 'nc2_equinormness_mean'
+    check_benchmark_data('cifar10', key, nc_key)
+    check_benchmark_data('cifar100', key, nc_key)
+    check_benchmark_data('imagenet200', key, nc_key)
+    check_benchmark_data('imagenet', key, nc_key)
+    check_benchmark_data('alexnet', key, nc_key)
+    check_benchmark_data('mobilenet', key, nc_key)
+    check_benchmark_data('vgg', key, nc_key)
+
+    # extract_dataframe('cifar10')
+    # extract_dataframe('cifar100')
+    # extract_dataframe('imagenet200')
+    # extract_dataframe('imagenet')
+    # extract_dataframe('alexnet')
+    # extract_dataframe('mobilenet')
+    # extract_dataframe('vgg')
