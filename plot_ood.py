@@ -28,11 +28,16 @@ def _plot(
 
     def sub_plot(ax, avg_ood, color):
         for ood_key in ood_keys:
+            if ood_key in ['knn', 'mds', 'neco', 'nusa']:
+                continue
+
             y_values = avg_ood[ood_key]
 
             zipped = (
                 zip(epochs, y_values) if x_axis == 'epoch' else zip(acc_mean, y_values)
             )
+
+            alpha = 0.2 if ood_key in ['knn', 'mds', 'neco', 'nusa'] else 1.0
 
             # Remove NaNs from data
             valid_data = [(x, y) for x, y in zipped if not np.isnan(y)]
@@ -41,7 +46,12 @@ def _plot(
             x_values, y_values = zip(*valid_data)
             ax.plot(x_values, y_values, '-', alpha=0.3, color=color)
             ax.plot(
-                x_values, y_values, metric_markers[ood_key], color=color, label=ood_key
+                x_values,
+                y_values,
+                metric_markers[ood_key],
+                color=color,
+                label=ood_key,
+                alpha=alpha,
             )
 
     _, axes = plt.subplots(1, 2, figsize=(15, 5))
