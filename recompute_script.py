@@ -3,8 +3,9 @@ import stat
 from pathlib import Path
 
 from eval_main import get_run_ckpts
+from plot_utils import benchmark2ckptdirs
 
-filename = 'run_cifar100.bash'
+filename = 'run_nc_train.bash'
 # script = 'compute_acc_train.py'
 script = 'recompute.py'
 
@@ -13,7 +14,7 @@ method_first = False
 reverse = True
 
 
-devices = [2, 3]
+devices = list(range(5))
 
 acc_method = ['acc']
 nc_method = ['nc']
@@ -30,7 +31,7 @@ odd_methods = [
     'neco',
     'epa',
 ]
-methods = nc_method + odd_methods + acc_method
+methods = nc_method  # + odd_methods + acc_method
 
 # ckpts = get_previous_ckpts()
 
@@ -50,20 +51,20 @@ run_dirs = (d for d in top_dir.iterdir() if d.is_dir())
 #     Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCVGG16/no_noise/300+_epochs/run_e300_2024_11_14-06_13_04'),
 # )
 
-# benchmarks = [
-#     # 'cifar10',
-#     'cifar100',
-#     'imagenet200',
-#     'imagenet',
-#     # 'noise',
-#     'alexnet',
-#     'mobilenet',
-#     'vgg',
-#     # 'lessnet',
-# ]
-#
-# top_dirs = (Path(p) for b in benchmarks for p in benchmark2ckptdirs[b])
-# run_dirs = (Path(d) for top_dir in top_dirs for d in top_dir.iterdir() if d.is_dir())
+benchmarks = [
+    'cifar100',
+    'imagenet200',
+    'imagenet',
+    # 'noise',
+    'alexnet',
+    'mobilenet',
+    'vgg',
+    'cifar10',
+    # 'lessnet',
+]
+
+top_dirs = (Path(p) for b in benchmarks for p in benchmark2ckptdirs[b])
+run_dirs = (Path(d) for top_dir in top_dirs for d in top_dir.iterdir() if d.is_dir())
 ckpts = [c for r in run_dirs for c in get_run_ckpts(r)]
 
 # ckpts = [get_run_ckpts(r, filtering=False)[-1] for r in run_dirs]
