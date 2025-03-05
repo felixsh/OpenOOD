@@ -135,7 +135,9 @@ def existing_keys(save_dir, filename):
             return []
 
 
-def filtering_ckpts(ckpt_list, filter_list=[1, 2, 5, 10, 20, 50, 100, 200, 500]):
+def filtering_ckpts(
+    ckpt_list, filter_list=[1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000]
+):
     """Only use ckpts from epochs defined in filter list, plus final epoch"""
     # filter_list = [f-1 for f in filter_list]  # Shifted indices
     ckpts_filtered = [p for p in ckpt_list if get_epoch_number(p) in filter_list]
@@ -157,6 +159,7 @@ def eval_run(run_dir, ood_method_list=postprocessors):
         start_time = timer()
         eval_ckpt_nc(benchmark_name, ckpt_path, save_dir)
         eval_ckpt_ood(benchmark_name, ckpt_path, save_dir, list(ood_method_list))
+        eval_ckpt_acc(ckpt_path)
         print(
             f'{"\033[91m"}Checkpoint took {timedelta(seconds=timer() - start_time)}{"\033[0m"}'
         )
@@ -171,9 +174,9 @@ def eval_ckpt_nc(benchmark_name, ckpt_path, save_dir, recompute=False):
     if not all_done or recompute:
         feature_cache = FeatureCache(benchmark_name, ckpt_path)
 
-        # if not 'nc_train' in done_keys or recompute:
-        #     nc_metrics = eval_nc(feature_cache, split='train')
-        #     save_nc(nc_metrics, save_dir, file_name, 'nc_train')
+        if 'nc_train' not in done_keys or recompute:
+            nc_metrics = eval_nc(feature_cache, split='train')
+            save_nc(nc_metrics, save_dir, file_name, 'nc_train')
 
         if 'nc_val' not in done_keys or recompute:
             nc_metrics = eval_nc(feature_cache, split='val')
