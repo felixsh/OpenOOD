@@ -1,9 +1,10 @@
 from pathlib import Path
 
-from eval_main import eval_ckpt_nc, eval_ckpt_ood
-from utils import get_benchmark_name
 from omegaconf import OmegaConf
+
 import path
+from eval_main import eval_ckpt_acc, eval_ckpt_nc, eval_ckpt_ood
+from utils import get_benchmark_name
 
 
 def recompute(ckpt_path, method, recompute=False):
@@ -15,8 +16,12 @@ def recompute(ckpt_path, method, recompute=False):
 
     if method == 'nc':
         eval_ckpt_nc(benchmark_name, ckpt_path, save_dir, recompute=recompute)
+    elif method == 'acc':
+        eval_ckpt_acc(ckpt_path)
     else:
-        eval_ckpt_ood(benchmark_name, ckpt_path, save_dir, [method], recompute=recompute)
+        eval_ckpt_ood(
+            benchmark_name, ckpt_path, save_dir, [method], recompute=recompute
+        )
 
 
 if __name__ == '__main__':
