@@ -46,7 +46,7 @@ def plot_cut(
     nc_metric='nc1_cdnv',
     ood_metric='AUROC',
 ):
-    run_ids, epochs, acc, nc, nearood, farood, save_dir = load_benchmark_data(
+    run_ids, epochs, acc, nc, nearood, farood = load_benchmark_data(
         benchmark_name, nc_metric, ood_metric
     )
     fig = _plot(acc, nc, nearood, 'near')

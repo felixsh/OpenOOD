@@ -42,7 +42,7 @@ def plot_scatter_all(
     benchmark_name, nc_split='val', ood_metric='AUROC', reduction='mean'
 ):
     print(f'plotting scatter {benchmark_name} {ood_metric} ...')
-    _, epochs, acc, nc_dict, nood_dict, food_dict, save_dir = load_benchmark_data(
+    _, epochs, acc, nc_dict, nood_dict, food_dict = load_benchmark_data(
         benchmark_name, nc_split, ood_metric
     )
 
@@ -114,7 +114,7 @@ def plot_scatter_tableau(
     benchmark_name, nc_split='val', ood_metric='AUROC', reduction='mean'
 ):
     print(f'plotting scatter {benchmark_name} nc_{nc_split} ...')
-    run_ids, epochs, acc_val, acc_train, nc_dict, nood_dict, food_dict, save_dir = (
+    run_ids, epochs, acc_val, acc_train, nc_dict, nood_dict, food_dict = (
         load_benchmark_data(benchmark_name, nc_split, ood_metric)
     )
     # run_ids = None
@@ -169,8 +169,8 @@ def plot_scatter_tableau_single(
     benchmark_name, nc_split='val', ood_metric='AUROC', reduction='mean'
 ):
     print(f'plotting scatter {benchmark_name} nc_{nc_split} ...')
-    _, epochs, acc_val, acc_train, nc_dict, nood_dict, food_dict, save_dir = (
-        load_benchmark_data(benchmark_name, nc_split, ood_metric)
+    _, epochs, acc_val, acc_train, nc_dict, nood_dict, food_dict = load_benchmark_data(
+        benchmark_name, nc_split, ood_metric
     )
 
     if reduction == 'mean':

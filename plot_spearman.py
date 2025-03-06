@@ -118,7 +118,7 @@ def plot_spearman(
     benchmark_name,
     ood_metric='AUROC',
 ):
-    data_dict, save_dir = load_benchmark_data(benchmark_name, ood_metric)
+    data_dict = load_benchmark_data(benchmark_name, ood_metric)
     fig = _plot(data_dict)
     _save(fig, save_dir, f'spearman_{ood_metric}')
 

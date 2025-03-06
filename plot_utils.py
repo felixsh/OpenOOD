@@ -506,6 +506,7 @@ def load_benchmark_data(
     benchmark_name,
     nc_split='val',
     ood_metric='AUROC',
+    ood_task=['nearood', 'farood'],
 ):
     # Get run dirs
     main_dirs = benchmark2loaddirs[benchmark_name]
@@ -531,15 +532,18 @@ def load_benchmark_data(
     acc_val = []
     acc_train = []
     nc = defaultdict(list)
-    nood = defaultdict(list)
-    food = defaultdict(list)
+    ood_dicts = {task: defaultdict(list) for task in ood_task}
 
     # for run_dir in run_dirs:
     #     check_run_data(run_dir)
 
     for run_id, run_dir in enumerate(run_dirs):
-        nc_dict, epochs_, nearood_dict, farood_dict = load_nc_ood(
-            run_dir, nc_split=nc_split, ood_metric=ood_metric, benchmark=benchmark_name
+        nc_dict, epochs_, *ood_dicts_ = load_nc_ood(
+            run_dir,
+            nc_split=nc_split,
+            ood_metric=ood_metric,
+            benchmark=benchmark_name,
+            ood_task=ood_task,
         )
         acc_val_ = load_acc(run_dir, filter_epochs=epochs_, benchmark=benchmark_name)
         acc_val_ = list(acc_val_['val']['values'])
@@ -551,11 +555,9 @@ def load_benchmark_data(
         for k, v in nc_dict.items():
             nc[k].extend(v)
 
-        for k, v in nearood_dict.items():
-            nood[k].extend(v)
-
-        for k, v in farood_dict.items():
-            food[k].extend(v)
+        for t, d in zip(ood_dicts, ood_dicts_):
+            for k, v in d.items():
+                ood_dicts[t][k].extend(v)
 
         acc_train_ = load_acc_train(run_dir, benchmark=benchmark_name)
         acc_train.extend(acc_train_)
@@ -565,10 +567,9 @@ def load_benchmark_data(
     acc_val = np.array(acc_val)
     acc_train = np.array(acc_train)
     nc = numpify_dict(nc)
-    nood = numpify_dict(nood)
-    food = numpify_dict(food)
+    ood_res = [numpify_dict(v) for v in ood_dicts.values()]
 
-    return run_ids, epochs, acc_val, acc_train, nc, nood, food, save_dir
+    return run_ids, epochs, acc_val, acc_train, nc, *ood_res
 
 
 def load_noise_data(
@@ -638,7 +639,7 @@ def load_noise_data(
 
 
 def extract_dataframe(benchmark_name):
-    run_ids, epochs, acc_val, acc_train, nc, nood_auroc, food_auroc, save_dir = (
+    run_ids, epochs, acc_val, acc_train, nc, nood_auroc, food_auroc = (
         load_benchmark_data(benchmark_name, ood_metric='AUROC')
     )
     data = {
