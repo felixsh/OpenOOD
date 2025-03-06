@@ -55,8 +55,8 @@ benchmark2loaddirs = {
         '/mrtstorage/users/hauser/openood_res/data/cifar10/ResNet18_32x32/no_noise/300+_epochs',
     ),
     'cifar100': (
-        '/mrtstorage/users/hauser/openood_res/data/cifar100/ResNet18_32x32/no_noise/1000+_epochs',
-        # '/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/',
+        # '/mrtstorage/users/hauser/openood_res/data/cifar100/ResNet18_32x32/no_noise/1000+_epochs',
+        '/mrtstorage/users/hauser/openood_res/data/cifar100/type/no_noise/1000+_epochs/',
     ),
     'imagenet200': (
         '/mrtstorage/users/hauser/openood_res/data/imagenet200/ResNet18_224x224/no_noise/150+_epochs',
@@ -255,10 +255,15 @@ def load_ood(run_data_dir, ood_metric='AUROC'):
     return numpify_dict(nearood), numpify_dict(farood), np.array(epochs)
 
 
-def load_nc_ood(run_data_dir, nc_split='val', ood_metric='AUROC', benchmark=None):
+def load_nc_ood(
+    run_data_dir,
+    nc_split='val',
+    ood_metric='AUROC',
+    benchmark=None,
+    ood_task=['nearood', 'farood'],
+):
     """Return ood metrics with corresponding epochs for run from hdf5 files."""
-    nearood = defaultdict(list)
-    farood = defaultdict(list)
+    ood_res = {task: defaultdict(list) for task in ood_task}
     epochs = []
 
     if nc_split == 'train':
@@ -313,10 +318,29 @@ def load_nc_ood(run_data_dir, nc_split='val', ood_metric='AUROC', benchmark=None
             for k in ood_keys:
                 df = store.get(k)
                 key = k[1:]
-                nearood[key].append(df.at['nearood', ood_metric])
-                farood[key].append(df.at['farood', ood_metric])
+                for task in ood_task:
+                    ood_res[task][key].append(df.at[task, ood_metric])
 
-    return nc, numpify_dict(nearood), numpify_dict(farood), epochs
+    res = [numpify_dict(v) for v in ood_res.values()]
+    return nc, epochs, *res
+
+
+def check_benchmark(benchmark_name):
+    main_dirs = benchmark2loaddirs[benchmark_name]
+    main_dirs = [Path(p) for p in main_dirs]
+    run_dirs = natsorted(
+        [
+            subdir
+            for p in main_dirs
+            if p.is_dir()
+            for subdir in p.iterdir()
+            if subdir.is_dir()
+        ],
+        key=str,
+    )
+
+    for r in run_dirs:
+        check_run_data(r)
 
 
 def check_run_data(run_data_dir):
@@ -324,11 +348,20 @@ def check_run_data(run_data_dir):
     for h5file in natsorted(list(run_data_dir.glob('e*.h5')), key=str):
         with HDFStore(h5file, mode='r') as store:
             keys = list(store.keys())
+            missing = []
+
+            if '/acc' not in keys:
+                missing.append('/acc')
+
+            try:
+                keys.remove('/acc')
+            except ValueError:
+                pass
 
             if '/nc_train' not in keys:
-                print(f'Missing /nc_train in file {h5file}')
+                missing.append('/nc_train')
             if '/nc_val' not in keys:
-                print(f'Missing /nc_val in file {h5file}')
+                missing.append('/nc_val')
 
             try:
                 keys.remove('/nc')
@@ -343,7 +376,12 @@ def check_run_data(run_data_dir):
 
             # Check if all keys are present
             if not set(ood_methods) <= set(keys):
-                print(f'Missing keys {set(ood_methods) - set(keys)} in file {h5file}')
+                missing.extend(list(set(ood_methods) - set(keys)))
+
+            if missing:
+                print(f'Missing keys {missing} in file {h5file}')
+            else:
+                print('All keys present')
 
 
 def load_acc_train(run_data_dir, benchmark=None, return_epochs=False):
@@ -500,7 +538,7 @@ def load_benchmark_data(
     #     check_run_data(run_dir)
 
     for run_id, run_dir in enumerate(run_dirs):
-        nc_dict, nearood_dict, farood_dict, epochs_ = load_nc_ood(
+        nc_dict, epochs_, nearood_dict, farood_dict = load_nc_ood(
             run_dir, nc_split=nc_split, ood_metric=ood_metric, benchmark=benchmark_name
         )
         acc_val_ = load_acc(run_dir, filter_epochs=epochs_, benchmark=benchmark_name)
@@ -568,7 +606,7 @@ def load_noise_data(
     #     check_run_data(run_dir)
 
     for run_dir in run_dirs:
-        nc_dict, nearood_dict, farood_dict, epochs_ = load_nc_ood(
+        nc_dict, epochs_, nearood_dict, farood_dict = load_nc_ood(
             run_dir, nc_split=nc_split, ood_metric=ood_metric, benchmark='noise'
         )
         acc_ = load_acc(run_dir, filter_epochs=epochs_, benchmark='noise')
@@ -623,7 +661,7 @@ def extract_dataframe(benchmark_name):
     df.to_csv(path.res_data / file_name, encoding='utf-8', index=False, header=True)
 
 
-def check_benchmark_data(benchmark_name, key, nc_key=None):
+def check_benchmark_for_key(benchmark_name, key, nc_key=None):
     # Get run dirs
     main_dirs = benchmark2loaddirs[benchmark_name]
     main_dirs = [Path(p) for p in main_dirs]
@@ -669,14 +707,14 @@ def check_benchmark_data(benchmark_name, key, nc_key=None):
 
 if __name__ == '__main__':
     key = 'nc_train'
-    nc_key = 'nc2_equinormness_mean'
-    check_benchmark_data('cifar10', key, nc_key)
-    check_benchmark_data('cifar100', key, nc_key)
-    check_benchmark_data('imagenet200', key, nc_key)
-    check_benchmark_data('imagenet', key, nc_key)
-    check_benchmark_data('alexnet', key, nc_key)
-    check_benchmark_data('mobilenet', key, nc_key)
-    check_benchmark_data('vgg', key, nc_key)
+    nc_key = None  # 'nc2_equinormness_mean'
+    # check_benchmark_for_key('cifar10', key, nc_key)
+    # check_benchmark_for_key('cifar100', key, nc_key)
+    # check_benchmark_for_key('imagenet200', key, nc_key)
+    # check_benchmark_for_key('imagenet', key, nc_key)
+    # check_benchmark_for_key('alexnet', key, nc_key)
+    # check_benchmark_for_key('mobilenet', key, nc_key)
+    # check_benchmark_for_key('vgg', key, nc_key)
 
     # extract_dataframe('cifar10')
     # extract_dataframe('cifar100')
@@ -685,3 +723,5 @@ if __name__ == '__main__':
     # extract_dataframe('alexnet')
     # extract_dataframe('mobilenet')
     # extract_dataframe('vgg')
+
+    check_benchmark('cifar100')
