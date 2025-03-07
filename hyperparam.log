@@ -694,3 +694,455 @@ cifar10, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchma
 cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_38_55/NCResNet18_32x32_e300_i0.pth
 cifar10, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-05_36_34/NCResNet18_32x32_e300_i0.pth
 cifar10, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_50/NCResNet18_32x32_e300_i0.pth
+cifar100, odin, [1, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e1_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e1_i0.pth
+cifar100, react, 95, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e1_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e1_i0.pth
+cifar100, knn, 50, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e1_i0.pth
+cifar100, ncscore, 0.2, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e1_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e1_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e1_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e1_i0.pth
+cifar100, odin, [10, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e2_i0.pth
+cifar100, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e2_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e2_i0.pth
+cifar100, knn, 50, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e2_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e2_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e2_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e2_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e2_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e2_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e5_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e5_i0.pth
+cifar100, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e5_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e5_i0.pth
+cifar100, knn, 50, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e5_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e5_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e5_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e5_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e5_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e10_i0.pth
+cifar100, react, 95, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e10_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e10_i0.pth
+cifar100, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e10_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e10_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e10_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e10_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e10_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e10_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e20_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e20_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e20_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e20_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e20_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e20_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e20_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e20_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e20_i0.pth
+cifar100, odin, [10, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e50_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e50_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e50_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e50_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e50_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e50_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e50_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e50_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e50_i0.pth
+cifar100, odin, [10, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e100_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e100_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e100_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e100_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e100_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e100_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e100_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e100_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e100_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e200_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e200_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e200_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e200_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e200_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e200_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e200_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e200_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e200_i0.pth
+cifar100, odin, [10, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e500_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e500_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e500_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e500_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e500_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e500_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e500_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e500_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e500_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e1000_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e1000_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e1000_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e1000_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e1000_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e1000_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e1000_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e1000_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_38/NCResNet18_32x32_e1000_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e1_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e1_i0.pth
+cifar100, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e1_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e1_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e1_i0.pth
+cifar100, ncscore, 0.01, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e1_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e1_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e1_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e1_i0.pth
+cifar100, odin, [1, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e2_i0.pth
+cifar100, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e2_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e2_i0.pth
+cifar100, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e2_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e2_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e2_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e2_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e2_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e2_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e5_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e5_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e5_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e5_i0.pth
+cifar100, knn, 20, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e5_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e5_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e5_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e5_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e5_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e10_i0.pth
+cifar100, react, 95, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e10_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e10_i0.pth
+cifar100, knn, 50, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e10_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e10_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e10_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e10_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e10_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e10_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e20_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e20_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e20_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e20_i0.pth
+cifar100, knn, 50, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e20_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e20_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e20_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e20_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e20_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e50_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e50_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e50_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e50_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e50_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e50_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e50_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e50_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e50_i0.pth
+cifar100, odin, [10, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e100_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e100_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e100_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e100_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e100_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e100_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e100_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e100_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e100_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e200_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e200_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e200_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e200_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e200_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e200_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e200_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e200_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e200_i0.pth
+cifar100, odin, [10, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e500_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e500_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e500_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e500_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e500_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e500_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e500_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e500_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e500_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e1000_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e1000_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e1000_i0.pth
+cifar100, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e1000_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e1000_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e1000_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e1000_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e1000_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_44/NCResNet18_32x32_e1000_i0.pth
+cifar100, odin, [10, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e1_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e1_i0.pth
+cifar100, react, 95, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e1_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e1_i0.pth
+cifar100, knn, 100, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e1_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e1_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e1_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e1_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e1_i0.pth
+cifar100, odin, [10, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e2_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e2_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e2_i0.pth
+cifar100, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e2_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e2_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e2_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e2_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e2_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e2_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e5_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e5_i0.pth
+cifar100, react, 95, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e5_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e5_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e5_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e5_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e5_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e5_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e5_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e10_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e10_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e10_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e10_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e10_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e10_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e10_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e10_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e10_i0.pth
+cifar100, odin, [100, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e20_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e20_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e20_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e20_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e20_i0.pth
+cifar100, ncscore, 0.01, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e20_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e20_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e20_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e20_i0.pth
+cifar100, odin, [10, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e50_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e50_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e50_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e50_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e50_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e50_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e50_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e50_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e50_i0.pth
+cifar100, odin, [10, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e100_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e100_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e100_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e100_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e100_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e1000_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e1000_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e1000_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e1000_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e1_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e1_i0.pth
+cifar100, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e1_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e1_i0.pth
+cifar100, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e1_i0.pth
+cifar100, ncscore, 0.2, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e1_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e1_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e1_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e1_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e2_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e2_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e2_i0.pth
+cifar100, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e2_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e2_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e2_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e2_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e2_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e2_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e5_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e5_i0.pth
+cifar100, react, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e5_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e5_i0.pth
+cifar100, knn, 50, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e5_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e5_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e5_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e10_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e10_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e10_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e10_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e10_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e10_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e10_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e10_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e10_i0.pth
+cifar100, odin, [10, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e20_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e20_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e20_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e20_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e20_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e20_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e20_i0.pth
+cifar100, odin, [10, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e50_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e50_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e50_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e50_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e50_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e50_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e50_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e50_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e50_i0.pth
+cifar100, odin, [100, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e100_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e100_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e100_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e100_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e100_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e100_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e100_i0.pth
+cifar100, odin, [10, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e200_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e200_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e200_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e200_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e200_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e200_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e200_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e200_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e200_i0.pth
+cifar100, odin, [10, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e500_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e500_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e500_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e500_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e500_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e500_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e500_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e1000_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e1000_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e1000_i0.pth
+cifar100, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e1000_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e1000_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e1000_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e1000_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e1000_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e1000_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e1_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e1_i0.pth
+cifar100, react, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e1_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e1_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e1_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e1_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e1_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e2_i0.pth
+cifar100, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e2_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e2_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e2_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e2_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e2_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e2_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e2_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e2_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e5_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e5_i0.pth
+cifar100, react, 95, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e5_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e5_i0.pth
+cifar100, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e5_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e5_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e5_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e5_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e5_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e10_i0.pth
+cifar100, react, 95, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e10_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e10_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e10_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e10_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e10_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e10_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e10_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e10_i0.pth
+cifar100, odin, [100, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e20_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e20_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e20_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e20_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e20_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e20_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e20_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e20_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e20_i0.pth
+cifar100, odin, [10, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e50_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e50_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e50_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e50_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e50_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e50_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e50_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e50_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e50_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e100_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e100_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e100_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e100_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e100_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e100_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e100_i0.pth
+cifar100, odin, [100, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e200_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e200_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e200_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e200_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e200_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e200_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e200_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e200_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e200_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e500_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e500_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e500_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e500_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e500_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e500_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e500_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e500_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e500_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e1000_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e1000_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e1000_i0.pth
+cifar100, knn, 20, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e1000_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e1000_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e1000_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e1000_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e1000_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e1000_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e20_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e5_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e5_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e100_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e100_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e500_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e20_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_51/NCResNet18_32x32_e500_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e1_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e1_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e100_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_54/NCResNet18_32x32_e100_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e1000_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e1000_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e1000_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e1000_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e1000_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e100_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e100_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e100_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e100_i0.pth
+imagenet200, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_05/NCResNet18_224x224_e1_i0.pth
+imagenet200, odin, [1, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_05/NCResNet18_224x224_e1_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e200_i0.pth
+cifar100, odin, [1000, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e200_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e200_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e200_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e200_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e200_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e200_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e200_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e200_i0.pth
+cifar100, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e500_i0.pth
+cifar100, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e500_i0.pth
+cifar100, odin, [10, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e500_i0.pth
+cifar100, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e500_i0.pth
+cifar100, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e500_i0.pth
+cifar100, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e500_i0.pth
+cifar100, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e500_i0.pth
+cifar100, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e500_i0.pth
+cifar100, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47/NCResNet18_32x32_e500_i0.pth
