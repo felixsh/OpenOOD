@@ -14,9 +14,9 @@ dependencies:
   - dask
   - tabulate
   - tqdm
-  - pytorch:pytorch=2.5.1
-  - pytorch:torchvision=0.20.1
-  - nvidia:pytorch-cuda=12.1
+  # - pytorch:pytorch=2.5.1
+  # - pytorch:torchvision=0.20.1
+  - nvidia:pytorch-cuda=11.8
   - datasets
   - transformers
   - huggingface_hub
