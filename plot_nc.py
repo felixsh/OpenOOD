@@ -14,14 +14,14 @@ def _save_plot(fig, save_path, filename):
 def _plot_grid(
     nc_val_mean,
     nc_val_std,
-    nc_train_mean,
-    nc_train_std,
     acc_val_mean,
     acc_val_std,
     acc_train_mean,
     acc_train_std,
     x,
     x_label,
+    nc_train_mean=None,
+    nc_train_std=None,
     with_errorbars=False,
 ):
     def _plot_line(
@@ -80,13 +80,15 @@ def _plot_grid(
         error=nc_val_std['nc1_weak_between'],
         color=colors[0],
     )
-    _plot_line(
-        axes[0, 0],
-        x,
-        nc_train_mean['nc1_weak_between'],
-        linestyle='--',
-        color=colors[0],
-    )
+    if nc_train_mean is not None:
+        _plot_line(
+            axes[0, 0],
+            x,
+            nc_train_mean['nc1_weak_between'],
+            linestyle='--',
+            color=colors[0],
+        )
+
     _plot_line(
         axes[0, 0],
         x,
@@ -96,13 +98,15 @@ def _plot_grid(
         error=nc_val_std['nc1_weak_within'],
         color=colors[1],
     )
-    _plot_line(
-        axes[0, 0],
-        x,
-        nc_train_mean['nc1_weak_within'],
-        linestyle='--',
-        color=colors[1],
-    )
+    if nc_train_mean is not None:
+        _plot_line(
+            axes[0, 0],
+            x,
+            nc_train_mean['nc1_weak_within'],
+            linestyle='--',
+            color=colors[1],
+        )
+
     axes[0, 0].set_ylabel('nc1_weak')
     ax001 = axes[0, 0].twinx()
     _plot_line(
@@ -114,13 +118,14 @@ def _plot_grid(
         color=colors[2],
         error=nc_val_std['nc1_cdnv_mean'],
     )
-    _plot_line(
-        ax001,
-        x,
-        nc_train_mean['nc1_cdnv_mean'],
-        linestyle='--',
-        color=colors[2],
-    )
+    if nc_train_mean is not None:
+        _plot_line(
+            ax001,
+            x,
+            nc_train_mean['nc1_cdnv_mean'],
+            linestyle='--',
+            color=colors[2],
+        )
     ax001.set_ylabel('nc1_cdnv_mean')
     # plot_line(ax001, x, nc['nc1_strong'], 'nc1_strong', markers[0], color=colors[3])
 
@@ -134,14 +139,16 @@ def _plot_grid(
         error=nc_val_std['nc2_equinormness_mean'],
         color=colors[0],
     )
-    _plot_line(
-        axes[0, 1],
-        x,
-        nc_train_mean['nc2_equinormness_mean'],
-        'nc2_equinormness_mean',
-        linestyle='--',
-        color=colors[0],
-    )
+    if nc_train_mean is not None:
+        _plot_line(
+            axes[0, 1],
+            x,
+            nc_train_mean['nc2_equinormness_mean'],
+            'nc2_equinormness_mean',
+            linestyle='--',
+            color=colors[0],
+        )
+
     axes[0, 1].set_ylabel('nc2_equinormness_mean')
     ax011 = axes[0, 1].twinx()
     _plot_line(
@@ -153,13 +160,14 @@ def _plot_grid(
         color=colors[1],
         error=nc_val_std['nc2_equiangularity_mean'],
     )
-    _plot_line(
-        ax011,
-        x,
-        nc_train_mean['nc2_equiangularity_mean'],
-        linestyle='--',
-        color=colors[1],
-    )
+    if nc_train_mean is not None:
+        _plot_line(
+            ax011,
+            x,
+            nc_train_mean['nc2_equiangularity_mean'],
+            linestyle='--',
+            color=colors[1],
+        )
     ax011.set_ylabel('nc2_equiangularity_mean')
     # plot_line(axes[0, 1], x, nc['gnc2_hyperspherical_uniformity'], 'gnc2_hyperspherical_uniformity', markers[2])
 
@@ -173,13 +181,15 @@ def _plot_grid(
         error=nc_val_std['nc3_self_duality'],
         color=colors[0],
     )
-    _plot_line(
-        axes[1, 0],
-        x,
-        nc_train_mean['nc3_self_duality'],
-        linestyle='--',
-        color=colors[0],
-    )
+    if nc_train_mean is not None:
+        _plot_line(
+            axes[1, 0],
+            x,
+            nc_train_mean['nc3_self_duality'],
+            linestyle='--',
+            color=colors[0],
+        )
+
     ax101 = axes[1, 0].twinx()
     _plot_line(
         ax101,
@@ -190,13 +200,14 @@ def _plot_grid(
         color=colors[1],
         error=nc_val_std['unc3_uniform_duality_mean'],
     )
-    _plot_line(
-        ax101,
-        x,
-        nc_train_mean['unc3_uniform_duality_mean'],
-        linestyle='--',
-        color=colors[1],
-    )
+    if nc_train_mean is not None:
+        _plot_line(
+            ax101,
+            x,
+            nc_train_mean['unc3_uniform_duality_mean'],
+            linestyle='--',
+            color=colors[1],
+        )
     ax101.set_ylabel('unc3_mean')
     axes[1, 0].set_ylabel('nc3')
 
@@ -211,13 +222,14 @@ def _plot_grid(
         markers[0],
         error=nc_val_std['nc4_classifier_agreement'],
     )
-    _plot_line(
-        axes[1, 1],
-        x,
-        nc_train_mean['nc4_classifier_agreement'],
-        linestyle='--',
-        color=colors[2],
-    )
+    if nc_train_mean is not None:
+        _plot_line(
+            axes[1, 1],
+            x,
+            nc_train_mean['nc4_classifier_agreement'],
+            linestyle='--',
+            color=colors[2],
+        )
     axes[1, 1].set_ylabel('agreement/accuracy')
 
     # Legend subplot 00 ======================================================================================
@@ -309,14 +321,14 @@ def plot_nc(benchmark_name):
     fig = _plot_grid(
         nc_val_mean,
         nc_val_std,
-        nc_train_mean,
-        nc_train_std,
         acc_val_mean,
         acc_val_std,
         acc_train_mean,
         acc_train_std,
         epochs,
         'epoch',
+        nc_train_std=nc_train_std,
+        nc_train_mean=nc_train_mean,
         with_errorbars=with_errorbars,
     )
     _save_plot(fig, save_dir, f'nc_{benchmark_name}_epoch')
@@ -324,14 +336,14 @@ def plot_nc(benchmark_name):
     fig = _plot_grid(
         nc_val_mean,
         nc_val_std,
-        nc_train_mean,
-        nc_train_std,
         acc_val_mean,
         acc_val_std,
         acc_train_mean,
         acc_train_std,
         acc_val_mean,
         'acc_val',
+        nc_train_std=nc_train_std,
+        nc_train_mean=nc_train_mean,
         with_errorbars=with_errorbars,
     )
     _save_plot(fig, save_dir, f'nc_{benchmark_name}_acc')
