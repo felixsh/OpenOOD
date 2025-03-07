@@ -7,7 +7,9 @@ from filelock import FileLock
 from torch import load
 
 import path
-from openood.networks import ResNet18_32x32
+from openood.networks import ResNet18_32x32, ResNet18_224x224, ResNet50
+
+dummy = ResNet50()
 
 
 def str_to_class(classname):
@@ -40,23 +42,27 @@ def load_network(benchmark_name, ckpt_path):
         num_classes = 1000
 
     # Create model, load checkpoint
-    # if model_name == 'NCResNet18_32x32':
-    net = ResNet18_32x32(num_classes=num_classes)
-    state_dict = load(ckpt_path, weights_only=True, map_location='cuda:0')
-    state_dict.pop('extraction_layer.weight', None)
-    state_dict.pop('extraction_layer.bias', None)
-    state_dict = {k.removeprefix('model.'): v for k, v in state_dict.items()}
-    net.load_state_dict(state_dict)
+    if model_name == 'NCResNet18_32x32' or model_name == 'type':
+        if benchmark_name in ['noise', 'cifar100']:
+            net = ResNet18_32x32(num_classes=num_classes)
+        elif benchmark_name == 'imagenet200':
+            net = ResNet18_224x224(num_classes=num_classes)
 
-    # else:
-    #     model_class = str_to_class(model_name)
-    #
-    #     if limit_classes is None:
-    #         net = model_class(num_classes=num_classes)
-    #     else:
-    #         net = model_class(num_classes=num_classes, limit_classes=limit_classes)
-    #
-    #     net.load_state_dict(load(ckpt_path, weights_only=True, map_location='cuda:0'))
+        state_dict = load(ckpt_path, weights_only=True, map_location='cuda:0')
+        state_dict.pop('extraction_layer.weight', None)
+        state_dict.pop('extraction_layer.bias', None)
+        state_dict = {k.removeprefix('model.'): v for k, v in state_dict.items()}
+        net.load_state_dict(state_dict)
+
+    else:
+        model_class = str_to_class(model_name)
+
+        if limit_classes is None:
+            net = model_class(num_classes=num_classes)
+        else:
+            net = model_class(num_classes=num_classes, limit_classes=limit_classes)
+
+        net.load_state_dict(load(ckpt_path, weights_only=True, map_location='cuda:0'))
 
     net.name = model_name
     net.cuda()
@@ -128,6 +134,7 @@ if __name__ == '__main__':
     from pathlib import Path
 
     p = Path(
-        '/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/ResNet18_32x32/no_noise/300+_epochs/run_e300_2024_11_14-12_51_57'
+        '/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_05/NCResNet18_224x224_e1_i0.pth'
     )
-    print(get_benchmark_name(p))
+
+    net = load_network('imagenet200', p)
