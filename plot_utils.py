@@ -59,10 +59,11 @@ benchmark2loaddirs = {
         '/mrtstorage/users/hauser/openood_res/data/cifar100/type/no_noise/1000+_epochs/',
     ),
     'imagenet200': (
-        '/mrtstorage/users/hauser/openood_res/data/imagenet200/ResNet18_224x224/no_noise/150+_epochs',
-        '/mrtstorage/users/hauser/openood_res/data/imagenet200/ResNet18_224x224/no_noise/200+_epochs',
-        '/mrtstorage/users/hauser/openood_res/data/imagenet200/ResNet18_224x224/no_noise/400+_epochs',
-        '/mrtstorage/users/hauser/openood_res/data/imagenet200/ResNet18_224x224/no_noise/500+_epochs',
+        '/mrtstorage/users/hauser/openood_res/data/imagenet200/type/no_noise/1000+_epochs/',
+        # '/mrtstorage/users/hauser/openood_res/data/imagenet200/ResNet18_224x224/no_noise/150+_epochs',
+        # '/mrtstorage/users/hauser/openood_res/data/imagenet200/ResNet18_224x224/no_noise/200+_epochs',
+        # '/mrtstorage/users/hauser/openood_res/data/imagenet200/ResNet18_224x224/no_noise/400+_epochs',
+        # '/mrtstorage/users/hauser/openood_res/data/imagenet200/ResNet18_224x224/no_noise/500+_epochs',
     ),
     'imagenet': (
         '/mrtstorage/users/hauser/openood_res/data/imagenet/ResNet50/no_noise/150+_epochs',
@@ -699,8 +700,8 @@ if __name__ == '__main__':
     key = 'nc_train'
     nc_key = 'nc2_equinormness_mean'
     # check_benchmark_for_key('cifar10', key, nc_key)
-    check_benchmark_for_key('cifar100', key)
-    # check_benchmark_for_key('imagenet200', key, nc_key)
+    # check_benchmark_for_key('cifar100', key)
+    check_benchmark_for_key('imagenet200', key)
     # check_benchmark_for_key('imagenet', key, nc_key)
     # check_benchmark_for_key('alexnet', key, nc_key)
     # check_benchmark_for_key('mobilenet', key, nc_key)
