@@ -1,3 +1,5 @@
+from zipfile import BadZipFile
+
 import nc_toolbox as nctb
 import numpy as np
 import torch
@@ -28,42 +30,57 @@ class FeatureCache:
         assert split in ('train', 'val')
         assert key in ('logits', 'features', 'labels', 'predictions', 'weights', 'bias')
 
-        res = self.data[split][key]
+        try:
+            res = self.data[split][key]
+        except BadZipFile:
+            self.data[split] = self._load_or_compute(
+                self.train_path, split=split, recompute=True
+            )
+            res = self.data[split][key]
 
         if return_torch:
             return torch.as_tensor(res)
         else:
             return res
 
-    def _load_or_compute(self, data_path, split='train'):
-        try:
-            # if self.recompute:
-            #     raise FileNotFoundError
+    def _load_or_compute(self, data_path, split='train', recompute=False):
+        # try:
+        #     if recompute:
+        #         raise FileNotFoundError
+        #
+        #     return np.load(data_path)
+        #
+        # except FileNotFoundError:
+        # log_file = 'cache_not_found.log'
+        # lock = get_lockfile(log_file)
+        # with lock:
+        #     with open(log_file, 'w') as f:
+        #         f.write(f'{data_path}\n')
 
-            return np.load(data_path)
+        logits, features, labels, predictions, weights, bias = self._compute(
+            self.ckpt_path, split=split
+        )
 
-        except FileNotFoundError:
-            # log_file = 'cache_not_found.log'
-            # lock = get_lockfile(log_file)
-            # with lock:
-            #     with open(log_file, 'w') as f:
-            #         f.write(f'{data_path}\n')
+        # data_path.parent.mkdir(exist_ok=True, parents=True)
+        # np.savez_compressed(
+        #     data_path,
+        #     logits=logits,
+        #     features=features,
+        #     labels=labels,
+        #     predictions=predictions,
+        #     weights=weights,
+        #     bias=bias,
+        # )
+        # return np.load(data_path)
 
-            logits, features, labels, predictions, weights, bias = self._compute(
-                self.ckpt_path, split=split
-            )
-
-            data_path.parent.mkdir(exist_ok=True, parents=True)
-            np.savez_compressed(
-                data_path,
-                logits=logits,
-                features=features,
-                labels=labels,
-                predictions=predictions,
-                weights=weights,
-                bias=bias,
-            )
-            return np.load(data_path)
+        return {
+            'logits': logits,
+            'features': features,
+            'labels': labels,
+            'predictions': predictions,
+            'weights': weights,
+            'bias': bias,
+        }
 
     def _compute(self, ckpt_path, split='train'):
         # Parameters
