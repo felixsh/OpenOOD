@@ -181,12 +181,7 @@ def load_acc(run_data_dir, filter_epochs=None, benchmark=None):
     acc = {}
     for split, acc_dict in data['metrics']['Accuracy'].items():
         acc[split] = numpify_dict(acc_dict)
-
-        if benchmark == 'cifar100':
-            acc[split]['epochs'] = acc[split]['epochs'][1:]
-            acc[split]['values'] = acc[split]['values'][1:]
-        else:
-            acc[split]['epochs'] += 1
+        acc[split]['epochs'] += 1
 
         if filter_epochs is not None:
             filter_epochs = np.array(filter_epochs)
@@ -275,10 +270,7 @@ def load_nc_ood(
 
     nc = defaultdict(list)
 
-    if benchmark == 'cifar100':
-        h5file_list = natsorted(list(run_data_dir.glob('e*.h5')), key=str)[:-1]
-    else:
-        h5file_list = natsorted(list(run_data_dir.glob('e*.h5')), key=str)
+    h5file_list = natsorted(list(run_data_dir.glob('e*.h5')), key=str)
 
     if benchmark == 'noise':
         h5file_list = [h5file_list[-1]]
@@ -387,10 +379,7 @@ def check_run_data(run_data_dir):
 def load_acc_train(run_data_dir, benchmark=None, return_epochs=False):
     """Return ood metrics with corresponding epochs for run from hdf5 files."""
 
-    if benchmark == 'cifar100':
-        h5file_list = natsorted(list(run_data_dir.glob('e*.h5')), key=str)[:-1]
-    else:
-        h5file_list = natsorted(list(run_data_dir.glob('e*.h5')), key=str)
+    h5file_list = natsorted(list(run_data_dir.glob('e*.h5')), key=str)
 
     acc_train = []
     epochs = []
@@ -708,9 +697,9 @@ def check_benchmark_for_key(benchmark_name, key, nc_key=None):
 
 if __name__ == '__main__':
     key = 'nc_train'
-    nc_key = None  # 'nc2_equinormness_mean'
+    nc_key = 'nc2_equinormness_mean'
     # check_benchmark_for_key('cifar10', key, nc_key)
-    # check_benchmark_for_key('cifar100', key, nc_key)
+    check_benchmark_for_key('cifar100', key)
     # check_benchmark_for_key('imagenet200', key, nc_key)
     # check_benchmark_for_key('imagenet', key, nc_key)
     # check_benchmark_for_key('alexnet', key, nc_key)
@@ -725,4 +714,4 @@ if __name__ == '__main__':
     # extract_dataframe('mobilenet')
     # extract_dataframe('vgg')
 
-    check_benchmark('cifar100')
+    # check_benchmark('cifar100')
