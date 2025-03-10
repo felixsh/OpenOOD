@@ -2,7 +2,11 @@ import os
 import stat
 from pathlib import Path
 
+from natsort import natsorted
+
 from eval_main import get_run_ckpts
+from plot_utils import benchmark2ckptdirs
+from utils import get_epoch_number
 
 filename = 'run_cifar100.bash'
 # script = 'compute_acc_train.py'
@@ -13,7 +17,7 @@ method_first = False
 reverse = True
 
 
-devices = list(range(5))
+devices = [0, 2, 3, 4]
 
 acc_method = ['acc']
 nc_method = ['nc']
@@ -34,16 +38,16 @@ methods = nc_method + odd_methods + acc_method
 
 # ckpts = get_previous_ckpts()
 
-run_dir = Path(
-    '/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47'
-)
-ckpts = get_run_ckpts(run_dir)
-ckpts = [c for c in ckpts if '200' in str(c) or '500' in str(c)]
-print(ckpts)
-
-# top_dir = Path(
-#     '/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/'
+# run_dir = Path(
+#     '/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/type/no_noise/1000+_epochs/cifar100_1000_run_e1000_2025_03_05-02_06_47'
 # )
+# ckpts = get_run_ckpts(run_dir)
+# ckpts = [c for c in ckpts if '200' in str(c) or '500' in str(c)]
+# print(ckpts)
+
+top_dir = Path(
+    '/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/'
+)
 #
 # top_dir = Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/')
 # run_dirs = (d for d in top_dir.iterdir() if d.is_dir())
@@ -67,9 +71,19 @@ print(ckpts)
 #    # 'lessnet',
 # ]
 #
-# top_dirs = (Path(p) for b in benchmarks for p in benchmark2ckptdirs[b])
-# run_dirs = (Path(d) for top_dir in top_dirs for d in top_dir.iterdir() if d.is_dir())
-# ckpts = [c for r in run_dirs for c in get_run_ckpts(r)]
+top_dirs = [Path(p) for p in benchmark2ckptdirs['imagenet200']]
+run_dirs = natsorted(
+    [Path(d) for top_dir in top_dirs for d in top_dir.iterdir() if d.is_dir()], key=str
+)
+ckpts = natsorted([c for r in run_dirs for c in get_run_ckpts(r)])
+
+ckpts = [
+    c
+    for c in ckpts
+    if '2025_03_06-07_44_05' not in str(c) and get_epoch_number(c) not in [1, 2, 4, 10]
+]
+print(ckpts)
+
 
 # ckpts = [get_run_ckpts(r, filtering=False)[-1] for r in run_dirs]
 

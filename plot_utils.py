@@ -374,7 +374,7 @@ def check_run_data(run_data_dir):
             if missing:
                 print(f'Missing keys {missing} in file {h5file}')
             else:
-                print('All keys present')
+                print(f'All keys present in file {h5file}')
 
 
 def load_acc_train(run_data_dir, benchmark=None, return_epochs=False):
@@ -716,3 +716,4 @@ if __name__ == '__main__':
     # extract_dataframe('vgg')
 
     # check_benchmark('cifar100')
+    check_benchmark('imagenet200')
