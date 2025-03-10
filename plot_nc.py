@@ -70,6 +70,9 @@ def _plot_grid(
 
     fig, axes = plt.subplots(2, 2, figsize=(10, 8))
 
+    for ax in axes.flatten():
+        ax.set_xscale('log')
+
     # Subplot 00 ======================================================================================
     _plot_line(
         axes[0, 0],
@@ -349,11 +352,106 @@ def plot_nc(benchmark_name):
     _save_plot(fig, save_dir, f'nc_{benchmark_name}_acc')
 
 
+def plot_nc_ratios(benchmark_name):
+    _, epochs, acc_val, acc_train, nc_val, _, _ = load_benchmark_data(
+        benchmark_name, nc_split='val'
+    )
+
+    _, _, _, _, nc_train, _, _ = load_benchmark_data(benchmark_name, nc_split='train')
+
+    if benchmark_name == 'imagenet':
+        with_errorbars = False
+        nc_val_mean = nc_val
+        nc_val_std = nc_val
+        acc_val_mean = acc_val
+        acc_val_std = acc_val
+        acc_train_mean = acc_train
+        acc_train_std = acc_train
+
+    else:
+        # Split into runs
+        idx = np.where(epochs == 1)[0][1:]
+        epochs = np.split(epochs, indices_or_sections=idx)
+
+        acc_val_splits = np.split(acc_val, indices_or_sections=idx)
+        acc_val_mean, acc_val_std = tolerant_mean(acc_val_splits)
+        acc_train_splits = np.split(acc_train, indices_or_sections=idx)
+        acc_train_mean, acc_train_std = tolerant_mean(acc_train_splits)
+
+        nc_val_split = {}
+        for k, v in nc_val.items():
+            nc_val_split[k] = np.split(v, indices_or_sections=idx)
+        nc_train_split = {}
+        for k, v in nc_train.items():
+            nc_train_split[k] = np.split(v, indices_or_sections=idx)
+
+        nc_val_mean = {}
+        nc_val_std = {}
+        for k, v in nc_val_split.items():
+            nc_val_mean[k], nc_val_std[k] = tolerant_mean(v)
+
+        nc_train_mean = {}
+        nc_train_std = {}
+        for k, v in nc_train_split.items():
+            nc_train_mean[k], nc_train_std[k] = tolerant_mean(v)
+
+        epochs, _ = tolerant_mean(epochs)
+
+        with_errorbars = True
+
+    ratio_mean = {}
+    for k, v_train in nc_train_mean.items():
+        v_val = nc_val_mean[k]
+        ratio_mean[k] = v_train / v_val
+
+    ratio_std = {}
+    for k, v_train in nc_train_std.items():
+        v_val = nc_val_std[k]
+        ratio_std[k] = 1 / (1 / v_train + 1 / v_val)
+
+    save_dir = path.res_plots / 'nc_ratio'
+    save_dir.mkdir(exist_ok=True, parents=True)
+
+    fig = _plot_grid(
+        ratio_mean,
+        ratio_std,
+        acc_val_mean,
+        acc_val_std,
+        acc_train_mean,
+        acc_train_std,
+        epochs,
+        'epoch',
+        with_errorbars=with_errorbars,
+    )
+    _save_plot(fig, save_dir, f'nc_{benchmark_name}_epoch')
+
+    fig = _plot_grid(
+        ratio_mean,
+        ratio_std,
+        acc_val_mean,
+        acc_val_std,
+        acc_train_mean,
+        acc_train_std,
+        acc_val_mean,
+        'acc_val',
+        with_errorbars=with_errorbars,
+    )
+    _save_plot(fig, save_dir, f'nc_{benchmark_name}_acc')
+
+
 if __name__ == '__main__':
     # plot_nc('cifar10')
-    plot_nc('cifar100')
+    # plot_nc('cifar100')
     # plot_nc('imagenet200')
     # plot_nc('imagenet')
     # plot_nc('alexnet')
     # plot_nc('vgg')
     # plot_nc('mobilenet')
+
+    # plot_nc_ratios('cifar10')
+    # plot_nc_ratios('cifar100')
+    # plot_nc_ratios('imagenet200')
+    # plot_nc_ratios('imagenet')
+    plot_nc_ratios('alexnet')
+    plot_nc_ratios('vgg')
+    plot_nc_ratios('mobilenet')
