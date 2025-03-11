@@ -126,8 +126,22 @@ def get_benchmark_name(full_path):
     return str(rel_path.parents[-2])
 
 
+def get_model_name(full_path):
+    rel_path = full_path.relative_to(path.ckpt_root)
+    return str(rel_path.parents[-2])
+
+
 def get_lockfile(path):
     return FileLock(path.with_suffix(path.suffix + '.lock'))
+
+
+def extract_datetime_from_path(full_path):
+    """
+    Extracts a date-time string of format 'YYYY_MM_DD-HH_MM_SS' from a given file path.
+    """
+    pattern = r'(\d{4}_\d{2}_\d{2}-\d{2}_\d{2}_\d{2})'
+    match = re.search(pattern, str(full_path))
+    return match.group(1) if match else None
 
 
 if __name__ == '__main__':

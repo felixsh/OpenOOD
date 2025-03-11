@@ -11,6 +11,9 @@ ckpt_root = Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks')
 # res_root = Path('.')
 res_root = Path('/mrtstorage/users/hauser/openood_res')
 
+res_db = res_root / 'db'
+res_db.mkdir(exist_ok=True, parents=True)
+
 res_data = res_root / 'data'
 res_data.mkdir(exist_ok=True, parents=True)
 
