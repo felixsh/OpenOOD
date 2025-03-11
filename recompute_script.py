@@ -8,7 +8,7 @@ from eval_main import get_run_ckpts
 from plot_utils import benchmark2ckptdirs
 from utils import get_epoch_number
 
-filename = 'run_cifar100.bash'
+filename = 'run_imagenet200.bash'
 # script = 'compute_acc_train.py'
 script = 'recompute.py'
 
@@ -17,7 +17,7 @@ method_first = False
 reverse = True
 
 
-devices = [0, 2, 3, 4]
+devices = [1, 3, 4]
 
 acc_method = ['acc']
 nc_method = ['nc']
@@ -82,7 +82,6 @@ ckpts = [
     for c in ckpts
     if '2025_03_06-07_44_05' not in str(c) and get_epoch_number(c) not in [1, 2, 4, 10]
 ]
-print(ckpts)
 
 
 # ckpts = [get_run_ckpts(r, filtering=False)[-1] for r in run_dirs]
