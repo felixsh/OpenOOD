@@ -701,7 +701,7 @@ if __name__ == '__main__':
     nc_key = 'nc2_equinormness_mean'
     # check_benchmark_for_key('cifar10', key, nc_key)
     # check_benchmark_for_key('cifar100', key)
-    check_benchmark_for_key('imagenet200', key)
+    # check_benchmark_for_key('imagenet200', key)
     # check_benchmark_for_key('imagenet', key, nc_key)
     # check_benchmark_for_key('alexnet', key, nc_key)
     # check_benchmark_for_key('mobilenet', key, nc_key)

@@ -17,7 +17,7 @@ method_first = False
 reverse = True
 
 
-devices = [1, 3, 4]
+devices = [0, 4]
 
 acc_method = ['acc']
 nc_method = ['nc']

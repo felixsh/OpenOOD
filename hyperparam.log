@@ -1304,3 +1304,8 @@ imagenet200, odin, [1000, 0.0028], /mrtstorage/users/truetsch/neural_collapse_ru
 imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e1_i0.pth
 imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e1_i0.pth
 imagenet200, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e1_i0.pth
+imagenet200, odin, [100, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/ResNet18_224x224/no_noise/150+_epochs/run_e150_2024_11_12-04_15_50/ResNet18_224x224_e100_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/ResNet18_224x224/no_noise/150+_epochs/run_e150_2024_11_12-04_15_50/ResNet18_224x224_e100_i0.pth
+imagenet200, react, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/ResNet18_224x224/no_noise/150+_epochs/run_e150_2024_11_12-04_15_50/ResNet18_224x224_e100_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/ResNet18_224x224/no_noise/150+_epochs/run_e150_2024_11_12-04_15_50/ResNet18_224x224_e100_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/ResNet18_224x224/no_noise/150+_epochs/run_e150_2024_11_12-04_15_50/ResNet18_224x224_e100_i0.pth
