@@ -13,7 +13,7 @@ filename = 'run_imagenet200.bash'
 script = 'recompute.py'
 
 with_methods = True
-method_first = False
+method_first = True
 reverse = True
 
 
