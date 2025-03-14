@@ -254,8 +254,8 @@ if __name__ == '__main__':
     # store_hdf5(p)
 
     benchmark_dirs = [
-        # '/mrtstorage/users/hauser/openood_res/data/cifar10/ResNet18_32x32/no_noise/300+_epochs',
-        # '/mrtstorage/users/hauser/openood_res/data/cifar100/type/no_noise/1000+_epochs/',
+        '/mrtstorage/users/hauser/openood_res/data/cifar10/ResNet18_32x32/no_noise/300+_epochs',
+        '/mrtstorage/users/hauser/openood_res/data/cifar100/type/no_noise/1000+_epochs/',
         # '/mrtstorage/users/hauser/openood_res/data/imagenet200/type/no_noise/1000+_epochs/',
         '/mrtstorage/users/hauser/openood_res/data/imagenet/ResNet50/no_noise/150+_epochs',
         '/mrtstorage/users/hauser/openood_res/data/cifar10/NCAlexNet/no_noise/300+_epochs',
