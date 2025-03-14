@@ -105,7 +105,7 @@ def nested_dict_to_df(values_dict):
     return df
 
 
-def eval_acc(ckpt_path, split):
+def eval_acc(ckpt_path, split='train'):
     benchmark_name = get_benchmark_name(ckpt_path)
     evaluator = EvalAcc(benchmark_name, Path(ckpt_path))
     res = evaluator.eval(split)
