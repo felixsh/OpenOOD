@@ -69,7 +69,6 @@ def _create_db() -> None:
         )
         """)
 
-    dbconn.commit()
     dbconn.close()
 
 
@@ -81,10 +80,8 @@ def store_acc(benchmark, model, run, epoch, dataset, split, acc):
     data = (benchmark, model, run, epoch, dataset, split, acc)
 
     with sqlite3.connect(DB_NAME) as dbconn:
-        cursor = dbconn.cursor()
-        cursor.execute(query, data)
+        dbconn.execute(query, data)
 
-    dbconn.commit()
     dbconn.close()
 
 
@@ -104,10 +101,8 @@ def store_ood(
     data = ((benchmark, model, run, epoch, ood_method, *tup) for tup in unpack_ood(df))
 
     with sqlite3.connect(DB_NAME) as dbconn:
-        cursor = dbconn.cursor()
-        cursor.executemany(query, data)
+        dbconn.executemany(query, data)
 
-    dbconn.commit()
     dbconn.close()
 
 
@@ -181,10 +176,8 @@ def store_nc(
     data = (benchmark, model, run, epoch, dataset, split, *df_flat)
 
     with sqlite3.connect(DB_NAME) as dbconn:
-        cursor = dbconn.cursor()
-        cursor.execute(query, data)
+        dbconn.execute(query, data)
 
-    dbconn.commit()
     dbconn.close()
 
 
