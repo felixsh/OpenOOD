@@ -16,6 +16,7 @@ with_methods = True
 method_first = True
 reverse = True
 missing = True
+write_list = True
 
 devices = [0, 1, 2, 3]
 
@@ -91,8 +92,10 @@ trap cleanup SIGINT SIGTERM\n
 
 if with_methods:
     template = "krenew -- sh -c 'CUDA_VISIBLE_DEVICES={device} python {script} ckpt={ckpt} method={method}' &\n"
+    template_cmd = 'python {script} ckpt={ckpt} method={method}\n'
 else:
     template = "krenew -- sh -c 'CUDA_VISIBLE_DEVICES={device} python {script} ckpt={ckpt} i={i} n={n}' &\n"
+    template_cmd = 'python {script} ckpt={ckpt} i={i} n={n}\n'
 
 delimiter = 'wait $(jobs -p)\n\n'
 
@@ -113,19 +116,25 @@ if with_methods:
     if reverse:
         combinations = combinations[::-1]
 
-    with open(filename, 'w') as f:
-        f.write(start)
+    if write_list:
+        with open(Path(filename).with_suffix('.txt'), 'w') as f:
+            for c, m in combinations:
+                f.write(template_cmd.format(script=script, ckpt=c, method=m))
+    else:
+        with open(filename, 'w') as f:
+            f.write(start)
 
-        while combinations:
-            for d in devices:
-                try:
-                    c, m = combinations.pop()
-                except IndexError:
-                    continue
+            while combinations:
+                for d in devices:
+                    try:
+                        c, m = combinations.pop()
+                    except IndexError:
+                        continue
 
-                f.write(template.format(device=d, script=script, ckpt=c, method=m))
+                    f.write(template.format(device=d, script=script, ckpt=c, method=m))
 
-            f.write(delimiter)
+                f.write(delimiter)
+
 else:
     if reverse:
         ckpts = ckpts[::-1]
