@@ -5,8 +5,8 @@ from pathlib import Path
 from natsort import natsorted
 
 from eval_main import get_run_ckpts
-from plot_utils import benchmark2ckptdirs
-from utils import get_epoch_number
+from plot_utils import benchmark2ckptdirs, check_h5file
+from utils import ckpt_to_h5file_path
 
 filename = 'run_imagenet200.bash'
 # script = 'compute_acc_train.py'
@@ -15,7 +15,7 @@ script = 'recompute.py'
 with_methods = True
 method_first = True
 reverse = True
-
+missing = True
 
 devices = [0, 1, 2, 3]
 
@@ -76,14 +76,6 @@ run_dirs = natsorted(
     [Path(d) for top_dir in top_dirs for d in top_dir.iterdir() if d.is_dir()], key=str
 )
 ckpts = natsorted([c for r in run_dirs for c in get_run_ckpts(r)])
-
-ckpts = [
-    c
-    for c in ckpts
-    if '2025_03_06-07_44_05' not in str(c) and get_epoch_number(c) not in [1, 2, 4, 10]
-]
-
-
 # ckpts = [get_run_ckpts(r, filtering=False)[-1] for r in run_dirs]
 
 start = """#!/bin/bash
@@ -106,10 +98,17 @@ delimiter = 'wait $(jobs -p)\n\n'
 
 
 if with_methods:
-    if method_first:
-        combinations = [(str(c), m) for m in methods for c in ckpts]
+    if missing:
+        combinations = []
+        for c in ckpts:
+            h5file = ckpt_to_h5file_path(c)
+            methods = check_h5file(h5file)
+            combinations.extend([(str(c), m) for m in methods])
     else:
-        combinations = [(str(c), m) for c in ckpts for m in methods]
+        if method_first:
+            combinations = [(str(c), m) for m in methods for c in ckpts]
+        else:
+            combinations = [(str(c), m) for c in ckpts for m in methods]
 
     if reverse:
         combinations = combinations[::-1]

@@ -1,6 +1,7 @@
 import json
 import re
 import sys
+from pathlib import Path
 
 import numpy as np
 from filelock import FileLock
@@ -19,39 +20,39 @@ def str_to_class(classname):
 
 def load_network(benchmark_name, ckpt_path):
     # Get model name
-    json_file = ckpt_path.parent / 'data.json'
-    with open(json_file, 'r') as f:
+    json_file = ckpt_path.parent / "data.json"
+    with open(json_file, "r") as f:
         data = json.load(f)
 
-    model_name = data['metadata']['model']
-    print('MODELNAME', model_name)
+    model_name = data["metadata"]["model"]
+    print("MODELNAME", model_name)
 
     # Get number of classes, limitatitions (optional)
     limit_classes = None
-    if benchmark_name == 'cifar10':
+    if benchmark_name == "cifar10":
         num_classes = 10
-    elif benchmark_name == 'cifar100':
+    elif benchmark_name == "cifar100":
         num_classes = 100
-    elif benchmark_name == 'imagenet200':
-        if '_e150_' in str(ckpt_path):
+    elif benchmark_name == "imagenet200":
+        if "_e150_" in str(ckpt_path):
             num_classes = 1000
             limit_classes = 200
         else:
             num_classes = 200
-    elif benchmark_name == 'imagenet':
+    elif benchmark_name == "imagenet":
         num_classes = 1000
 
     # Create model, load checkpoint
-    if model_name == 'NCResNet18_32x32' or model_name == 'type':
-        if benchmark_name in ['noise', 'cifar100']:
+    if model_name == "NCResNet18_32x32" or model_name == "type":
+        if benchmark_name in ["noise", "cifar100"]:
             net = ResNet18_32x32(num_classes=num_classes)
-        elif benchmark_name == 'imagenet200':
+        elif benchmark_name == "imagenet200":
             net = ResNet18_224x224(num_classes=num_classes)
 
-        state_dict = load(ckpt_path, weights_only=True, map_location='cuda:0')
-        state_dict.pop('extraction_layer.weight', None)
-        state_dict.pop('extraction_layer.bias', None)
-        state_dict = {k.removeprefix('model.'): v for k, v in state_dict.items()}
+        state_dict = load(ckpt_path, weights_only=True, map_location="cuda:0")
+        state_dict.pop("extraction_layer.weight", None)
+        state_dict.pop("extraction_layer.bias", None)
+        state_dict = {k.removeprefix("model."): v for k, v in state_dict.items()}
         net.load_state_dict(state_dict)
 
     else:
@@ -62,7 +63,7 @@ def load_network(benchmark_name, ckpt_path):
         else:
             net = model_class(num_classes=num_classes, limit_classes=limit_classes)
 
-        net.load_state_dict(load(ckpt_path, weights_only=True, map_location='cuda:0'))
+        net.load_state_dict(load(ckpt_path, weights_only=True, map_location="cuda:0"))
 
     net.name = model_name
     net.cuda()
@@ -72,13 +73,13 @@ def load_network(benchmark_name, ckpt_path):
 
 def get_batch_size(benchmark_name):
     # For 12GB VRAM
-    if benchmark_name == 'cifar10':
+    if benchmark_name == "cifar10":
         return 1024
-    elif benchmark_name == 'cifar100':
+    elif benchmark_name == "cifar100":
         return 1024
-    elif benchmark_name == 'imagenet200':
+    elif benchmark_name == "imagenet200":
         return 256
-    elif benchmark_name == 'imagenet':
+    elif benchmark_name == "imagenet":
         return 128
     else:
         raise NotImplementedError
@@ -86,13 +87,13 @@ def get_batch_size(benchmark_name):
 
 def get_epoch_number(ckpt_path):
     """Return episode in format '100'"""
-    episode_number = int(re.search(r'_e(\d+)', str(ckpt_path.name)).group(1))
+    episode_number = int(re.search(r"_e(\d+)", str(ckpt_path.name)).group(1))
     return episode_number
 
 
 def get_epoch_name(ckpt_path):
     """Return episode in format 'e100'"""
-    episode_name = f'e{get_epoch_number(ckpt_path)}'
+    episode_name = f"e{get_epoch_number(ckpt_path)}"
     return episode_name
 
 
@@ -132,23 +133,32 @@ def get_model_name(full_path):
 
 
 def get_lockfile(path):
-    return FileLock(path.with_suffix(path.suffix + '.lock'))
+    return FileLock(path.with_suffix(path.suffix + ".lock"))
 
 
 def extract_datetime_from_path(full_path):
     """
     Extracts a date-time string of format 'YYYY_MM_DD-HH_MM_SS' from a given file path.
     """
-    pattern = r'(\d{4}_\d{2}_\d{2}-\d{2}_\d{2}_\d{2})'
+    pattern = r"(\d{4}_\d{2}_\d{2}-\d{2}_\d{2}_\d{2})"
     match = re.search(pattern, str(full_path))
     return match.group(1) if match else None
 
 
-if __name__ == '__main__':
+def ckpt_to_h5file_path(ckpt_path: Path) -> Path:
+    """Convert ckpt path to corresponding hdf5 file full path."""
+    run_dir = ckpt_path.parent
+    data_dir = path.res_data / run_dir.relative_to(path.ckpt_root)
+    file_name = get_epoch_name(ckpt_path)
+    full_path = data_dir / f"{file_name}.h5"
+    return full_path
+
+
+if __name__ == "__main__":
     from pathlib import Path
 
     p = Path(
-        '/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_05/NCResNet18_224x224_e1_i0.pth'
+        "/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_05/NCResNet18_224x224_e1_i0.pth"
     )
 
-    net = load_network('imagenet200', p)
+    net = load_network("imagenet200", p)

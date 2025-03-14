@@ -337,45 +337,38 @@ def check_benchmark(benchmark_name):
         check_run_data(r)
 
 
+def check_h5file(h5file: Path) -> list[str]:
+    """Check data of h5file for completeness."""
+    missing = ['/acc', '/nc_train', '/nc_val'] + list(ood_methods)
+
+    try:
+        with HDFStore(h5file, mode='r') as store:
+            keys = list(store.keys())
+
+        for k in keys:
+            try:
+                missing.remove(k)
+            except ValueError:
+                pass
+
+    except FileNotFoundError:
+        pass
+
+    # Remove leading slash
+    missing = [k[1:] for k in missing]
+
+    return missing
+
+
 def check_run_data(run_data_dir):
     """Check data of run for completeness."""
     for h5file in natsorted(list(run_data_dir.glob('e*.h5')), key=str):
-        with HDFStore(h5file, mode='r') as store:
-            keys = list(store.keys())
-            missing = []
+        missing = check_h5file(h5file)
 
-            if '/acc' not in keys:
-                missing.append('/acc')
-
-            try:
-                keys.remove('/acc')
-            except ValueError:
-                pass
-
-            if '/nc_train' not in keys:
-                missing.append('/nc_train')
-            if '/nc_val' not in keys:
-                missing.append('/nc_val')
-
-            try:
-                keys.remove('/nc')
-            except ValueError:
-                pass
-
-            try:
-                keys.remove('/nc_train')
-                keys.remove('/nc_val')
-            except ValueError:
-                pass
-
-            # Check if all keys are present
-            if not set(ood_methods) <= set(keys):
-                missing.extend(list(set(ood_methods) - set(keys)))
-
-            if missing:
-                print(f'Missing keys {missing} in file {h5file}')
-            else:
-                print(f'All keys present in file {h5file}')
+        if missing:
+            print(f'Missing keys {missing} in file {h5file}')
+        else:
+            print(f'All keys present in file {h5file}')
 
 
 def load_acc_train(run_data_dir, benchmark=None, return_epochs=False):
