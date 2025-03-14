@@ -1,7 +1,8 @@
 import sqlite3
+from collections.abc import Iterator
 from pathlib import Path
 
-from pandas import HDFStore
+from pandas import DataFrame, HDFStore
 from tqdm import tqdm
 
 import path
@@ -10,7 +11,7 @@ from utils import extract_datetime_from_path
 DB_NAME = path.res_db / 'results.db'
 
 
-def _create_db():
+def _create_db() -> None:
     with sqlite3.connect(DB_NAME) as dbconn:
         dbconn.execute("""
         CREATE TABLE IF NOT EXISTS acc (
@@ -87,12 +88,14 @@ def store_acc(benchmark, model, run, epoch, dataset, split, acc):
     dbconn.close()
 
 
-def unpack_ood(df):
+def unpack_ood(df: DataFrame) -> Iterator[tuple[str]]:
     for row_name, row in df.iterrows():
         yield row_name, row['FPR@95'], row['AUROC'], row['AUPR_IN'], row['AUPR_OUT']
 
 
-def store_ood(benchmark, model, run, epoch, ood_method, df):
+def store_ood(
+    benchmark: str, model: str, run: str, epoch: int, ood_method: str, df: DataFrame
+) -> None:
     query = """
         INSERT INTO ood (benchmark, model, run, epoch, method, dataset, FPRat95, AUROC, AUPR_IN, AUPR_OUT)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
@@ -127,7 +130,7 @@ nc_keys = [
 ]
 
 
-def unpack_nc(df):
+def unpack_nc(df: DataFrame) -> list[float]:
     # All keys present in dict
     res = {key: None for key in nc_keys}
 
@@ -139,7 +142,15 @@ def unpack_nc(df):
     return list(res.values())
 
 
-def store_nc(benchmark, model, run, epoch, dataset, split, df):
+def store_nc(
+    benchmark: str,
+    model: str,
+    run: str,
+    epoch: int,
+    dataset: str,
+    split: str,
+    df: DataFrame,
+) -> None:
     query = """
     INSERT INTO nc (
     benchmark,
@@ -177,7 +188,7 @@ def store_nc(benchmark, model, run, epoch, dataset, split, df):
     dbconn.close()
 
 
-def store_hdf5(hf5_path):
+def store_hdf5(hf5_path: Path) -> None:
     benchmark = str(hf5_path.relative_to(path.res_data).parents[-2])
     model = str(hf5_path.relative_to(path.res_data).parents[-3].stem)
     run = extract_datetime_from_path(hf5_path)
@@ -235,7 +246,7 @@ def store_hdf5(hf5_path):
             store_ood(benchmark, model, run, epoch, key, df)
 
 
-def fill_db_with_previous_results(dirs):
+def fill_db_with_previous_results(dirs: list[Path]) -> None:
     h5_paths = [h5_path for d in dirs for h5_path in Path(d).rglob('e*.h5')]
     for h5_path in tqdm(h5_paths):
         store_hdf5(h5_path)
