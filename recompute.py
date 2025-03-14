@@ -1,13 +1,20 @@
+import os
 from pathlib import Path
 
+import torch
 from omegaconf import OmegaConf
 
 import path
 from eval_main import eval_ckpt_acc, eval_ckpt_nc, eval_ckpt_ood
 from utils import get_benchmark_name
 
+MAX_NUM_THREADS = 4
+
 
 def recompute(ckpt_path, method, recompute=False):
+    os.environ['OMP_NUM_THREADS'] = str(MAX_NUM_THREADS)
+    torch.set_num_threads(MAX_NUM_THREADS)
+
     print(ckpt_path)
     ckpt_path = Path(ckpt_path)
     benchmark_name = get_benchmark_name(ckpt_path)
