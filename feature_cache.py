@@ -71,7 +71,7 @@ class FeatureCache:
         # Parameters
         batch_size = get_batch_size(self.benchmark_name)
         shuffle = False
-        num_workers = 8
+        num_workers = 4
 
         # Prepare stuff
         data_root = str(path.data_root)
