@@ -1419,3 +1419,266 @@ imagenet200, odin, [1, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/
 imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e2_i0.pth
 imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e200_i0.pth
 imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e10_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e200_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e2_i0.pth
+imagenet200, knn, 100, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e5_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e200_i0.pth
+imagenet200, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e2_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e5_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e5_i0.pth
+imagenet200, odin, [10, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e100_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e100_i0.pth
+imagenet200, knn, 50, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e2_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e100_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e2_i0.pth
+imagenet200, ncscore, 0.01, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e100_i0.pth
+imagenet200, knn, 100, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e1_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e2_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e1_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e1_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e50_i0.pth
+imagenet200, knn, 100, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e100_i0.pth
+imagenet200, react, 95, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e50_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e100_i0.pth
+imagenet200, odin, [1000, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e50_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e100_i0.pth
+imagenet200, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e20_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e10_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e50_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e20_i0.pth
+imagenet200, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e10_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e50_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e20_i0.pth
+imagenet200, odin, [1000, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e10_i0.pth
+imagenet200, ncscore, 0.01, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e50_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e10_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e10_i0.pth
+imagenet200, ncscore, 0.2, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e10_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e200_i0.pth
+imagenet200, knn, 20, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e50_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e1000_i0.pth
+imagenet200, react, 95, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e200_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e50_i0.pth
+imagenet200, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e1000_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e50_i0.pth
+imagenet200, odin, [100, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e200_i0.pth
+imagenet200, odin, [10, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e1000_i0.pth
+imagenet200, knn, 100, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e10_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e200_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e1000_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e100_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e1000_i0.pth
+imagenet200, react, 95, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e100_i0.pth
+imagenet200, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e1000_i0.pth
+imagenet200, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e200_i0.pth
+imagenet200, knn, 20, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e500_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e500_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e5_i0.pth
+imagenet200, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e1000_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e500_i0.pth
+imagenet200, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e5_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e1000_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e50_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_21/NCResNet18_224x224_e1000_i0.pth
+imagenet200, odin, [1000, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e5_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e5_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e5_i0.pth
+imagenet200, knn, 50, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e2_i0.pth
+imagenet200, ncscore, 0.2, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e5_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e2_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e2_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e500_i0.pth
+imagenet200, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e5_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e200_i0.pth
+imagenet200, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e500_i0.pth
+imagenet200, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e200_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e5_i0.pth
+imagenet200, odin, [100, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e500_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e5_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e500_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e500_i0.pth
+imagenet200, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e200_i0.pth
+imagenet200, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e500_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e20_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e200_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e50_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e200_i0.pth
+imagenet200, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e20_i0.pth
+imagenet200, react, 95, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e50_i0.pth
+imagenet200, odin, [1000, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e20_i0.pth
+imagenet200, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e500_i0.pth
+imagenet200, odin, [10, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e50_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e20_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e500_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e50_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e20_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e500_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e50_i0.pth
+imagenet200, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e20_i0.pth
+imagenet200, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e50_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e1_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e2_i0.pth
+imagenet200, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e1_i0.pth
+imagenet200, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e2_i0.pth
+imagenet200, odin, [1, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e1_i0.pth
+imagenet200, knn, 100, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e20_i0.pth
+imagenet200, odin, [1000, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e2_i0.pth
+imagenet200, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e50_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e1_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e20_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e2_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e50_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e1_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e20_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e2_i0.pth
+imagenet200, ncscore, 0.2, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e1_i0.pth
+imagenet200, ncscore, 0.2, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e2_i0.pth
+imagenet200, react, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e10_i0.pth
+imagenet200, odin, [10, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e1000_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e200_i0.pth
+imagenet200, knn, 50, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e1_i0.pth
+imagenet200, odin, [1, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e10_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e1000_i0.pth
+imagenet200, react, 95, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e200_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e1_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e10_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e1000_i0.pth
+imagenet200, odin, [10, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e200_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e1_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e10_i0.pth
+imagenet200, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e1000_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e200_i0.pth
+imagenet200, ncscore, 0.2, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e10_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e10_i0.pth
+imagenet200, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e1000_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_57/NCResNet18_224x224_e100_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e1000_i0.pth
+imagenet200, knn, 20, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e10_i0.pth
+imagenet200, react, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_57/NCResNet18_224x224_e5_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e1000_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e10_i0.pth
+imagenet200, ncscore, 0.2, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_57/NCResNet18_224x224_e5_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e10_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_57/NCResNet18_224x224_e50_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_57/NCResNet18_224x224_e1000_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_57/NCResNet18_224x224_e50_i0.pth
+imagenet200, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_57/NCResNet18_224x224_e500_i0.pth
+imagenet200, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_57/NCResNet18_224x224_e500_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e100_i0.pth
+imagenet200, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_57/NCResNet18_224x224_e1000_i0.pth
+imagenet200, react, 95, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e100_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_05/NCResNet18_224x224_e50_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_57/NCResNet18_224x224_e1000_i0.pth
+imagenet200, odin, [10, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e100_i0.pth
+imagenet200, knn, 1, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_57/NCResNet18_224x224_e500_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_05/NCResNet18_224x224_e50_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e5_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e100_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_57/NCResNet18_224x224_e500_i0.pth
+imagenet200, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e5_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e100_i0.pth
+imagenet200, odin, [1000, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e5_i0.pth
+imagenet200, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e100_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e5_i0.pth
+imagenet200, odin, [1000, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_57/NCResNet18_224x224_e2_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e5_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_57/NCResNet18_224x224_e2_i0.pth
+imagenet200, ncscore, 0.2, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e5_i0.pth
+imagenet200, knn, 50, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_05/NCResNet18_224x224_e500_i0.pth
+imagenet200, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e100_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_05/NCResNet18_224x224_e500_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e100_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e100_i0.pth
+imagenet200, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e5_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_57/NCResNet18_224x224_e20_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e5_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_05/NCResNet18_224x224_e20_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e5_i0.pth
+imagenet200, react, 95, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_57/NCResNet18_224x224_e200_i0.pth
+imagenet200, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_57/NCResNet18_224x224_e200_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e1000_i0.pth
+imagenet200, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_14/NCResNet18_224x224_e1000_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e50_i0.pth
+imagenet200, react, 95, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_05/NCResNet18_224x224_e200_i0.pth
+imagenet200, react, 95, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e50_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_57/NCResNet18_224x224_e1_i0.pth
+imagenet200, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_05/NCResNet18_224x224_e200_i0.pth
+imagenet200, knn, 20, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e50_i0.pth
+imagenet200, odin, [1000, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e50_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_57/NCResNet18_224x224_e1_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e50_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e50_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e50_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e50_i0.pth
+imagenet200, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e50_i0.pth
+imagenet200, odin, [1000, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_05/NCResNet18_224x224_e100_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_05/NCResNet18_224x224_e100_i0.pth
+imagenet200, knn, 100, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_57/NCResNet18_224x224_e10_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e500_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_57/NCResNet18_224x224_e10_i0.pth
+imagenet200, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e500_i0.pth
+imagenet200, ncscore, 0.2, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e2_i0.pth
+imagenet200, odin, [10, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_57/NCResNet18_224x224_e100_i0.pth
+imagenet200, odin, [10, 0.0014], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e500_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_44_05/NCResNet18_224x224_e1000_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e500_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e500_i0.pth
+imagenet200, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e500_i0.pth
+imagenet200, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e2_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e2_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e2_i0.pth
+imagenet200, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e200_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e200_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e200_i0.pth
+imagenet200, knn, 20, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e10_i0.pth
+imagenet200, knn, 50, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e500_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e20_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e10_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e500_i0.pth
+imagenet200, react, 95, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e20_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e10_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e500_i0.pth
+imagenet200, odin, [10, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e20_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e20_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e20_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e100_i0.pth
+imagenet200, ncscore, 0.01, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e20_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e2_i0.pth
+imagenet200, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e1_i0.pth
+imagenet200, react, 95, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e100_i0.pth
+imagenet200, react, 85, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e2_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e1_i0.pth
+imagenet200, odin, [10, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e100_i0.pth
+imagenet200, ncscore, 0.2, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e1_i0.pth
+imagenet200, odin, [1, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e2_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e100_i0.pth
+imagenet200, knn, 10, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e20_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e2_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e100_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e20_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e1_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e2_i0.pth
+imagenet200, ncscore, 0.01, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e100_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e20_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e1_i0.pth
+imagenet200, knn, 50, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e100_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e200_i0.pth
+imagenet200, epa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e100_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e10_i0.pth
+imagenet200, react, 95, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e200_i0.pth
+imagenet200, dice, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e100_i0.pth
+imagenet200, react, 90, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e10_i0.pth
+imagenet200, odin, [10, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e200_i0.pth
+imagenet200, odin, [1, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e10_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e200_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e10_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e200_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e10_i0.pth
+imagenet200, vim, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e1000_i0.pth
+imagenet200, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e200_i0.pth
+imagenet200, ncscore, 0.2, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e10_i0.pth
+imagenet200, react, 99, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e1000_i0.pth
+imagenet200, odin, [10, 0.0028], /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e1000_i0.pth
+imagenet200, nusa, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e1000_i0.pth
+imagenet200, neco, 8, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e1000_i0.pth
+imagenet200, ncscore, 0.001, /mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/run_imagenet200-1000_e1000_2025_03_06-07_43_52/NCResNet18_224x224_e1000_i0.pth

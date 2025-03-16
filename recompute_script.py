@@ -106,6 +106,19 @@ if with_methods:
         for c in ckpts:
             h5file = ckpt_to_h5file_path(c)
             methods = check_h5file(h5file)
+
+            try:
+                methods.remove('nc_train')
+                methods.append('nc')
+            except ValueError:
+                pass
+
+            try:
+                methods.remove('nc_val')
+                methods.append('nc')
+            except ValueError:
+                pass
+
             combinations.extend([(str(c), m) for m in methods])
     else:
         if method_first:
