@@ -8,14 +8,14 @@ from eval_main import get_run_ckpts
 from plot_utils import benchmark2ckptdirs, check_h5file
 from utils import ckpt_to_h5file_path
 
-filename = 'run_imagenet200.bash'
+filename = 'run_mnist.bash'
 # script = 'compute_acc_train.py'
 script = 'recompute.py'
 
 with_methods = True
-method_first = True
+method_first = False
 reverse = True
-missing = True
+missing = False
 write_list = True
 
 devices = [0, 1, 2, 3]
@@ -35,7 +35,8 @@ odd_methods = [
     'neco',
     'epa',
 ]
-methods = nc_method + odd_methods + acc_method
+# methods = nc_method + odd_methods + acc_method
+methods = ['mnist', 'svhn']
 
 # ckpts = get_previous_ckpts()
 
@@ -72,7 +73,7 @@ top_dir = Path(
 #    # 'lessnet',
 # ]
 #
-top_dirs = [Path(p) for p in benchmark2ckptdirs['imagenet200']]
+top_dirs = [Path(p) for p in benchmark2ckptdirs['cifar10']]
 run_dirs = natsorted(
     [Path(d) for top_dir in top_dirs for d in top_dir.iterdir() if d.is_dir()], key=str
 )
@@ -130,7 +131,8 @@ if with_methods:
         combinations = combinations[::-1]
 
     if write_list:
-        with open(Path(filename).with_suffix('.txt'), 'w') as f:
+        filename = Path(filename).with_suffix('.txt')
+        with open(filename, 'w') as f:
             for c, m in combinations:
                 f.write(template_cmd.format(script=script, ckpt=c, method=m))
     else:

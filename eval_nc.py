@@ -9,6 +9,10 @@ def eval_nc(feature_cache, split='train'):
     W = feature_cache.get(split, 'weights')
     B = feature_cache.get(split, 'bias')
 
+    return _eval_nc(H, L, W, B)
+
+
+def _eval_nc(H, L, W, B):
     # Statistics
     mu_c = nctb.class_embedding_means(H, L)
     var_c = nctb.class_embedding_variances(H, L, mu_c)

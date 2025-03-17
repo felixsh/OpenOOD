@@ -6,6 +6,7 @@ from omegaconf import OmegaConf
 
 import path
 from eval_main import eval_ckpt_acc, eval_ckpt_nc, eval_ckpt_ood
+from eval_mnist import evaluate_model_on_mnist
 from utils import get_benchmark_name
 
 MAX_NUM_THREADS = 4
@@ -25,6 +26,8 @@ def recompute(ckpt_path, method, recompute=False):
         eval_ckpt_nc(benchmark_name, ckpt_path, save_dir, recompute=recompute)
     elif method == 'acc':
         eval_ckpt_acc(ckpt_path)
+    elif method in ['mnist', 'svhn']:
+        evaluate_model_on_mnist(ckpt_path, method)
     else:
         eval_ckpt_ood(
             benchmark_name, ckpt_path, save_dir, [method], recompute=recompute
