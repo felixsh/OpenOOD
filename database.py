@@ -2,7 +2,7 @@ import sqlite3
 from collections.abc import Iterator
 from pathlib import Path
 
-from pandas import DataFrame, HDFStore
+import pandas as pd
 from tqdm import tqdm
 
 import path
@@ -85,13 +85,13 @@ def store_acc(benchmark, model, run, epoch, dataset, split, acc):
     dbconn.close()
 
 
-def unpack_ood(df: DataFrame) -> Iterator[tuple[str]]:
+def unpack_ood(df: pd.DataFrame) -> Iterator[tuple[str]]:
     for row_name, row in df.iterrows():
         yield row_name, row['FPR@95'], row['AUROC'], row['AUPR_IN'], row['AUPR_OUT']
 
 
 def store_ood(
-    benchmark: str, model: str, run: str, epoch: int, ood_method: str, df: DataFrame
+    benchmark: str, model: str, run: str, epoch: int, ood_method: str, df: pd.DataFrame
 ) -> None:
     query = """
         INSERT INTO ood (benchmark, model, run, epoch, method, dataset, FPRat95, AUROC, AUPR_IN, AUPR_OUT)
@@ -125,7 +125,7 @@ nc_keys = [
 ]
 
 
-def unpack_nc(df: DataFrame) -> list[float]:
+def unpack_nc(df: pd.DataFrame) -> list[float]:
     # All keys present in dict
     res = {key: None for key in nc_keys}
 
@@ -144,7 +144,7 @@ def store_nc(
     epoch: int,
     dataset: str,
     split: str,
-    df: DataFrame,
+    df: pd.DataFrame,
 ) -> None:
     query = """
     INSERT INTO nc (
@@ -197,7 +197,7 @@ def store_hdf5(hf5_path: Path) -> None:
     else:
         dataset = benchmark
 
-    with HDFStore(hf5_path, mode='r') as store:
+    with pd.HDFStore(hf5_path, mode='r') as store:
         ood_keys = list(store.keys())
         try:
             ood_keys.remove('/nc')
@@ -245,6 +245,54 @@ def fill_db_with_previous_results(dirs: list[Path]) -> None:
         store_hdf5(h5_path)
 
 
+def count_rows():
+    with sqlite3.connect(DB_NAME) as dbconn:
+        n_acc = dbconn.execute('SELECT COUNT(*) FROM acc;').fetchone()[0]
+        n_nc = dbconn.execute('SELECT COUNT(*) FROM nc;').fetchone()[0]
+        n_ood = dbconn.execute('SELECT COUNT(*) FROM ood;').fetchone()[0]
+    dbconn.close()
+
+    print(f'ACC:\t{n_acc}')
+    print(f'NC:\t{n_nc}')
+    print(f'OOD:\t{n_ood}')
+
+
+def find_mismatched_keys():
+    conn = sqlite3.connect(DB_NAME)
+
+    # Query 1: In acc but not in nc
+    query_acc_not_nc = """
+    SELECT acc.benchmark, acc.model, acc.run, acc.epoch, acc.dataset, acc.split
+    FROM acc
+    LEFT JOIN nc ON acc.benchmark = nc.benchmark
+                AND acc.model = nc.model
+                AND acc.run = nc.run
+                AND acc.epoch = nc.epoch
+                AND acc.dataset = nc.dataset
+                AND acc.split = nc.split
+    WHERE nc.benchmark IS NULL;
+    """
+    acc_not_nc_df = pd.read_sql_query(query_acc_not_nc, conn)
+
+    # Query 2: In nc but not in acc
+    query_nc_not_acc = """
+    SELECT nc.benchmark, nc.model, nc.run, nc.epoch, nc.dataset, nc.split
+    FROM nc
+    LEFT JOIN acc ON nc.benchmark = acc.benchmark
+                AND nc.model = acc.model
+                AND nc.run = acc.run
+                AND nc.epoch = acc.epoch
+                AND nc.dataset = acc.dataset
+                AND nc.split = acc.split
+    WHERE acc.benchmark IS NULL;
+    """
+    nc_not_acc_df = pd.read_sql_query(query_nc_not_acc, conn)
+
+    conn.close()
+
+    return acc_not_nc_df, nc_not_acc_df
+
+
 if __name__ == '__main__':
     # _create_db()
 
@@ -264,3 +312,13 @@ if __name__ == '__main__':
     ]
 
     # fill_db_with_previous_results(benchmark_dirs)
+
+    # count_rows()
+
+    acc_not_nc_df, nc_not_acc_df = find_mismatched_keys()
+
+    pd.set_option('display.width', None)
+    print('Keys in acc but not in nc:')
+    print(acc_not_nc_df)
+    print('\nKeys in nc but not in acc:')
+    print(nc_not_acc_df)
