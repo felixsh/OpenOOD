@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+import numpy as np
 import torch
 from torch.utils.data import DataLoader
 from torchmetrics.classification import MulticlassAccuracy
@@ -52,6 +53,13 @@ def _eval(benchmark_name, dataset, model):
             download=True,
             transform=transform,
         )
+    elif dataset == 'cifar10':
+        test_dataset = datasets.CIFAR10(
+            root=path.torchvision_root,
+            train=False,
+            download=True,
+            transform=transform,
+        )
     else:
         raise NotImplementedError
 
@@ -90,10 +98,10 @@ def _eval(benchmark_name, dataset, model):
 
     nc_df = _eval_nc(all_features, all_labels, weights, bias)
 
-    return accuracy, nc_df
+    return accuracy, nc_df, all_features, all_labels
 
 
-def evaluate_model_on_mnist(ckpt_path, dataset):
+def eval_mnist(ckpt_path, dataset):
     assert dataset in ['mnist', 'svhn']
 
     MAX_NUM_THREADS = 8
@@ -110,7 +118,7 @@ def evaluate_model_on_mnist(ckpt_path, dataset):
         torch.load(ckpt_path, weights_only=True, map_location='cuda:0')
     )
 
-    acc, nc = _eval(benchmark_name, dataset, model)
+    acc, nc, _, _ = _eval(benchmark_name, dataset, model)
 
     model_name = get_model_name(ckpt_path)
     run_id = extract_datetime_from_path(ckpt_path)
@@ -121,9 +129,64 @@ def evaluate_model_on_mnist(ckpt_path, dataset):
     store_nc(benchmark_name, model_name, run_id, epoch, dataset, split, nc)
 
 
+def extract_test_samples(ckpt_path):
+    MAX_NUM_THREADS = 8
+    os.environ['OMP_NUM_THREADS'] = str(MAX_NUM_THREADS)
+    torch.set_num_threads(MAX_NUM_THREADS)
+
+    print(ckpt_path)
+    ckpt_path = Path(ckpt_path)
+    benchmark_name = get_benchmark_name(ckpt_path)
+    assert benchmark_name == 'cifar10'
+
+    model = ResNet18_32x32(num_classes=10)
+    model.load_state_dict(
+        torch.load(ckpt_path, weights_only=True, map_location='cuda:0')
+    )
+
+    _, _, H_cifar10, L_cifar10 = _eval(benchmark_name, 'cifar10', model)
+    _, _, H_mnist, L_mnist = _eval(benchmark_name, 'mnist', model)
+    _, _, H_svhn, L_svhn = _eval(benchmark_name, 'svhn', model)
+
+    save_dir = path.res_data / 'test_mnist'
+    save_dir.mkdir(exist_ok=True)
+    np.savez(
+        save_dir / 'test_mnist.npz',
+        H_cifar10=H_cifar10,
+        L_cifar10=L_cifar10,
+        H_mnist=H_mnist,
+        L_mnist=L_mnist,
+        H_svhn=H_svhn,
+        L_svhn=L_svhn,
+    )
+
+
+def load_test_samples():
+    save_file = path.res_data / 'test_mnist' / 'test_mnist.npz'
+    data = np.load(save_file)
+
+    H_cifar10 = data['H_cifar10']
+    L_cifar10 = data['L_cifar10']
+    H_mnist = data['H_mnist']
+    L_mnist = data['L_mnist']
+    H_svhn = data['H_svhn']
+    L_svhn = data['L_svhn']
+
+    return (
+        H_cifar10,
+        L_cifar10,
+        H_mnist,
+        L_mnist,
+        H_svhn,
+        L_svhn,
+    )
+
+
 if __name__ == '__main__':
     # Testing only
     p = Path(
-        '/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/ResNet18_32x32/no_noise/300+_epochs/run_e300_2024_11_11-15_23_07/ResNet18_32x32_e0_i0.pth'
+        '/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/ResNet18_32x32/no_noise/300+_epochs/run_e300_2024_11_14-20_32_01/ResNet18_32x32_e300_i0.pth'
     )
-    evaluate_model_on_mnist(p, 'svhn')
+    # eval_mnist(p, 'svhn')
+
+    extract_test_samples(p)
