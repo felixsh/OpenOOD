@@ -1,8 +1,12 @@
 import nc_toolbox as nctb
+import numpy as np
 import pandas as pd
+from pandas import DataFrame
+
+from feature_cache import FeatureCache
 
 
-def eval_nc(feature_cache, split='train'):
+def eval_nc(feature_cache: FeatureCache, split: str = 'train') -> DataFrame:
     # Features
     H = feature_cache.get(split, 'features')
     L = feature_cache.get(split, 'labels')
@@ -12,7 +16,7 @@ def eval_nc(feature_cache, split='train'):
     return _eval_nc(H, L, W, B)
 
 
-def _eval_nc(H, L, W, B):
+def _eval_nc(H: np.ndarray, L: np.ndarray, W: np.ndarray, B: np.ndarray) -> DataFrame:
     # Statistics
     mu_c = nctb.class_embedding_means(H, L)
     var_c = nctb.class_embedding_variances(H, L, mu_c)

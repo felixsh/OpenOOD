@@ -2,10 +2,12 @@ import json
 import re
 import sys
 from pathlib import Path
+from typing import Any
 
 import numpy as np
 from filelock import FileLock
 from torch import load
+from torch.nn import Module
 
 import path
 from openood.networks import ResNet18_32x32, ResNet18_224x224, ResNet50
@@ -13,12 +15,12 @@ from openood.networks import ResNet18_32x32, ResNet18_224x224, ResNet50
 dummy = ResNet50()
 
 
-def str_to_class(classname):
+def str_to_class(classname: str) -> type[Module]:
     """https://stackoverflow.com/a/1176180"""
     return getattr(sys.modules[__name__], classname)
 
 
-def load_network(benchmark_name, ckpt_path):
+def load_network(benchmark_name: str, ckpt_path: Path) -> type[Module]:
     # Get model name
     json_file = ckpt_path.parent / 'data.json'
     with open(json_file, 'r') as f:
@@ -71,7 +73,7 @@ def load_network(benchmark_name, ckpt_path):
     return net
 
 
-def get_batch_size(benchmark_name):
+def get_batch_size(benchmark_name: str) -> int:
     # For 12GB VRAM
     if benchmark_name == 'cifar10':
         return 1024
@@ -85,19 +87,19 @@ def get_batch_size(benchmark_name):
         raise NotImplementedError
 
 
-def get_epoch_number(ckpt_path):
+def get_epoch_number(ckpt_path: str | Path) -> int:
     """Return episode in format '100'"""
     episode_number = int(re.search(r'_e(\d+)', str(ckpt_path.name)).group(1))
     return episode_number
 
 
-def get_epoch_name(ckpt_path):
+def get_epoch_name(ckpt_path: str | Path) -> int:
     """Return episode in format 'e100'"""
     episode_name = f'e{get_epoch_number(ckpt_path)}'
     return episode_name
 
 
-def convert_numpy_to_lists(data):
+def convert_numpy_to_lists(data: Any) -> Any:
     if isinstance(data, dict):
         return {key: convert_numpy_to_lists(value) for key, value in data.items()}
     elif isinstance(data, list):
@@ -108,7 +110,7 @@ def convert_numpy_to_lists(data):
         return data  # Leave other data types unchanged
 
 
-def convert_lists_to_numpy(data):
+def convert_lists_to_numpy(data: Any) -> Any:
     if isinstance(data, dict):
         return {key: convert_lists_to_numpy(value) for key, value in data.items()}
     elif isinstance(data, list):
@@ -122,21 +124,29 @@ def convert_lists_to_numpy(data):
         return data  # Leave other data types unchanged
 
 
-def get_benchmark_name(full_path):
-    rel_path = full_path.relative_to(path.ckpt_root)
+def get_benchmark_name(full_path: Path) -> str:
+    try:
+        rel_path = full_path.relative_to(path.ckpt_root)
+    except ValueError:
+        rel_path = full_path.relative_to(path.ckpt_root_hauser)
+
     return str(rel_path.parts[0])
 
 
-def get_model_name(full_path):
-    rel_path = full_path.relative_to(path.ckpt_root)
+def get_model_name(full_path: Path) -> str:
+    try:
+        rel_path = full_path.relative_to(path.ckpt_root)
+    except ValueError:
+        rel_path = full_path.relative_to(path.ckpt_root_hauser)
+
     return str(rel_path.parts[1])
 
 
-def get_lockfile(path):
+def get_lockfile(path: Path) -> FileLock:
     return FileLock(path.with_suffix(path.suffix + '.lock'))
 
 
-def extract_datetime_from_path(full_path):
+def extract_datetime_from_path(full_path: Path) -> str | None:
     """
     Extracts a date-time string of format 'YYYY_MM_DD-HH_MM_SS' from a given file path.
     """

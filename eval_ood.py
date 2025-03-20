@@ -1,11 +1,21 @@
+from pathlib import Path
+from typing import Any
+
 from filelock import FileLock
+from pandas import DataFrame
 
 import path
+from feature_cache import FeatureCache
 from openood.evaluation_api import Evaluator
 from utils import get_batch_size, load_network
 
 
-def eval_ood(benchmark_name, ckpt_path, postprocessor_name, feature_cache):
+def eval_ood(
+    benchmark_name: str,
+    ckpt_path: Path,
+    postprocessor_name: str,
+    feature_cache: FeatureCache,
+) -> tuple[DataFrame, dict[str, Any]]:
     network_name = benchmark_name
     if benchmark_name == 'cifar10_noise':
         benchmark_name = 'cifar10'

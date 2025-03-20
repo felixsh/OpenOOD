@@ -5,23 +5,22 @@ from pathlib import Path
 from natsort import natsorted
 
 from eval_main import get_run_ckpts
-from plot_utils import benchmark2ckptdirs, check_h5file
+from plot_utils import check_h5file
 from utils import ckpt_to_h5file_path
 
-filename = 'run_mnist.bash'
+filename = 'run_cifar10.bash'
 # script = 'compute_acc_train.py'
 script = 'recompute.py'
 
 with_methods = True
-method_first = False
-reverse = True
+method_first = True
+reverse = False
 missing = False
 write_list = True
 
 devices = [0, 1, 2, 3]
 
-acc_method = ['acc']
-nc_method = ['nc']
+accnc_method = ['accnc']
 odd_methods = [
     'msp',
     'odin',
@@ -35,8 +34,8 @@ odd_methods = [
     'neco',
     'epa',
 ]
-# methods = nc_method + odd_methods + acc_method
-methods = ['mnist', 'svhn']
+methods = accnc_method + odd_methods
+methods += ['mnist', 'svhn']
 
 # ckpts = get_previous_ckpts()
 
@@ -47,12 +46,10 @@ methods = ['mnist', 'svhn']
 # ckpts = [c for c in ckpts if '200' in str(c) or '500' in str(c)]
 # print(ckpts)
 
-top_dir = Path(
-    '/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/imagenet200/type/no_noise/1000+_epochs/'
-)
+top_dir = Path('/home/hauser/neural_collapse/benchmarks/cifar10/ResNet18_32x32/')
 #
 # top_dir = Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/')
-# run_dirs = (d for d in top_dir.iterdir() if d.is_dir())
+run_dirs = natsorted([d for d in top_dir.iterdir() if d.is_dir()])
 # run_dirs = (
 #     Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCVGG16/no_noise/300+_epochs/run_e300_2024_11_14-05_11_58'),
 #     Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCVGG16/no_noise/300+_epochs/run_e300_2024_11_14-06_08_56'),
@@ -73,10 +70,10 @@ top_dir = Path(
 #    # 'lessnet',
 # ]
 #
-top_dirs = [Path(p) for p in benchmark2ckptdirs['cifar10']]
-run_dirs = natsorted(
-    [Path(d) for top_dir in top_dirs for d in top_dir.iterdir() if d.is_dir()], key=str
-)
+# top_dirs = [Path(p) for p in benchmark2ckptdirs['cifar10']]
+# run_dirs = natsorted(
+#     [Path(d) for top_dir in top_dirs for d in top_dir.iterdir() if d.is_dir()], key=str
+# )
 ckpts = natsorted([c for r in run_dirs for c in get_run_ckpts(r)])
 # ckpts = [get_run_ckpts(r, filtering=False)[-1] for r in run_dirs]
 

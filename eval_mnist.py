@@ -3,25 +3,24 @@ from pathlib import Path
 
 import numpy as np
 import torch
+from pandas import DataFrame
+from torch.nn import Module
 from torch.utils.data import DataLoader
 from torchmetrics.classification import MulticlassAccuracy
 from torchvision import datasets, transforms
 from tqdm import tqdm
 
 import path
+import utils
 from database import store_acc, store_nc
 from eval_nc import _eval_nc
 from openood.evaluation_api.preprocessor import Convert, default_preprocessing_dict
 from openood.networks import ResNet18_32x32
-from utils import (
-    extract_datetime_from_path,
-    get_benchmark_name,
-    get_epoch_number,
-    get_model_name,
-)
 
 
-def _eval(benchmark_name, dataset, model):
+def _eval(
+    benchmark_name: str, dataset: str, model: Module
+) -> tuple[float, DataFrame, torch.Tensor, torch.Tensor]:
     config = default_preprocessing_dict[benchmark_name]
     pre_size = config['pre_size']
     img_size = config['img_size']
@@ -98,11 +97,11 @@ def _eval(benchmark_name, dataset, model):
 
     nc_df = _eval_nc(all_features, all_labels, weights, bias)
 
-    return accuracy, nc_df, all_features, all_labels
+    return float(accuracy), nc_df, all_features, all_labels
 
 
-def eval_mnist(ckpt_path, dataset):
-    assert dataset in ['mnist', 'svhn']
+def eval_mnist(ckpt_path: Path, dataset_name: str) -> None:
+    assert dataset_name in ['mnist', 'svhn']
 
     MAX_NUM_THREADS = 8
     os.environ['OMP_NUM_THREADS'] = str(MAX_NUM_THREADS)
@@ -110,7 +109,7 @@ def eval_mnist(ckpt_path, dataset):
 
     print(ckpt_path)
     ckpt_path = Path(ckpt_path)
-    benchmark_name = get_benchmark_name(ckpt_path)
+    benchmark_name = utils.get_benchmark_name(ckpt_path)
     assert benchmark_name == 'cifar10'
 
     model = ResNet18_32x32(num_classes=10)
@@ -118,25 +117,25 @@ def eval_mnist(ckpt_path, dataset):
         torch.load(ckpt_path, weights_only=True, map_location='cuda:0')
     )
 
-    acc, nc, _, _ = _eval(benchmark_name, dataset, model)
+    acc, nc, _, _ = _eval(benchmark_name, dataset_name, model)
 
-    model_name = get_model_name(ckpt_path)
-    run_id = extract_datetime_from_path(ckpt_path)
-    epoch = get_epoch_number(ckpt_path)
+    model_name = utils.get_model_name(ckpt_path)
+    run_id = utils.extract_datetime_from_path(ckpt_path)
+    epoch = utils.get_epoch_number(ckpt_path)
     split = 'val'
 
-    store_acc(benchmark_name, model_name, run_id, epoch, dataset, split, acc)
-    store_nc(benchmark_name, model_name, run_id, epoch, dataset, split, nc)
+    store_acc(benchmark_name, model_name, run_id, epoch, dataset_name, split, acc)
+    store_nc(benchmark_name, model_name, run_id, epoch, dataset_name, split, nc)
 
 
-def extract_test_samples(ckpt_path):
+def extract_test_samples(ckpt_path: Path) -> None:
     MAX_NUM_THREADS = 8
     os.environ['OMP_NUM_THREADS'] = str(MAX_NUM_THREADS)
     torch.set_num_threads(MAX_NUM_THREADS)
 
     print(ckpt_path)
     ckpt_path = Path(ckpt_path)
-    benchmark_name = get_benchmark_name(ckpt_path)
+    benchmark_name = utils.get_benchmark_name(ckpt_path)
     assert benchmark_name == 'cifar10'
 
     model = ResNet18_32x32(num_classes=10)
@@ -161,7 +160,7 @@ def extract_test_samples(ckpt_path):
     )
 
 
-def load_test_samples():
+def load_test_samples() -> tuple[np.ndarray, ...]:
     save_file = path.res_data / 'test_mnist' / 'test_mnist.npz'
     data = np.load(save_file)
 

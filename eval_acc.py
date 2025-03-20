@@ -1,5 +1,6 @@
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 import torch
 from torch.utils.data import DataLoader
@@ -7,6 +8,7 @@ from torchmetrics.classification import MulticlassAccuracy
 from tqdm import tqdm
 
 import path
+from feature_cache import FeatureCache
 from openood.evaluation_api.datasets import data_setup, get_id_ood_dataloader
 from openood.evaluation_api.preprocessor import get_default_preprocessor
 from utils import get_batch_size, get_benchmark_name, load_network
@@ -112,10 +114,19 @@ def eval_acc(ckpt_path, split='train'):
     return nested_dict_to_df(res)
 
 
+def eval_acc_cache(feature_cache: FeatureCache, split: str = 'train') -> float:
+    labels = feature_cache.get(split, 'labels')
+    preds = feature_cache.get(split, 'predictions')
+    return float(np.mean(labels == preds))
+
+
 if __name__ == '__main__':
+    from feature_cache import FeatureCache
+
     benchmark = 'cifar10'
     test_ckpt = Path(
-        '/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCResNet18_32x32/noise/300+_epochs/noise_random_e300_2024_11_15-03_02_22/NCResNet18_32x32_e100_i0.pth'
+        '/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/ResNet18_32x32/no_noise/300+_epochs/run_e300_2024_11_11-15_24_50/ResNet18_32x32_e10_i0.pth'
     )
-    res = eval_acc(test_ckpt, 'val')
+    feature_cache = FeatureCache(benchmark, test_ckpt, recompute=False)
+    res = eval_acc_cache(feature_cache, 'val')
     print(res)

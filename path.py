@@ -5,6 +5,7 @@ data_root = Path('/home/hauser/data_openood')
 # data_root = Path('/storage_local/datasets/public/data_openood')
 
 ckpt_root = Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks')
+ckpt_root_hauser = Path('/home/hauser/neural_collapse/benchmarks/')
 
 torchvision_root = Path('/home/hauser/data')
 

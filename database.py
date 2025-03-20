@@ -72,7 +72,15 @@ def _create_db() -> None:
     dbconn.close()
 
 
-def store_acc(benchmark, model, run, epoch, dataset, split, acc):
+def store_acc(
+    benchmark: str,
+    model: str,
+    run: str,
+    epoch: int,
+    dataset: str,
+    split: str,
+    acc: float,
+) -> None:
     query = """
         INSERT INTO acc (benchmark, model, run, epoch, dataset, split, value)
         VALUES (?, ?, ?, ?, ?, ?, ?);
@@ -245,7 +253,7 @@ def fill_db_with_previous_results(dirs: list[Path]) -> None:
         store_hdf5(h5_path)
 
 
-def count_rows():
+def count_rows() -> None:
     with sqlite3.connect(DB_NAME) as dbconn:
         n_acc = dbconn.execute('SELECT COUNT(*) FROM acc;').fetchone()[0]
         n_nc = dbconn.execute('SELECT COUNT(*) FROM nc;').fetchone()[0]
@@ -257,7 +265,7 @@ def count_rows():
     print(f'OOD:\t{n_ood}')
 
 
-def find_mismatched_keys():
+def find_mismatched_keys() -> tuple[pd.DataFrame, pd.DataFrame]:
     conn = sqlite3.connect(DB_NAME)
 
     # Query 1: In acc but not in nc

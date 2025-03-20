@@ -1,3 +1,4 @@
+from pathlib import Path
 from zipfile import BadZipFile
 
 import nc_toolbox as nctb
@@ -12,13 +13,19 @@ from utils import get_batch_size, load_network
 
 
 class FeatureCache:
-    def __init__(self, benchmark_name, ckpt_path, recompute=False):
+    def __init__(
+        self, benchmark_name: str, ckpt_path: Path, recompute: bool = False
+    ) -> None:
         self.benchmark_name = benchmark_name
         self.cache_path = path.cache_root
         self.ckpt_path = ckpt_path
         self.recompute = recompute
 
-        full_path = path.cache_root / ckpt_path.relative_to(path.ckpt_root)
+        try:
+            full_path = path.cache_root / ckpt_path.relative_to(path.ckpt_root)
+        except ValueError:
+            full_path = path.cache_root / ckpt_path.relative_to(path.ckpt_root_hauser)
+
         self.train_path = full_path.with_name(f'{full_path.stem}_train.npz')
         self.val_path = full_path.with_name(f'{full_path.stem}_val.npz')
 
@@ -26,7 +33,9 @@ class FeatureCache:
         self.data['train'] = self._load_or_compute(self.train_path, split='train')
         self.data['val'] = self._load_or_compute(self.val_path, split='val')
 
-    def get(self, split, key, return_torch=False):
+    def get(
+        self, split: str, key: str, return_torch: bool = False
+    ) -> np.ndarray | torch.Tensor:
         assert split in ('train', 'val')
         assert key in ('logits', 'features', 'labels', 'predictions', 'weights', 'bias')
 
@@ -43,7 +52,9 @@ class FeatureCache:
         else:
             return res
 
-    def _load_or_compute(self, data_path, split='train', recompute=False):
+    def _load_or_compute(
+        self, data_path, split='train', recompute=False
+    ) -> np.lib.npyio.NpzFile:
         try:
             if recompute:
                 raise FileNotFoundError
@@ -67,7 +78,7 @@ class FeatureCache:
             )
             return np.load(data_path)
 
-    def _compute(self, ckpt_path, split='train'):
+    def _compute(self, ckpt_path: Path, split: str = 'train') -> tuple[np.ndarray, ...]:
         # Parameters
         batch_size = get_batch_size(self.benchmark_name)
         shuffle = False
@@ -123,7 +134,7 @@ class FeatureCache:
 
         return outputs, features, labels, predictions, weights, bias
 
-    def mean_feature_norm(self, centered=False):
+    def mean_feature_norm(self, centered: bool = False) -> float:
         H = self.data['val']['features']
         if centered:
             mu_g = nctb.global_embedding_mean(H)
@@ -131,7 +142,7 @@ class FeatureCache:
         H_norm = np.linalg.norm(H, axis=1)
         return float(H_norm.mean())
 
-    def mean_cluster_size(self):
+    def mean_cluster_size(self) -> float:
         H = self.data['val']['features']
         L = self.data['val']['labels']
         mu_c = nctb.class_embedding_means(H, L)
@@ -139,7 +150,7 @@ class FeatureCache:
         H_norm = np.linalg.norm(H_centered, axis=1)
         return float(H_norm.mean())
 
-    def mean_cluster_dist(self):
+    def mean_cluster_dist(self) -> float:
         H = self.data['val']['features']
         L = self.data['val']['labels']
         mu_c = nctb.class_embedding_means(H, L)
@@ -150,7 +161,7 @@ class FeatureCache:
         assert diff.shape[1] == mu_c.shape[1]
         return float(diff_norm.mean())
 
-    def mu_g_norm(self):
+    def mu_g_norm(self) -> float:
         H = self.data['val']['features']
         mu_g = nctb.global_embedding_mean(H)
         return float(np.linalg.norm(mu_g, ord=2))
