@@ -32,8 +32,9 @@ postprocessors = [
 
 
 def filtering_ckpts(
-    ckpt_list, filter_list=[1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000]
-):
+    ckpt_list: list[str | Path],
+    filter_list: list[int] = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000],
+) -> list[str]:
     """Only use ckpts from epochs defined in filter list, plus final epoch"""
     # filter_list = [f-1 for f in filter_list]  # Shifted indices
     ckpts_filtered = [p for p in ckpt_list if utils.get_epoch_number(p) in filter_list]
@@ -88,7 +89,7 @@ def eval_ckpt_ood(
         )
 
 
-def get_run_ckpts(run_dir, filtering=True):
+def get_run_ckpts(run_dir: str | Path, filtering: bool = True) -> list[str]:
     run_dir = Path(run_dir)
     ckpt_list = [p for p in run_dir.glob('*') if p.suffix in ckpt_suffixes]
     ckpt_list = natsorted(ckpt_list, key=str)
@@ -97,7 +98,7 @@ def get_run_ckpts(run_dir, filtering=True):
     return ckpt_list
 
 
-def get_previous_ckpts():
+def get_previous_ckpts() -> list[Path]:
     cache_list = natsorted(list(path.cache_root.glob('**/*_train.npz')), key=str)
     ckpt_list = [path.ckpt_root / p.relative_to(path.cache_root) for p in cache_list]
     ckpt_list = [Path(re.sub('_train.npz$', '.pth', str(p))) for p in ckpt_list]
