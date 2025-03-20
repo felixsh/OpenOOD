@@ -1,13 +1,28 @@
 from pathlib import Path
 from typing import Any
 
-from filelock import FileLock
 from pandas import DataFrame
 
 import path
+import utils
 from feature_cache import FeatureCache
 from openood.evaluation_api import Evaluator
-from utils import get_batch_size, load_network
+
+
+def save_hyperparam(
+    evaluator: Evaluator, benchmark_name: str, postprocessor_name: str, ckpt_path: Path
+) -> None:
+    filename = 'hyperparam.log'
+    try:
+        hyperparam = evaluator.postprocessor.get_hyperparam()
+        lock = utils.get_lockfile(filename)
+        with lock:
+            with open(filename, 'a') as f:
+                f.write(
+                    f'{benchmark_name}, {postprocessor_name}, {hyperparam}, {str(ckpt_path)}\n'
+                )
+    except AttributeError:
+        pass
 
 
 def eval_ood(
@@ -16,12 +31,8 @@ def eval_ood(
     postprocessor_name: str,
     feature_cache: FeatureCache,
 ) -> tuple[DataFrame, dict[str, Any]]:
-    network_name = benchmark_name
-    if benchmark_name == 'cifar10_noise':
-        benchmark_name = 'cifar10'
-
-    net = load_network(network_name, ckpt_path)
-    batch_size = get_batch_size(benchmark_name)
+    net = utils.load_network(benchmark_name, ckpt_path)
+    batch_size = utils.get_batch_size(benchmark_name)
 
     evaluator = Evaluator(
         net,
@@ -39,16 +50,6 @@ def eval_ood(
 
     metrics, scores = evaluator.eval_ood(fsood=False)
 
-    filename = 'hyperparam.log'
-    lock = FileLock(filename + '.lock')
-    try:
-        hyperparam = evaluator.postprocessor.get_hyperparam()
-        with lock:
-            with open(filename, 'a') as f:
-                f.write(
-                    f'{benchmark_name}, {postprocessor_name}, {hyperparam}, {str(ckpt_path)}\n'
-                )
-    except AttributeError:
-        pass
+    save_hyperparam(evaluator, benchmark_name, postprocessor_name, ckpt_path)
 
     return metrics, scores
