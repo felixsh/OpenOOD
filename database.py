@@ -301,6 +301,69 @@ def find_mismatched_keys() -> tuple[pd.DataFrame, pd.DataFrame]:
     return acc_not_nc_df, nc_not_acc_df
 
 
+def key_exists_acc(
+    benchmark: str, model: str, run: str, epoch: int, dataset: str, split: str
+) -> bool:
+    query = """
+    SELECT 1 FROM acc
+    WHERE benchmark = ?
+      AND model = ?
+      AND run = ?
+      AND epoch = ?
+      AND dataset = ?
+      AND split = ?
+    LIMIT 1;
+    """
+
+    with sqlite3.connect(DB_NAME) as conn:
+        result = conn.execute(
+            query, (benchmark, model, run, epoch, dataset, split)
+        ).fetchone()
+
+    return result is not None
+
+
+def key_exists_nc(
+    benchmark: str, model: str, run: str, epoch: int, dataset: str, split: str
+) -> bool:
+    query = """
+    SELECT 1 FROM nc
+    WHERE benchmark = ?
+      AND model = ?
+      AND run = ?
+      AND epoch = ?
+      AND dataset = ?
+      AND split = ?
+    LIMIT 1;
+    """
+
+    with sqlite3.connect(DB_NAME) as conn:
+        result = conn.execute(
+            query, (benchmark, model, run, epoch, dataset, split)
+        ).fetchone()
+
+    return result is not None
+
+
+def key_exists_ood(
+    benchmark: str, model: str, run: str, epoch: int, method: str
+) -> bool:
+    query = """
+    SELECT 1 FROM ood
+    WHERE benchmark = ?
+      AND model = ?
+      AND run = ?
+      AND epoch = ?
+      AND method = ?
+    LIMIT 1;
+    """
+
+    with sqlite3.connect(DB_NAME) as conn:
+        result = conn.execute(query, (benchmark, model, run, epoch, method)).fetchone()
+
+    return result is not None
+
+
 if __name__ == '__main__':
     # _create_db()
 

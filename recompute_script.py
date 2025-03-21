@@ -4,9 +4,10 @@ from pathlib import Path
 
 from natsort import natsorted
 
+import utils
+from database import key_exists_acc, key_exists_nc, key_exists_ood
 from eval_main import get_run_ckpts
 from plot_utils import check_h5file
-from utils import ckpt_to_h5file_path
 
 filename = 'run_cifar10.bash'
 # script = 'compute_acc_train.py'
@@ -102,7 +103,7 @@ if with_methods:
     if missing:
         combinations = []
         for c in ckpts:
-            h5file = ckpt_to_h5file_path(c)
+            h5file = utils.ckpt_to_h5file_path(c)
             methods = check_h5file(h5file)
 
             try:
@@ -130,8 +131,49 @@ if with_methods:
     if write_list:
         filename = Path(filename).with_suffix('.txt')
         with open(filename, 'w') as f:
-            for c, m in combinations:
-                f.write(template_cmd.format(script=script, ckpt=c, method=m))
+            for m in methods:
+                for c in ckpts:
+                    benchmark = utils.get_benchmark_name(c)
+                    model_name = utils.get_model_name(c)
+                    run = utils.extract_datetime_from_path(c)
+                    epoch = utils.get_epoch_number(c)
+                    dataset = benchmark
+
+                    if m == 'accnc':
+                        if all(
+                            (
+                                key_exists_acc(
+                                    benchmark, model_name, run, epoch, dataset, 'train'
+                                ),
+                                key_exists_acc(
+                                    benchmark, model_name, run, epoch, dataset, 'val'
+                                ),
+                                key_exists_nc(
+                                    benchmark, model_name, run, epoch, dataset, 'train'
+                                ),
+                                key_exists_nc(
+                                    benchmark, model_name, run, epoch, dataset, 'val'
+                                ),
+                            )
+                        ):
+                            continue
+                    elif m in ['mnist', 'svhn']:
+                        if all(
+                            (
+                                key_exists_acc(
+                                    benchmark, model_name, run, epoch, m, 'val'
+                                ),
+                                key_exists_nc(
+                                    benchmark, model_name, run, epoch, m, 'val'
+                                ),
+                            )
+                        ):
+                            continue
+                    else:  # OOD
+                        if key_exists_ood(benchmark, model_name, run, epoch, m):
+                            continue
+
+                    f.write(template_cmd.format(script=script, ckpt=c, method=m))
     else:
         with open(filename, 'w') as f:
             f.write(start)
