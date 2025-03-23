@@ -75,6 +75,7 @@ run_dirs = natsorted([d for d in top_dir.iterdir() if d.is_dir()])
 # run_dirs = natsorted(
 #     [Path(d) for top_dir in top_dirs for d in top_dir.iterdir() if d.is_dir()], key=str
 # )
+print('number of runs =', len(run_dirs))
 ckpts = natsorted([c for r in run_dirs for c in get_run_ckpts(r)])
 # ckpts = [get_run_ckpts(r, filtering=False)[-1] for r in run_dirs]
 
