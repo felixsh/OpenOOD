@@ -424,7 +424,7 @@ def update_ood_hyperparameter(
     conn.close()
 
 
-def transfer_hyperparams():
+def transfer_hyperparams() -> None:
     filename = 'hyperparam.log'
     with open(filename, 'r') as f:
         for line in f:

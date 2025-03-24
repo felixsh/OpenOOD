@@ -331,7 +331,7 @@ class Evaluator:
 
     def _eval_ood(
         self, id_list: List[np.ndarray], ood_split: str = 'near', progress: bool = True
-    ):
+    ) -> np.ndarray:
         print(f'Processing {ood_split} ood...', flush=True)
         [id_pred, id_conf, id_gt] = id_list
         metrics_list = []
