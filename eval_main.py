@@ -83,9 +83,17 @@ def eval_ckpt_ood(
     feature_cache = FeatureCache(benchmark_name, ckpt_path)
 
     for ood_method in ood_method_list:
-        ood_metrics, _ = eval_ood(benchmark_name, ckpt_path, ood_method, feature_cache)
+        ood_metrics, hyperparams = eval_ood(
+            benchmark_name, ckpt_path, ood_method, feature_cache
+        )
         database.store_ood(
-            benchmark_name, model_name, run_id, epoch, ood_method, ood_metrics
+            benchmark_name,
+            model_name,
+            run_id,
+            epoch,
+            ood_method,
+            ood_metrics,
+            hyperparams,
         )
 
 

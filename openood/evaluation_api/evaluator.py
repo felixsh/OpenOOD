@@ -327,7 +327,7 @@ class Evaluator:
         ):  # more options can be specified also
             print(self.metrics[task].to_markdown())
 
-        return self.metrics[task], self.scores
+        return self.metrics[task]
 
     def _eval_ood(
         self, id_list: List[np.ndarray], ood_split: str = 'near', progress: bool = True

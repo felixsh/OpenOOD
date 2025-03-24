@@ -6,7 +6,7 @@ import pandas as pd
 from tqdm import tqdm
 
 import path
-from utils import extract_datetime_from_path
+import utils
 
 DB_NAME = path.res_db / 'results.db'
 
@@ -72,6 +72,18 @@ def _create_db() -> None:
     dbconn.close()
 
 
+def add_hyperparameter_column() -> None:
+    """Adds the 'hyperparameter' column to the 'ood' table if it doesn't already exist."""
+    try:
+        with sqlite3.connect(DB_NAME) as conn:
+            conn.execute('ALTER TABLE ood ADD COLUMN hyperparameter TEXT;')
+    except sqlite3.OperationalError as e:
+        if 'duplicate column name' in str(e).lower():
+            print("Column 'hyperparameter' already exists in 'ood' table.")
+        else:
+            raise
+
+
 def store_acc(
     benchmark: str,
     model: str,
@@ -99,14 +111,24 @@ def unpack_ood(df: pd.DataFrame) -> Iterator[tuple[str]]:
 
 
 def store_ood(
-    benchmark: str, model: str, run: str, epoch: int, ood_method: str, df: pd.DataFrame
+    benchmark: str,
+    model: str,
+    run: str,
+    epoch: int,
+    ood_method: str,
+    df: pd.DataFrame,
+    hyperparams: int | float | tuple[int, float] | None,
 ) -> None:
     query = """
-        INSERT INTO ood (benchmark, model, run, epoch, method, dataset, FPRat95, AUROC, AUPR_IN, AUPR_OUT)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        INSERT INTO ood (benchmark, model, run, epoch, method, dataset, FPRat95, AUROC, AUPR_IN, AUPR_OUT, hyperparameter)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         """
 
-    data = ((benchmark, model, run, epoch, ood_method, *tup) for tup in unpack_ood(df))
+    hyperparams_str = str(hyperparams) if hyperparams is not None else None
+    data = (
+        (benchmark, model, run, epoch, ood_method, *tup, hyperparams_str)
+        for tup in unpack_ood(df)
+    )
 
     with sqlite3.connect(DB_NAME) as dbconn:
         dbconn.executemany(query, data)
@@ -189,10 +211,10 @@ def store_nc(
     dbconn.close()
 
 
-def store_hdf5(hf5_path: Path) -> None:
+def transfer_hdf5(hf5_path: Path) -> None:
     benchmark = str(hf5_path.relative_to(path.res_data).parents[-2])
     model = str(hf5_path.relative_to(path.res_data).parents[-3].stem)
-    run = extract_datetime_from_path(hf5_path)
+    run = utils.extract_datetime_from_path(hf5_path)
     epoch = int(hf5_path.stem[1:])
 
     if (
@@ -247,10 +269,10 @@ def store_hdf5(hf5_path: Path) -> None:
             store_ood(benchmark, model, run, epoch, key, df)
 
 
-def fill_db_with_previous_results(dirs: list[Path]) -> None:
+def transfer_previous_results(dirs: list[Path]) -> None:
     h5_paths = [h5_path for d in dirs for h5_path in Path(d).rglob('e*.h5')]
     for h5_path in tqdm(h5_paths):
-        store_hdf5(h5_path)
+        transfer_hdf5(h5_path)
 
 
 def count_rows() -> None:
@@ -364,6 +386,70 @@ def key_exists_ood(
     return result is not None
 
 
+def update_ood_hyperparameter(
+    benchmark: str,
+    model: str,
+    run: str,
+    epoch: int,
+    method: str,
+    hyperparameter: int | float | tuple[int, float] | None,
+) -> None:
+    """
+    Updates the 'hyperparameter' column for all matching rows in the ood table,
+    ignoring the dataset.
+
+    :param hyperparameter: Value to store. Can be int, float, tuple[int, float], or None.
+    """
+    value_str = str(hyperparameter) if hyperparameter is not None else None
+
+    query = """
+    UPDATE ood
+    SET hyperparameter = ?
+    WHERE benchmark = ?
+      AND model = ?
+      AND run = ?
+      AND epoch = ?
+      AND method = ?;
+    """
+
+    with sqlite3.connect(DB_NAME) as conn:
+        cursor = conn.execute(query, (value_str, benchmark, model, run, epoch, method))
+        conn.commit()
+
+        if cursor.rowcount == 0:
+            print('Warning: No matching rows found to update.')
+        else:
+            print(f'Updated {cursor.rowcount} row(s).')
+
+    conn.close()
+
+
+def transfer_hyperparams():
+    filename = 'hyperparam.log'
+    with open(filename, 'r') as f:
+        for line in f:
+            parts = [p.strip() for p in line.strip().split(',')]
+            if len(parts) < 3:
+                continue
+
+            benchmark = parts[0]
+            method = parts[1]
+            *middle, last = parts[2:]
+
+            hyperparams_str = ', '.join(middle)
+            ckpt_path = Path(last)
+
+            model_name = utils.get_model_name(ckpt_path)
+            run_id = utils.extract_datetime_from_path(ckpt_path)
+            epoch = utils.get_epoch_number(ckpt_path)
+
+            # print(benchmark, model_name, run_id, epoch, method, hyperparams_str)
+
+            update_ood_hyperparameter(
+                benchmark, model_name, run_id, epoch, method, hyperparams_str
+            )
+
+
 if __name__ == '__main__':
     # _create_db()
 
@@ -386,10 +472,12 @@ if __name__ == '__main__':
 
     # count_rows()
 
-    acc_not_nc_df, nc_not_acc_df = find_mismatched_keys()
+    # acc_not_nc_df, nc_not_acc_df = find_mismatched_keys()
+    # pd.set_option('display.width', None)
+    # print('Keys in acc but not in nc:')
+    # print(acc_not_nc_df)
+    # print('\nKeys in nc but not in acc:')
+    # print(nc_not_acc_df)
 
-    pd.set_option('display.width', None)
-    print('Keys in acc but not in nc:')
-    print(acc_not_nc_df)
-    print('\nKeys in nc but not in acc:')
-    print(nc_not_acc_df)
+    # add_hyperparameter_column()
+    transfer_hyperparams()

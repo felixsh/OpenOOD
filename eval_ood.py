@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import Any
 
 from pandas import DataFrame
 
@@ -9,28 +8,12 @@ from feature_cache import FeatureCache
 from openood.evaluation_api import Evaluator
 
 
-def save_hyperparam(
-    evaluator: Evaluator, benchmark_name: str, postprocessor_name: str, ckpt_path: Path
-) -> None:
-    filename = 'hyperparam.log'
-    try:
-        hyperparam = evaluator.postprocessor.get_hyperparam()
-        lock = utils.get_lockfile(filename)
-        with lock:
-            with open(filename, 'a') as f:
-                f.write(
-                    f'{benchmark_name}, {postprocessor_name}, {hyperparam}, {str(ckpt_path)}\n'
-                )
-    except AttributeError:
-        pass
-
-
 def eval_ood(
     benchmark_name: str,
     ckpt_path: Path,
     postprocessor_name: str,
     feature_cache: FeatureCache,
-) -> tuple[DataFrame, dict[str, Any]]:
+) -> tuple[DataFrame, int | float | tuple[int, float] | None]:
     net = utils.load_network(benchmark_name, ckpt_path)
     batch_size = utils.get_batch_size(benchmark_name)
 
@@ -48,8 +31,11 @@ def eval_ood(
         feature_cache=feature_cache,
     )
 
-    metrics, scores = evaluator.eval_ood(fsood=False)
+    metrics = evaluator.eval_ood(fsood=False)
 
-    save_hyperparam(evaluator, benchmark_name, postprocessor_name, ckpt_path)
+    try:
+        hyperparam = evaluator.postprocessor.get_hyperparam()
+    except AttributeError:
+        hyperparam = None
 
-    return metrics, scores
+    return metrics, hyperparam
