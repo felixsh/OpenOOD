@@ -72,11 +72,20 @@ def _create_db() -> None:
     dbconn.close()
 
 
-def add_hyperparameter_column() -> None:
-    """Adds the 'hyperparameter' column to the 'ood' table if it doesn't already exist."""
+def add_new_column(
+    table: str,
+    column: str,
+    column_type: str = 'TEXT',
+    conn: sqlite3.Connection | None = None,
+) -> None:
+    """Adds the new column to table if it doesn't already exist."""
     try:
-        with sqlite3.connect(DB_NAME) as conn:
-            conn.execute('ALTER TABLE ood ADD COLUMN hyperparameter TEXT;')
+        conn_supplied = conn is None
+        if not conn_supplied:
+            conn = sqlite3.connect(DB_NAME)
+        conn.execute(f'ALTER TABLE {table} ADD COLUMN {column} {column_type};')
+        if not conn_supplied:
+            conn.close()
     except sqlite3.OperationalError as e:
         if 'duplicate column name' in str(e).lower():
             print("Column 'hyperparameter' already exists in 'ood' table.")
@@ -450,6 +459,113 @@ def transfer_hyperparams() -> None:
             )
 
 
+def replace_value_in_tables(
+    column: str, old_val: str, new_val: str, tables: list[str] = ['acc', 'nc', 'ood']
+) -> None:
+    """
+    Replaces all occurrences of a specific column value in all target tables.
+
+    :param column: The column name to update.
+    :param old_val: The value to replace.
+    :param new_val: The new value to insert.
+    :param tables: List of table names to apply the update (default: all three).
+    """
+    with sqlite3.connect(DB_NAME) as conn:
+        for table in tables:
+            query = f"""
+            UPDATE {table}
+            SET {column} = ?
+            WHERE {column} = ?;
+            """
+            try:
+                cursor = conn.execute(query, (new_val, old_val))
+                print(
+                    f"[{table}] Updated {cursor.rowcount} row(s) where {column} = '{old_val}'."
+                )
+            except sqlite3.OperationalError as e:
+                print(f'[{table}] Skipped: {e}')
+        conn.commit()
+    conn.close()
+
+
+def export_run_csv(
+    csv_path: str = 'all_runs.csv',
+    placeholder: str | None = None,
+) -> None:
+    conn = sqlite3.connect(DB_NAME)
+
+    combined_df = pd.DataFrame()
+
+    for table in ['acc', 'nc', 'ood']:
+        column_info = pd.read_sql_query(f'PRAGMA table_info({table});', conn)
+        has_experiment = 'experiment' in column_info['name'].values
+
+        base_cols = (
+            'benchmark, model, run, MIN(epoch) as min_epoch, MAX(epoch) as max_epoch'
+        )
+        query = f"""
+        SELECT {base_cols}{', experiment' if has_experiment else ''}
+        FROM {table}
+        GROUP BY benchmark, model, run
+        """
+        df = pd.read_sql_query(query, conn)
+
+        # Fill missing experiment values
+        if 'experiment' not in df.columns:
+            df['experiment'] = placeholder
+        else:
+            df['experiment'] = df['experiment'].fillna(placeholder)
+
+        combined_df = pd.concat([combined_df, df], ignore_index=True)
+
+    conn.close()
+
+    combined_df.drop_duplicates(
+        subset=['benchmark', 'model', 'run', 'experiment'], inplace=True
+    )
+    combined_df.to_csv(csv_path, index=False)
+
+
+def apply_run_csv(csv_path: str = 'all_runs.csv') -> None:
+    """
+    Reads a CSV containing (benchmark, model, run, experiment) and updates the experiment
+    column for matching rows in acc, nc, and ood tables.
+
+    If the experiment column doesn't exist, it is added.
+    """
+    df = pd.read_csv(csv_path)
+
+    required_cols = {'benchmark', 'model', 'run', 'experiment'}
+    if not required_cols.issubset(df.columns):
+        raise ValueError(f'CSV must contain columns: {required_cols}')
+
+    df = df.dropna(subset=['experiment'])  # Only keep rows where experiment is filled
+
+    with sqlite3.connect(DB_NAME) as conn:
+        for table in ['acc', 'nc', 'ood']:
+            add_new_column(table, column='experiment', column_type='TEXT', conn=conn)
+
+            for _, row in df.iterrows():
+                benchmark = row['benchmark']
+                model = row['model']
+                run = row['run']
+                experiment = row['experiment']
+
+                query = f"""
+                UPDATE {table}
+                SET experiment = ?
+                WHERE benchmark = ? AND model = ? AND run = ?;
+                """
+                cursor = conn.execute(query, (experiment, benchmark, model, run))
+                print(
+                    f"[{table}] Set experiment='{experiment}' for {cursor.rowcount} row(s) "
+                    f'({benchmark}, {model}, {run})'
+                )
+
+            conn.commit()
+    conn.close()
+
+
 if __name__ == '__main__':
     # _create_db()
 
@@ -479,5 +595,10 @@ if __name__ == '__main__':
     # print('\nKeys in nc but not in acc:')
     # print(nc_not_acc_df)
 
-    # add_hyperparameter_column()
-    transfer_hyperparams()
+    # add_new_column(table='ood', column='hyperparameter', column_type='TEXT')
+    # transfer_hyperparams()
+
+    # replace_value_in_tables('model', 'type', 'NCResNet18_32x32')
+
+    # export_run_csv()
+    # apply_run_csv()
