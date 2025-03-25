@@ -1,8 +1,8 @@
 from typing import Any
 
-from scipy.linalg import orth
 import torch
 import torch.nn as nn
+from scipy.linalg import orth
 
 from .base_postprocessor import BasePostprocessor
 
@@ -16,12 +16,14 @@ class NuSAPostprocessor(BasePostprocessor):
         self.args_dict = self.config.postprocessor.postprocessor_sweep
         self.setup_flag = False
 
-    def setup(self, net: nn.Module, id_loader_dict, ood_loader_dict, feature_cache=None):
+    def setup(
+        self, net: nn.Module, id_loader_dict, ood_loader_dict, feature_cache=None
+    ):
         if not self.setup_flag:
             W, _ = net.get_fc()  # (c x d), (c,)
-            print(f"==>> W.shape: {W.shape}")
+            print(f'==>> W.shape: {W.shape}')
             self.C = torch.as_tensor(orth(W.T)).cuda()
-            print(f"==>> C.shape: {self.C.shape}")
+            print(f'==>> C.shape: {self.C.shape}')
             self.setup_flag = True
         else:
             pass
@@ -34,7 +36,7 @@ class NuSAPostprocessor(BasePostprocessor):
         features_transformed = torch.matmul(features, self.C)
         norm_transformed = torch.norm(features_transformed, dim=1)
         norm = torch.norm(features, dim=1)
-        scores = norm_transformed / norm
+        scores = norm_transformed / (norm + torch.finfo(torch.float32).eps)
 
         return preds, scores
 
