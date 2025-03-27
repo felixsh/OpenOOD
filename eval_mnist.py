@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+import nc_toolbox as nctb
 import numpy as np
 import torch
 from pandas import DataFrame
@@ -10,10 +11,11 @@ from torchmetrics.classification import MulticlassAccuracy
 from torchvision import datasets, transforms
 from tqdm import tqdm
 
+import database
 import path
 import utils
-from database import store_acc, store_nc
 from eval_nc import _eval_nc
+from feature_cache import FeatureCache
 from openood.evaluation_api.preprocessor import Convert, default_preprocessing_dict
 from openood.networks import ResNet18_32x32
 
@@ -124,8 +126,92 @@ def eval_mnist(ckpt_path: Path, dataset_name: str) -> None:
     epoch = utils.get_epoch_number(ckpt_path)
     split = 'val'
 
-    store_acc(benchmark_name, model_name, run_id, epoch, dataset_name, split, acc)
-    store_nc(benchmark_name, model_name, run_id, epoch, dataset_name, split, nc)
+    database.store_acc(
+        benchmark_name, model_name, run_id, epoch, dataset_name, split, acc
+    )
+    database.store_nc(
+        benchmark_name, model_name, run_id, epoch, dataset_name, split, nc
+    )
+
+
+def cdnv(mu0: np.ndarray, mu1: np.ndarray, var0: float, var1: float) -> float:
+    square_dist = np.square(mu0 - mu1).sum()
+    cdnv = (var0 + var1) / (2 * square_dist)
+    return cdnv
+
+
+def cdnv_mean(mu0: np.ndarray, mu1: np.ndarray, var0: float, var1: float) -> float:
+    square_dist = np.square(mu0 - mu1).sum()
+    cdnv = (var0 + var1) / (2 * square_dist)
+    return cdnv
+
+
+def save_stats(ckpt_path: Path, dataset_name: str) -> None:
+    assert dataset_name in ['mnist', 'svhn']
+
+    MAX_NUM_THREADS = 8
+    os.environ['OMP_NUM_THREADS'] = str(MAX_NUM_THREADS)
+    torch.set_num_threads(MAX_NUM_THREADS)
+
+    print(ckpt_path)
+    ckpt_path = Path(ckpt_path)
+    benchmark_name = utils.get_benchmark_name(ckpt_path)
+    assert benchmark_name == 'cifar10'
+
+    model = ResNet18_32x32(num_classes=10)
+    model.load_state_dict(
+        torch.load(ckpt_path, weights_only=True, map_location='cuda:0')
+    )
+
+    model_name = utils.get_model_name(ckpt_path)
+    run_id = utils.extract_datetime_from_path(ckpt_path)
+    epoch = utils.get_epoch_number(ckpt_path)
+
+    # OOD
+    _, _, features, labels = _eval(benchmark_name, dataset_name, model)
+    mu_c = nctb.class_embedding_means(features, labels)
+    var_c = nctb.class_embedding_variances(features, labels, mu_c)
+    mu_g = nctb.global_embedding_mean(features)
+    var_g = nctb.global_embedding_variance(features, mu_g)
+
+    C = mu_c.shape[0]
+    database.store_stats(
+        benchmark_name,
+        model_name,
+        run_id,
+        epoch,
+        dataset_name,
+        'val',
+        C,
+        mu_g,
+        var_g,
+        mu_c,
+        var_c,
+    )
+
+    # ID
+    feature_cache = FeatureCache(benchmark_name, ckpt_path)
+    features = feature_cache.get('val', 'features')
+    labels = feature_cache.get('val', 'labels')
+    mu_c = nctb.class_embedding_means(features, labels)
+    var_c = nctb.class_embedding_variances(features, labels, mu_c)
+    mu_g = nctb.global_embedding_mean(features)
+    var_g = nctb.global_embedding_variance(features, mu_g)
+
+    C = mu_c.shape[0]
+    database.store_stats(
+        benchmark_name,
+        model_name,
+        run_id,
+        epoch,
+        benchmark_name,
+        'val',
+        C,
+        mu_g,
+        var_g,
+        mu_c,
+        var_c,
+    )
 
 
 def extract_test_samples(ckpt_path: Path) -> None:

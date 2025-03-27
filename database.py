@@ -1,7 +1,9 @@
+import io
 import sqlite3
 from collections.abc import Iterator
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 from tqdm import tqdm
 
@@ -69,6 +71,27 @@ def _create_db() -> None:
         )
         """)
 
+    dbconn.close()
+
+
+def _create_stats_table() -> None:
+    with sqlite3.connect(DB_NAME) as dbconn:
+        dbconn.execute("""
+        CREATE TABLE IF NOT EXISTS stats (
+            benchmark TEXT NOT NULL,
+            model TEXT NOT NULL,
+            run TEXT NOT NULL,
+            epoch INTEGER NOT NULL,
+            dataset TEXT NOT NULL,
+            split TEXT,
+            n_class INT,
+            mu_g array,
+            var_g REAL,
+            mu_c array,
+            var_c array,
+            UNIQUE (benchmark, model, run, epoch, dataset, split) ON CONFLICT REPLACE
+        )
+        """)
     dbconn.close()
 
 
@@ -215,6 +238,63 @@ def store_nc(
     data = (benchmark, model, run, epoch, dataset, split, *df_flat)
 
     with sqlite3.connect(DB_NAME) as dbconn:
+        dbconn.execute(query, data)
+
+    dbconn.close()
+
+
+def store_stats(
+    benchmark: str,
+    model: str,
+    run: str,
+    epoch: int,
+    dataset: str,
+    split: str,
+    n_class: int,
+    mu_g: np.ndarray,
+    var_g: float,
+    mu_c: np.ndarray,
+    var_c: np.ndarray,
+) -> None:
+    query = """
+        INSERT INTO stats (
+        benchmark,
+        model,
+        run,
+        epoch,
+        dataset,
+        split,
+        n_class,
+        mu_g,
+        var_g,
+        mu_c,
+        var_c
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        """
+    data = (
+        benchmark,
+        model,
+        run,
+        epoch,
+        dataset,
+        split,
+        n_class,
+        mu_g,
+        var_g,
+        mu_c,
+        var_c,
+    )
+
+    def adapt_array(arr):
+        out = io.BytesIO()
+        np.save(out, arr)
+        return sqlite3.Binary(out.getvalue())
+
+    sqlite3.register_adapter(np.ndarray, adapt_array)
+    sqlite3.register_converter('array', lambda x: np.load(io.BytesIO(x)))
+
+    with sqlite3.connect(DB_NAME, detect_types=sqlite3.PARSE_DECLTYPES) as dbconn:
         dbconn.execute(query, data)
 
     dbconn.close()
@@ -512,9 +592,7 @@ def export_run_csv(
 
         # Fill missing experiment values
         if 'experiment' not in df.columns:
-            df['experiment'] = placeholder
-        else:
-            df['experiment'] = df['experiment'].fillna(placeholder)
+            df['experiment'] = pd.Series(dtype='string')
 
         combined_df = pd.concat([combined_df, df], ignore_index=True)
 
@@ -599,6 +677,8 @@ if __name__ == '__main__':
     # transfer_hyperparams()
 
     # replace_value_in_tables('model', 'type', 'NCResNet18_32x32')
+
+    # _create_stats_table()
 
     # export_run_csv()
     # apply_run_csv()

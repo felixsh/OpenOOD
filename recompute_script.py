@@ -18,6 +18,7 @@ method_first = True
 reverse = False
 missing = False
 write_list = True
+omit_existing = False
 
 devices = [0, 1, 2, 3]
 
@@ -36,7 +37,7 @@ odd_methods = [
     'epa',
 ]
 methods = accnc_method + odd_methods
-methods += ['mnist', 'svhn']
+methods = ['mnist', 'svhn']
 
 # ckpts = get_previous_ckpts()
 
@@ -47,17 +48,48 @@ methods += ['mnist', 'svhn']
 # ckpts = [c for c in ckpts if '200' in str(c) or '500' in str(c)]
 # print(ckpts)
 
-top_dir = Path('/home/hauser/neural_collapse/benchmarks/cifar10/ResNet18_32x32/')
+# top_dir = Path('/home/hauser/neural_collapse/benchmarks/cifar10/ResNet18_32x32/')
 #
 # top_dir = Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar100/NCLessNet18/no_noise/1000+_epochs/')
-run_dirs = natsorted([d for d in top_dir.iterdir() if d.is_dir()])
-# run_dirs = (
-#     Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCVGG16/no_noise/300+_epochs/run_e300_2024_11_14-05_11_58'),
-#     Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCVGG16/no_noise/300+_epochs/run_e300_2024_11_14-06_08_56'),
-#     Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCVGG16/no_noise/300+_epochs/run_e300_2024_11_14-06_10_14'),
-#     Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCVGG16/no_noise/300+_epochs/run_e300_2024_11_14-06_11_25'),
-#     Path('/mrtstorage/users/truetsch/neural_collapse_runs/benchmarks/cifar10/NCVGG16/no_noise/300+_epochs/run_e300_2024_11_14-06_13_04'),
-# )
+# run_dirs = natsorted([d for d in top_dir.iterdir() if d.is_dir()])
+run_dirs = [
+    Path(
+        '/home/hauser/neural_collapse/benchmarks/cifar10/ResNet18_32x32/run_e500_2025_03_24-13_36_17'
+    ),
+    Path(
+        '/home/hauser/neural_collapse/benchmarks/cifar10/ResNet18_32x32/run_e500_2025_03_24-13_36_22'
+    ),
+    Path(
+        '/home/hauser/neural_collapse/benchmarks/cifar10/ResNet18_32x32/run_e500_2025_03_24-13_36_28'
+    ),
+    Path(
+        '/home/hauser/neural_collapse/benchmarks/cifar10/ResNet18_32x32/run_e500_2025_03_24-13_36_33'
+    ),
+    Path(
+        '/home/hauser/neural_collapse/benchmarks/cifar10/ResNet18_32x32/run_e500_2025_03_24-16_37_34'
+    ),
+    Path(
+        '/home/hauser/neural_collapse/benchmarks/cifar10/ResNet18_32x32/run_e500_2025_03_24-16_37_36'
+    ),
+    Path(
+        '/home/hauser/neural_collapse/benchmarks/cifar10/ResNet18_32x32/run_e500_2025_03_24-16_37_41'
+    ),
+    Path(
+        '/home/hauser/neural_collapse/benchmarks/cifar10/ResNet18_32x32/run_e500_2025_03_24-16_37_46'
+    ),
+    Path(
+        '/home/hauser/neural_collapse/benchmarks/cifar10/ResNet18_32x32/run_e500_2025_03_24-19_28_44'
+    ),
+    Path(
+        '/home/hauser/neural_collapse/benchmarks/cifar10/ResNet18_32x32/run_e500_2025_03_24-19_28_48'
+    ),
+    Path(
+        '/home/hauser/neural_collapse/benchmarks/cifar10/ResNet18_32x32/run_e500_2025_03_24-19_28_53'
+    ),
+    Path(
+        '/home/hauser/neural_collapse/benchmarks/cifar10/ResNet18_32x32/run_e500_2025_03_24-19_28_58'
+    ),
+]
 
 # benchmarks = [
 #    'cifar100',
@@ -78,6 +110,7 @@ run_dirs = natsorted([d for d in top_dir.iterdir() if d.is_dir()])
 print('number of runs =', len(run_dirs))
 ckpts = natsorted([c for r in run_dirs for c in get_run_ckpts(r)])
 # ckpts = [get_run_ckpts(r, filtering=False)[-1] for r in run_dirs]
+print('number of ckpts =', len(ckpts))
 
 start = """#!/bin/bash
 
@@ -140,39 +173,60 @@ if with_methods:
                     epoch = utils.get_epoch_number(c)
                     dataset = benchmark
 
-                    if m == 'accnc':
-                        if all(
-                            (
-                                key_exists_acc(
-                                    benchmark, model_name, run, epoch, dataset, 'train'
-                                ),
-                                key_exists_acc(
-                                    benchmark, model_name, run, epoch, dataset, 'val'
-                                ),
-                                key_exists_nc(
-                                    benchmark, model_name, run, epoch, dataset, 'train'
-                                ),
-                                key_exists_nc(
-                                    benchmark, model_name, run, epoch, dataset, 'val'
-                                ),
-                            )
-                        ):
-                            continue
-                    elif m in ['mnist', 'svhn']:
-                        if all(
-                            (
-                                key_exists_acc(
-                                    benchmark, model_name, run, epoch, m, 'val'
-                                ),
-                                key_exists_nc(
-                                    benchmark, model_name, run, epoch, m, 'val'
-                                ),
-                            )
-                        ):
-                            continue
-                    else:  # OOD
-                        if key_exists_ood(benchmark, model_name, run, epoch, m):
-                            continue
+                    if omit_existing:
+                        if m == 'accnc':
+                            if all(
+                                (
+                                    key_exists_acc(
+                                        benchmark,
+                                        model_name,
+                                        run,
+                                        epoch,
+                                        dataset,
+                                        'train',
+                                    ),
+                                    key_exists_acc(
+                                        benchmark,
+                                        model_name,
+                                        run,
+                                        epoch,
+                                        dataset,
+                                        'val',
+                                    ),
+                                    key_exists_nc(
+                                        benchmark,
+                                        model_name,
+                                        run,
+                                        epoch,
+                                        dataset,
+                                        'train',
+                                    ),
+                                    key_exists_nc(
+                                        benchmark,
+                                        model_name,
+                                        run,
+                                        epoch,
+                                        dataset,
+                                        'val',
+                                    ),
+                                )
+                            ):
+                                continue
+                        elif m in ['mnist', 'svhn']:
+                            if all(
+                                (
+                                    key_exists_acc(
+                                        benchmark, model_name, run, epoch, m, 'val'
+                                    ),
+                                    key_exists_nc(
+                                        benchmark, model_name, run, epoch, m, 'val'
+                                    ),
+                                )
+                            ):
+                                continue
+                        else:  # OOD
+                            if key_exists_ood(benchmark, model_name, run, epoch, m):
+                                continue
 
                     f.write(template_cmd.format(script=script, ckpt=c, method=m))
     else:
